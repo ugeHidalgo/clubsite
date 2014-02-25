@@ -1,0 +1,150 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="ClubSite.SiteMaster" %>
+
+
+<%--<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>--%>
+
+<!DOCTYPE html>
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <title><%: Page.Title %>#TheClub</title>
+    <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/bundles/modernizr") %>
+    </asp:PlaceHolder>
+    <webopt:BundleReference runat="server" Path="~/Content/css" />
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    <asp:ContentPlaceHolder runat="server" ID="HeadContent" />
+</head>
+<body>
+    <form runat="server">  
+            <asp:ScriptManager runat="server">
+            <Scripts>
+                <%--To learn more about bundling scripts in ScriptManager see http://go.microsoft.com/fwlink/?LinkID=272931&clcid=0x409 --%>
+                <%--Framework Scripts--%>
+
+                <%--<asp:ScriptReference Name="MsAjaxBundle" />--%>
+                <asp:ScriptReference Name="jquery" />
+                <asp:ScriptReference Name="jquery.ui.combined" />
+                <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
+                <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
+                <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
+                <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
+                <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
+                <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
+                <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
+                <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+                <asp:ScriptReference Name="WebFormsBundle" />
+                <%--Site Scripts--%>
+            </Scripts>
+            </asp:ScriptManager>  
+        <header>
+            <div id="HeaderMain" class="content-wrapper">
+                <div class="float-left">
+                    <table>
+                        <tr>
+                            <td>
+                                <img src="../Images/Logos/theClubMini.jpg" alt="" style="height: 80px; width: 80px" />
+                            </td>
+                            <td>
+                                <a id="A1" class="site-title" runat="server" href="~/Default.aspx">#heClub Site</a>
+                            </td>
+                        </tr>
+                    </table>
+                    <nav>
+                        <asp:Menu ID="MenuPrincipal" runat="server" DataSourceID="SiteMapDataSource1" Orientation="Horizontal" StaticEnableDefaultPopOutImage="False">
+                            <DynamicHoverStyle CssClass="menuItemL2:hover" />
+                            <DynamicMenuItemStyle CssClass="menuItemL2" />
+                            <DynamicSelectedStyle CssClass="menuItemL2:Active" />
+                            <StaticHoverStyle CssClass="menuItemL1:hover" />
+                            <StaticMenuItemStyle CssClass="menuItemL1" />
+                            <StaticSelectedStyle CssClass="menuItemL1:Active" />
+                        </asp:Menu>
+                        <asp:SiteMapDataSource ID="SiteMapDataSource1" runat="server" ShowStartingNode="False" />
+                    </nav>
+                </div>
+
+
+                <div class="float-right">
+                    <section id="login">
+                        <asp:LoginView ID="LoginView1" runat="server" ViewStateMode="Disabled">
+                            <AnonymousTemplate>
+                                <ul>
+                                    <li><a id="adminLink" runat="server" href="~/theAdminPages/DefaultAdmin.aspx">Admin</a></li>
+                                    <li><a id="registerLink" runat="server" href="~/Account/Register">Registro</a></li>
+                                    <li><a id="loginLink" runat="server" href="~/Account/Login">Login</a></li>
+                                </ul>
+                            </AnonymousTemplate>
+                            <LoggedInTemplate>
+                                <p>
+                                    Registrado como usuario :<a id="A2" runat="server" class="username" href="~/Account/Manage" title="Administración de Cuenta">
+                                        <asp:LoginName ID="LoginName1" runat="server" CssClass="username" />
+                                    </a>
+                                    <li><a id="adminLink" runat="server" href="~/theAdminPages/DefaultAdmin.aspx">Admin</a></li>
+                                    <asp:LoginStatus ID="LoginStatus1" runat="server" LogoutAction="Redirect" LogoutText="Log off" LogoutPageUrl="~/" />
+                                </p>
+                            </LoggedInTemplate>
+                        </asp:LoginView>
+                    </section>
+
+                    <section id="followUs" style="margin-right: 10px;">
+                        <h4 style="text-align: right">Siguenos en...</h4>
+                        <asp:ImageButton CssClass="FollowImage" ID="imgbtnBlog" runat="server" ImageUrl="~/Images/Logos/blogger.jpg" PostBackUrl="http://www.sharptheclub.com/" />
+                        <asp:ImageButton CssClass="FollowImage" ID="imgbtnfacebook" runat="server" ImageUrl="~/Images/Logos/facebook.png" PostBackUrl="https://www.facebook.com/sharptheclubthepage" />
+                        <asp:ImageButton CssClass="FollowImage" ID="imgbtnTwitter" runat="server" ImageUrl="~/Images/Logos/twitter.png" PostBackUrl="http://twitter.com/sharptheclub" />
+                    </section>
+                </div>
+            </div>
+
+            <asp:ContentPlaceHolder runat="server" ID="TitleContent">
+            </asp:ContentPlaceHolder>
+        </header>
+
+        <div id="MainContentBody">
+            <div id="BodyContent">
+                <hgroup class="title">
+                    <h1><span class="theClub"><%: Page.Title %></span></h1>
+                </hgroup>
+                <br />
+                <br />
+                <asp:ContentPlaceHolder runat="server" ID="MainContent" />
+                <p>
+                    <br />
+                    <br />
+                    <br />
+                    &copy; @Powered by <span class="theClub">#heClub</span> <%: DateTime.Now.Year %>
+                    <br />
+                </p>
+            </div>
+            <div id="BodySidePanel">
+                <%-- <uc1:SidePanel runat="server" ID="SidePanel1" />--%>
+            </div>
+        </div>
+
+
+        <footer>
+            <ul id="follow">                
+                <li>
+                    <asp:ImageButton CssClass="FollowImageFooter" ID="ImageButton4" runat="server" ImageUrl="~/Images/Logos/blogger.jpg" PostBackUrl="http://www.sharptheclub.com/" />
+                </li>
+                <li>
+                    <asp:ImageButton CssClass="FollowImageFooter" ID="ImageButton5" runat="server" ImageUrl="~/Images/Logos/facebook.png" PostBackUrl="https://www.facebook.com/sharptheclubthepage" />
+                <li>
+                    <asp:ImageButton CssClass="FollowImageFooter" ID="ImageButton6" runat="server" ImageUrl="~/Images/Logos/twitter.png" PostBackUrl="http://twitter.com/sharptheclub" />
+                </li>
+                <li>@Powered by #theClub <%: DateTime.Now.Year %></li>
+            </ul>
+            <table class="float-right">
+                <tr>
+                    <td style="width: auto">
+                        <p class="miniClub">#heClub</p>
+                    </td>
+                    <td>
+                        <img class="center" src="../Images/Logos/theClubMini40x40.jpg" alt="" style="height: 40px; width: 40px; align-items: center" />
+                    </td>
+                </tr>
+            </table>
+        </footer>
+    </form>
+</body>
+</html>

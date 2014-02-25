@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
+  <siteMapNode url="~/" title="Home"  description="Inicio">
+    <siteMapNode url="~/Default.aspx" title="Home"  description="Ir a inicio" />
+    <siteMapNode url ="#1" title="#theClub"  description="Información sobre #theClub" >
+      <siteMapNode url="~/theClub/Historia.aspx" title="Un poco de historia" description="La historia del club" />
+      <siteMapNode url="~/theClub/Colab.aspx" title="Colaboradores" description="Nuestros sponsors y colaboradores" />
+      <siteMapNode url="~/theClub/Equip.aspx" title="Equipaciones" description="Las equipaciones de #theClub" />
+    </siteMapNode>
+    <siteMapNode url="#2" title="#theClubbers"  description="Los miembros de #theClub" >
+      <siteMapNode url="~/theClubbers/clubbers.aspx" title="#theClubbers"  description="Los miembros de #theClub" />
+      <siteMapNode url="~/Account/Login.aspx" title="Clubber´s Login" description="Entrar como usuario registrado" />
+      <siteMapNode url="~/Account/Register.aspx" title="Registro nuevo Clubber" description="Nuevo Usuario" />
+    </siteMapNode>
+    <siteMapNode url="#3" title="Competiciones"  description="Competiciones en las que tomamos parte" >
+      <siteMapNode url="~/theRush/theRush.aspx" title="#theRush" description="La liga interna de #theClub" />
+      <siteMapNode url="~/theRush/Calendario.aspx" title="Calendario" description="Calendario de competiciones" />
+      <siteMapNode url="~/theRush/theFlag.aspx" title="Donde estuvo #theFlag" description="Donde ha estado la bandera de #heClub" />
+      <siteMapNode url="~/theRush/Logros.aspx" title="Logros anteriores" description="Competiciones donde han estado los clubbers" />
+    </siteMapNode>
+    <siteMapNode url="~/theShop/theShop.aspx" title="#theShop" description="La tienda de #theClub" />
+    <siteMapNode url="~/Contact.aspx" title="Contacto" description="Deja tus comentarios" />
+  </siteMapNode>
+</siteMap>
