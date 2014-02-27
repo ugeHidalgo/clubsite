@@ -4,11 +4,32 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using ClubSite.Model;
 
 namespace ClubSite.AdminPages
 {
     public partial class Races : System.Web.UI.Page
     {
+        public IQueryable<Race> ddlRaces_GetData()
+        {
+            var db = new ClubSiteContext();
+            IQueryable<Race> query = from races in db.Races
+                                     orderby races.Name
+                                     select races;
+            return query;
+        }
+
+        public IQueryable ddlRaceTypes_GetData()
+        {
+            var db = new ClubSiteContext();
+            var query = from rt in db.RaceTypes
+                                         join s in db.Sports on rt.SportID equals s.SportID
+                                         orderby s.Name, rt.Name
+                                         select new { rt.RaceTypeID, Name=(s.Name+" / "+rt.Name) };
+            return query;
+        }
+
+
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -35,6 +56,16 @@ namespace ClubSite.AdminPages
         }
 
         protected void gvRaces_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void ddlRaces_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void ddlRaceTypes_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
