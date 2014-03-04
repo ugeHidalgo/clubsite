@@ -161,8 +161,7 @@ namespace ClubSite.AdminPages
 
             //Save if conditions are ok.
             if (sigue)
-            {
-                // Load the item here, e.g. item = MyDataLayer.Find(id);
+            {                
                 using (var db = new ClubSiteContext())
                 {
                     RaceType aRacetype;
