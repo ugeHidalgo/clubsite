@@ -91,6 +91,7 @@
     <Compile Include="RaceTypeTests.cs" />
     <Compile Include="SportTests.cs" />
     <Compile Include="SponsorTests.cs" />
+    <Compile Include="RaceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ClubSite.csproj">

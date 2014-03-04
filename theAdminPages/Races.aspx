@@ -5,6 +5,23 @@
         .auto-style1 {
             width: 100%;
         }
+        .rightJust {
+            text-align: right;
+        }
+        .auto-style3 {
+            text-align: right;
+            width: 101px;
+        }
+        .auto-style4 {
+            width: 144px;
+        }
+        .auto-style5 {
+            text-align: right;
+            width: 144px;
+        }
+        .auto-style6 {
+            width: 147px;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cpMainContent" runat="server">
@@ -12,94 +29,129 @@
 
     <table class="auto-style1">
         <tr>
-            <td>
+            <td class="auto-style5">
                 <asp:Label ID="Label1" runat="server" Text="Id :" Font-Bold="True"></asp:Label>
             </td>
             <td>
                 <asp:TextBox ID="txbxID" runat="server" Width="117px" ReadOnly="true" BorderStyle="None" Font-Bold="True"></asp:TextBox>
             </td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>
+            <td class="rightJust">
                 <asp:Label ID="Label2" runat="server" Text="Fecha :" Font-Bold="True"></asp:Label>
             </td>
-            <td>
+            <td class="auto-style6">
                 <asp:TextBox ID="txbxDate" runat="server" Width="117px" ReadOnly="true" BorderStyle="None" Font-Bold="True"></asp:TextBox>
             </td>
+            <td colspan="2">
+                <asp:Label ID="Label5" runat="server" Text="Clubbers participantes :" Font-Bold="True"></asp:Label>
+            </td>
         </tr>
         <tr>
-            <td>
+            <td class="auto-style5">
                 <asp:Label ID="Label3" runat="server" Text="Prueba :" Font-Bold="True"></asp:Label>
             </td>
-            <td colspan="5">
-                <asp:TextBox ID="txbxName" runat="server" Width="565px"></asp:TextBox>
+            <td colspan="3" >
+                <asp:TextBox ID="txbxName" runat="server" Width="500px"></asp:TextBox>
+            </td>
+            <td colspan="2">
+                <asp:DropDownList ID="ddlMembers" runat="server" Width="250px" SelectMethod="dllMembers_GetData"
+                    DataTextField="aMember" DataValueField="UserName" AutoPostBack="true">
+                </asp:DropDownList>
             </td>
         </tr>
         <tr>
-            <td>
+            <td class="auto-style5">
                 <asp:Label ID="Label4" runat="server" Text="Tipo :" Font-Bold="True"></asp:Label>
-            </td>            
-            <td colspan="5">
-                <asp:TextBox ID="txbxRaceTypeID" runat="server" BorderStyle="None" Font-Bold="true" Width="20px" style="text-align: right"></asp:TextBox>
+            </td>
+            <td colspan="2">
+                <asp:TextBox ID="txbxRaceTypeID" runat="server" BorderStyle="None" Font-Bold="true" Width="20px" Style="text-align: right"></asp:TextBox>
                 <asp:DropDownList ID="ddlRaceTypes" SelectMethod="ddlRaceTypes_GetData" runat="server" Width="350px"
                     DataTextField="Name" DataValueField="RaceTypeID" AutoPostBack="true"
                     OnSelectedIndexChanged="ddlRaceTypes_SelectedIndexChanged">
                 </asp:DropDownList>
             </td>
+            <td class="auto-style6">
+                <asp:Label ID="Label7" runat="server" Text="Puntos :" Font-Bold="True"></asp:Label>
+                <asp:TextBox ID="txbxPoints" runat="server" Width="50px" ReadOnly="true" BorderStyle="None" Font-Bold="True"></asp:TextBox>
+            </td>
+            <td colspan="2">
+                &nbsp;</td>
         </tr>
         <tr>
+            <td class="auto-style4">&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
+            <td class="auto-style6">&nbsp;</td>
+            <td colspan="2">
+                <%-- TO DO : Buttons to add clubbers from dropdownlist to listbox --%>
+            </td>
         </tr>
         <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
+            <td class="auto-style4 rightJust">
+                <asp:Label ID="LaCalle" runat="server" Text="Calle :" Font-Bold="True"></asp:Label>
+            </td>
+            <td colspan="2">
+                <asp:TextBox ID="txbxStreet" runat="server" Width="310px"></asp:TextBox>
+            </td>
+            <td class="auto-style6">
+                &nbsp;</td>
+            <td colspan="2" rowspan="6">
+                <asp:ListBox ID="lbClubbersTakingPart" runat="server" Height="316px" Width="250px"></asp:ListBox>
+            </td>
         </tr>
         <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
+            <td class="auto-style4 rightJust" >
+                <asp:Label ID="LaPoblacion" runat="server" Text="Población :" Font-Bold="True"></asp:Label>
+            </td>
+            <td>
+                <asp:TextBox ID="txbxCity" runat="server" Width="200px"></asp:TextBox>
+            </td>
+            <td class="rightJust">
+                <asp:Label ID="LaCPostal" runat="server" Text="C.Postal :" Font-Bold="True"></asp:Label>
+            </td>
+            <td class="auto-style6">
+                <asp:TextBox ID="txbxPostalCode" runat="server" Width="100px"></asp:TextBox>
+            </td>
         </tr>
         <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
+            <td class="auto-style4 rightJust">
+                <asp:Label ID="LaPais" runat="server" Text="País :" Font-Bold="True"></asp:Label>
+            </td>
+            <td>
+                <asp:TextBox ID="txbxCountry" runat="server" Width="200px"></asp:TextBox>
+            </td>
+            <td class="rightJust">
+                <asp:Label ID="LaNumero" runat="server" Text="Número :" Font-Bold="True"></asp:Label>
+            </td>
+            <td class="auto-style6">
+                <asp:TextBox ID="txbxNumber" runat="server" Width="50px"></asp:TextBox>
+            </td>
         </tr>
         <tr>
+            <td class="auto-style4">&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
+            <td class="auto-style6">&nbsp;</td>
         </tr>
         <tr>
+            <td class="auto-style4  rightJust">
+                <asp:Label ID="Label6" runat="server" Text="Observaciones :" Font-Bold="True"></asp:Label>
+            </td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
+            <td class="auto-style6">&nbsp;</td>
         </tr>
         <tr>
+            <td>
+                &nbsp;</td>
+            <td colspan="3">
+                <asp:TextBox ID="txbxMemo" runat="server" TextMode="MultiLine" Width="600px" Height="181px"></asp:TextBox>
+            </td>
+        </tr>
+        <tr>
+            <td class="auto-style4">&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
+            <td class="auto-style6">&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
         </tr>
@@ -108,7 +160,7 @@
 
     <table class="auto-style1">
         <tr>
-            <td colspan="2" class="auto-style3" style="text-align: center">
+            <td  style="text-align: center">
                 <asp:Button ID="btnNuevo" runat="server" Text="Nuevo" Width="150px"
                     OnClientClick="javascript:if(!confirm('Crear un nueva carrera.¿Continuamos?'))return false"
                     OnClick="btnNuevo_Click" />&nbsp;             
@@ -124,19 +176,28 @@
             </td>
         </tr>
         <tr>
-            <td colspan="2" class="auto-style3" style="text-align: center">
+            <td class="auto-style3" style="text-align: center">
+                &nbsp;</td>
+        </tr>
+        <tr>
+            <td class="auto-style3" style="text-align: center">
                 <asp:DropDownList ID="ddlRaces" runat="server" AutoPostBack="true" DataTextField="Name" DataValueField="Id"
                     SelectMethod="ddlRaces_GetData" Width="300px" OnSelectedIndexChanged="ddlRaces_SelectedIndexChanged">
                 </asp:DropDownList>
             </td>
         </tr>
         <tr>
-            <td colspan="2">
-                <div style="width: 950px; margin: auto;">
+            <td class="auto-style3" style="text-align: center">
+                &nbsp;</td>
+        </tr>
+        <tr>
+            <td >
+                <div style="width: 750px; margin: auto;">
                     <asp:GridView ID="gvRaces" runat="server" AutoGenerateColumns="False" CellPadding="4" DataKeyNames="Id" DataSourceID="SqlDataSource1" ForeColor="#333333" GridLines="None"
-                        AllowPaging="True" AllowSorting="True" OnSelectedIndexChanged="gvRaces_SelectedIndexChanged">
+                        AllowPaging="True" AllowSorting="True" OnSelectedIndexChanged="gvRaces_SelectedIndexChanged" >
                         <AlternatingRowStyle BackColor="White" />
                         <Columns>
+                            <asp:CommandField ButtonType="Button" ShowSelectButton="True" />
                             <asp:BoundField DataField="Id" HeaderText="Id" InsertVisible="False" ReadOnly="True" SortExpression="Id" />
                             <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" />
                             <asp:BoundField DataField="RaceDate" HeaderText="RaceDate" SortExpression="RaceDate" />
@@ -155,7 +216,8 @@
                         <SortedDescendingCellStyle BackColor="#E9EBEF" />
                         <SortedDescendingHeaderStyle BackColor="#4870BE" />
                     </asp:GridView>
-                    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ClubSiteConn %>" SelectCommand="SELECT [Id], [Name], [RaceDate], [RaceTypeId], [Address_City], [Address_Country] FROM [Races] ORDER BY [RaceDate] DESC, [Name]"></asp:SqlDataSource>
+                    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ClubSiteConn %>"
+                        SelectCommand="SELECT [Id], [Name], [RaceDate], [RaceTypeId], [Address_City], [Address_Country] FROM [Races] ORDER BY [RaceDate] DESC, [Name]"></asp:SqlDataSource>
                     <br style="color: #333333" />
 
                 </div>

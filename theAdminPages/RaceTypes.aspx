@@ -5,7 +5,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cpMainContent" runat="server">
-    <table class="auto-style1">
+     <table class="auto-style1">
         <tr>
             <td style="text-align: right">
                 <asp:Label ID="Label5" runat="server" Text="Id :" Font-Bold="True"></asp:Label>
