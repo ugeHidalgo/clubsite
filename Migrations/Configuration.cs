@@ -13,20 +13,22 @@ namespace ClubSite.Migrations
         {
             AutomaticMigrationsEnabled = true;
         }
-       
+
 
         protected override void Seed(ClubSite.Model.ClubSiteContext context)
         {
             //Truncate data
+            context.Database.ExecuteSqlCommand(@"delete from dbo.Races");
             context.Database.ExecuteSqlCommand(@"delete from dbo.RaceTypes;
                                                  dbcc checkident ('dbo.RaceTypes',Reseed,0);");
             context.Database.ExecuteSqlCommand(@"delete from dbo.Sports;
                                                  dbcc checkident ('dbo.Sports',Reseed,0);");
             context.Database.ExecuteSqlCommand(@"delete from dbo.Members");
-                        
+
             //Seed Tables
             GetSports().ForEach(sp => context.Sports.Add(sp));
             GetRaceTypes().ForEach(rt => context.RaceTypes.Add(rt));
+            GetRaces().ForEach(r => context.Races.Add(r));
             GetMembers().ForEach(m => context.Members.Add(m));
 
             //Save Data into BD
@@ -76,6 +78,17 @@ namespace ClubSite.Migrations
                 new RaceType { RaceTypeID=23,  Name="Mas de 4km", Points=80, SportID=5, Memo="Pruebas de natación mayores de 4 kilómetros" }                                
                  };
             return aListOfRaceTypes;
+        }
+
+        private static List<Race> GetRaces()
+        {
+            Address anAdress = new Address();
+            var aListOfRaces = new List<Race> {
+                new Race { Id=1, Name="Media Maratón de Almería", Address =anAdress, RaceDate=Convert.ToDateTime("12/02/2014"), RaceTypeId=12 },
+                new Race { Id=2, Name="Triatlón de Elche Arenales", Address =anAdress, RaceDate=Convert.ToDateTime("20/04/2014"), RaceTypeId=4 },
+                new Race { Id=3, Name="Triatlón Cross Tarifa XChallenge", Address =anAdress, RaceDate=Convert.ToDateTime("12/06/2014"), RaceTypeId=3 },
+                new Race { Id=4, Name="Ironman Lanzarote", Address =anAdress, RaceDate=Convert.ToDateTime("12/05/2014"), RaceTypeId=5 } };
+            return aListOfRaces;
         }
 
 

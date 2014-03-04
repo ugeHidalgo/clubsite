@@ -13,6 +13,7 @@ namespace ClubSite.Model
         public DbSet<Sport> Sports { get; set; }
         public DbSet<RaceType> RaceTypes { get; set; }
         public DbSet<Sponsor> Sponsors { get; set; }
+        public DbSet<Race> Races { get; set; }
 
         public ClubSiteContext()
             : base("ClubSiteConn")

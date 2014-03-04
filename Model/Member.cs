@@ -23,9 +23,11 @@ namespace ClubSite.Model
 
         public bool Visible { get; set; }
 
-        [Required]
+        [Required,
+        DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime RegDate { get; set; }
 
+        [ DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? BirthDate { get; set; }
 
         [StringLength(250)]
