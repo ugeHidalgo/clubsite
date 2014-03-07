@@ -105,6 +105,6 @@ namespace ModelClasssesTests
             Assert.AreEqual(anID, oldSport.SportID);
             Assert.AreEqual(aName, oldSport.Name);
             Assert.AreEqual(aMemo, oldSport.Memo);
-        }
+        }        
     }
 }

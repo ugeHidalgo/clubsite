@@ -63,10 +63,10 @@
                 <asp:Label ID="Label4" runat="server" Text="Tipo :" Font-Bold="True"></asp:Label>
             </td>
             <td colspan="2">
-                <asp:TextBox ID="txbxRaceTypeID" runat="server" BorderStyle="None" Font-Bold="true" Width="20px" Style="text-align: right"></asp:TextBox>
+                <asp:TextBox ID="txbxRaceTypeID" runat="server" BorderStyle="None" Font-Bold="true" Width="20px" Style="text-align: right" ReadOnly="True"></asp:TextBox>
                 <asp:DropDownList ID="ddlRaceTypes" SelectMethod="ddlRaceTypes_GetData" runat="server" Width="350px"
                     DataTextField="Name" DataValueField="RaceTypeID" AutoPostBack="true"
-                    OnSelectedIndexChanged="ddlRaceTypes_SelectedIndexChanged">
+                    OnSelectedIndexChanged="ddlRaceTypes_SelectedIndexChanged" OnDataBound="ddlRaceTypes_DataBound">
                 </asp:DropDownList>
             </td>
             <td class="auto-style6">
@@ -82,7 +82,12 @@
             <td>&nbsp;</td>
             <td class="auto-style6">&nbsp;</td>
             <td colspan="2">
-                <%-- TO DO : Buttons to add clubbers from dropdownlist to listbox --%>
+                <asp:Button ID="btnAddClubber" runat="server" Text="+" 
+                    OnClientClick="javascript:if(!confirm('¿Añadimos al Clubber seleccionado a la carrera actual?'))return false"
+                    OnClick="btnAddClubber_Click" />  
+                <asp:Button ID="btnDelClubber" runat="server" Text="-" 
+                    OnClientClick="javascript:if(!confirm('¿Quitamos al Clubber seleccionado de la carrera actual?'))return false"
+                    OnClick="btnDelClubber_Click" />
             </td>
         </tr>
         <tr>
