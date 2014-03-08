@@ -67,9 +67,32 @@ namespace ClubSite.AdminPages
             }
             txbxMemo.Text = aRace.Memo;
 
-            //TO DO : Select members taken part in race with ID aRace.Id, and populate lbClubbersTakenPart
+            //Select members taken part in race with ID aRace.Id, and populate lbClubbersTakenPart
+            loadClubbersTakenPart();
 
             //TO DO : Search points asigned to race an put on txbxPoints
+        }
+
+        private void loadClubbersTakenPart()
+        {
+            //Delete content
+            lbClubbersTakingPart.Items.Clear();
+
+            using (var db = new ClubSiteContext())
+            {
+                Race aRace = (from r in db.Races
+                              where r.Id == rUsed.Id
+                              select r).FirstOrDefault();
+                if (aRace != null)
+                {
+                    foreach (Member aMember in aRace.Members)
+                    {
+                        string fullName = aMember.SecondName + ", " + aMember.FirstName;
+                        ListItem memberToAdd = new ListItem { Value = aMember.UserName, Text = fullName };
+                        lbClubbersTakingPart.Items.Add(memberToAdd);
+                    }
+                }
+            }
         }
         private Race LoadRaceFromForm()
         {
@@ -145,7 +168,7 @@ namespace ClubSite.AdminPages
 
             //Save if conditions are ok.
             if (sigue)
-            {                
+            {
                 using (var db = new ClubSiteContext())
                 {
                     Race aRace;
@@ -157,15 +180,15 @@ namespace ClubSite.AdminPages
                         aRace.RaceDate = Convert.ToDateTime(txbxDate.Text);
                         aRace.RaceTypeId = Convert.ToInt32(txbxRaceTypeID.Text);
                         Address anAddres = new Address(txbxStreet.Text, txbxNumber.Text, txbxCity.Text, txbxCountry.Text, txbxPostalCode.Text);
-                        aRace.Address = anAddres;                        
+                        aRace.Address = anAddres;
                         aRace.Memo = txbxMemo.Text;
                         db.Races.Add(aRace);
                     }
                     else
                     { //Update actual Race
                         aRace = (from races in db.Races
-                                     where races.Id == rUsed.Id
-                                     select races).FirstOrDefault();
+                                 where races.Id == rUsed.Id
+                                 select races).FirstOrDefault();
                         if (aRace == null)
                         {
                             // The item wasn't found
@@ -175,8 +198,8 @@ namespace ClubSite.AdminPages
                         aRace.Name = txbxName.Text;
                         aRace.RaceDate = Convert.ToDateTime(txbxDate.Text);
                         aRace.RaceTypeId = Convert.ToInt32(txbxRaceTypeID.Text);
-                        Address anAddres = new Address(txbxStreet.Text,txbxNumber.Text,txbxCity.Text,txbxCountry.Text,txbxPostalCode.Text);
-                        aRace.Address = anAddres;                        
+                        Address anAddres = new Address(txbxStreet.Text, txbxNumber.Text, txbxCity.Text, txbxCountry.Text, txbxPostalCode.Text);
+                        aRace.Address = anAddres;
                         aRace.Memo = txbxMemo.Text;
                     }
                     db.SaveChanges();
@@ -220,7 +243,7 @@ namespace ClubSite.AdminPages
                         return;
                     }
                     db.Races.Remove(item);
-                    db.SaveChanges();                    
+                    db.SaveChanges();
                     gvRaces.DataBind();
 
                     try
@@ -282,7 +305,7 @@ namespace ClubSite.AdminPages
                 //Search for the Race and load into model object.
                 using (var db = new ClubSiteContext())
                 {
-                   rUsed = (from races in db.Races
+                    rUsed = (from races in db.Races
                              orderby races.RaceDate descending, races.Name
                              where races.Id == actualRId
                              select races).FirstOrDefault();
@@ -304,7 +327,7 @@ namespace ClubSite.AdminPages
             try
             {
                 //Select the id for the race.            
-                Int32 actualRId =Convert.ToInt32(ddlRaces.SelectedValue);
+                Int32 actualRId = Convert.ToInt32(ddlRaces.SelectedValue);
 
                 //Search for the Race and load into model object.
                 using (var db = new ClubSiteContext())
@@ -333,7 +356,7 @@ namespace ClubSite.AdminPages
 
         protected void ddlRaceTypes_DataBound(object sender, EventArgs e)
         {
-            //Loads data for the comobo box for the firts load.
+            //Loads data for the combo box for the firts load.
             ListItem aValue = ddlRaceTypes.Items.FindByValue(txbxRaceTypeID.Text);
             ddlRaceTypes.SelectedIndex = ddlRaceTypes.Items.IndexOf(aValue);
         }
@@ -352,12 +375,27 @@ namespace ClubSite.AdminPages
 
             if (sigue)
             {
-                //Save data of clubber/race
-                String memberUserName = ddlMembers.SelectedValue;               
-                ListItem memberName = ddlMembers.SelectedItem;                
-                lbClubbersTakingPart.Items.Add(memberName);
+                //Search for cluber in list box
+                String memberUserName = ddlMembers.SelectedValue;
+                ListItem memberToAdd = ddlMembers.SelectedItem; //Data showed in the Drop down list
+                if (lbClubbersTakingPart.Items.FindByValue(memberUserName) != null)
+                {
+                    sigue = false;
+                    messageError = "<script>alert('Ya esta inscrito ese clubber en la carrera')</script>";
+                }
+                else
+                {
+                    //Add Clubber to List Box               
+                    lbClubbersTakingPart.Items.Add(memberToAdd);
+
+                    //Save data of clubber/race                     
+                    SaveClubberTakingPartInRace(memberUserName);
+
+                    lbClubbersTakingPart.SelectedIndex = lbClubbersTakingPart.Items.IndexOf(memberToAdd);
+                }
             }
-            else
+
+            if (!sigue)
             {
                 Response.Write(messageError);
             }
@@ -365,7 +403,54 @@ namespace ClubSite.AdminPages
 
         protected void btnDelClubber_Click(object sender, EventArgs e)
         {
+            string messageError = "";
+            String memberUserName = lbClubbersTakingPart.Text;
+            ListItem memberToDelete = lbClubbersTakingPart.Items.FindByValue(memberUserName);
+            if (memberToDelete == null)
+            {
+                messageError = "<script>alert('No hay Clubbers para borrar de la carrera')</script>";
+            }
+            else
+            {
+                //Delete clubber/race from BD
+                DeleteClubberTakingPartInRace(memberUserName);
 
+                //Delete clubber from List Box
+                lbClubbersTakingPart.Items.Remove(memberToDelete);
+                messageError = "<script>alert('Clubbers borrado de la carrera')</script>";
+            }
+            Response.Write(messageError);
+        }
+
+        private void SaveClubberTakingPartInRace(string memberUserName)
+        {
+            using (var db = new ClubSiteContext())
+            {
+                Race aRace = (from r in db.Races
+                              where r.Id == rUsed.Id
+                              select r).FirstOrDefault();
+
+                Member aMember = (from m in db.Members
+                                  where m.UserName == memberUserName
+                                  select m).FirstOrDefault();
+                aRace.Members.Add(aMember);
+                db.SaveChanges();
+            }
+        }
+        private void DeleteClubberTakingPartInRace(string memberUserName)
+        {
+            using (var db = new ClubSiteContext())
+            {
+                Race aRace = (from r in db.Races
+                              where r.Id == rUsed.Id
+                              select r).FirstOrDefault();
+
+                Member aMember = (from m in db.Members
+                                  where m.UserName == memberUserName
+                                  select m).FirstOrDefault();
+                aRace.Members.Remove(aMember);
+                db.SaveChanges();
+            }
         }
     }
 }
