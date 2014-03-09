@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ClubSite.Model;
+using System.Collections.Generic;
 
 namespace ModelClasssesTests
 {
@@ -175,6 +176,20 @@ namespace ModelClasssesTests
             Assert.AreEqual(null, aRace.Address);
             Assert.AreEqual(0, aRace.RaceTypeId);
             Assert.AreEqual(null, aRace.Memo);
+        }
+
+        [TestMethod]
+        public void loadRaceData()
+        {
+            Address anAdress = new Address();
+            var aListOfRaces = new List<Race> {
+                new Race { Id=1, Name="Media Maratón de Almería", Address =anAdress, RaceDate=Convert.ToDateTime("12/02/2014 00:00:00"), RaceTypeId=12 },
+                new Race { Id=2, Name="Triatlón de Elche Arenales", Address =anAdress, RaceDate=Convert.ToDateTime("20/04/2014 00:00:00"), RaceTypeId=4 },
+                new Race { Id=3, Name="Triatlón Cross Tarifa XChallenge", Address =anAdress, RaceDate=Convert.ToDateTime("12/06/2014 00:00:00"), RaceTypeId=3 },
+                new Race { Id=4, Name="Ironman Lanzarote", Address =anAdress, RaceDate=Convert.ToDateTime("12/05/2014 00:00:00"), RaceTypeId=5 } };
+            Assert.AreEqual(1, aListOfRaces[0].Id);
+            Assert.AreEqual("12/02/2014 0:00:00", aListOfRaces[0].RaceDate.ToString());
+            Assert.AreEqual(12, aListOfRaces[0].RaceTypeId);
         }
     }
 }

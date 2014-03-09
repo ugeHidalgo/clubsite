@@ -130,6 +130,24 @@ namespace ClubSite.AdminPages {
         protected global::System.Web.UI.WebControls.TextBox txbxPoints;
         
         /// <summary>
+        /// btnAddClubber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAddClubber;
+        
+        /// <summary>
+        /// btnDelClubber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnDelClubber;
+        
+        /// <summary>
         /// LaCalle control.
         /// </summary>
         /// <remarks>

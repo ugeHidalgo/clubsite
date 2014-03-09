@@ -15,8 +15,8 @@ namespace ClubSite.Model
         [Required, StringLength(100)]
         public string Name { get; set; }
 
-        [Required, 
-         DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+        [Required] 
+         //,DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime RaceDate { get; set; }
 
         public Int32 RaceTypeId { get; set; }

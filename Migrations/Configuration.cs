@@ -18,7 +18,8 @@ namespace ClubSite.Migrations
         protected override void Seed(ClubSite.Model.ClubSiteContext context)
         {
             //Truncate data
-            context.Database.ExecuteSqlCommand(@"delete from dbo.Races");
+            context.Database.ExecuteSqlCommand(@"delete from dbo.Races;
+                                                 dbcc checkident ('dbo.Races',Reseed,0);");
             context.Database.ExecuteSqlCommand(@"delete from dbo.RaceTypes;
                                                  dbcc checkident ('dbo.RaceTypes',Reseed,0);");
             context.Database.ExecuteSqlCommand(@"delete from dbo.Sports;
@@ -84,10 +85,10 @@ namespace ClubSite.Migrations
         {
             Address anAdress = new Address();
             var aListOfRaces = new List<Race> {
-                new Race { Id=1, Name="Media Maratón de Almería", Address =anAdress, RaceDate=Convert.ToDateTime("12/02/2014"), RaceTypeId=12 },
-                new Race { Id=2, Name="Triatlón de Elche Arenales", Address =anAdress, RaceDate=Convert.ToDateTime("20/04/2014"), RaceTypeId=4 },
-                new Race { Id=3, Name="Triatlón Cross Tarifa XChallenge", Address =anAdress, RaceDate=Convert.ToDateTime("12/06/2014"), RaceTypeId=3 },
-                new Race { Id=4, Name="Ironman Lanzarote", Address =anAdress, RaceDate=Convert.ToDateTime("12/05/2014"), RaceTypeId=5 } };
+                new Race { Id=1, Name="Media Maratón de Almería", Address=anAdress, RaceDate=Convert.ToDateTime("2014/02/14 00:00:00"), RaceTypeId=12 },
+                new Race { Id=2, Name="Triatlón de Elche Arenales", Address=anAdress, RaceDate=Convert.ToDateTime("2014/04/20 00:00:00"), RaceTypeId=4 },
+                new Race { Id=3, Name="Triatlón Cross Tarifa XChallenge", Address=anAdress, RaceDate=Convert.ToDateTime("2014/06/01 00:00:00"), RaceTypeId=3 },
+                new Race { Id=4, Name="Ironman Lanzarote", Address=anAdress, RaceDate=Convert.ToDateTime("2014/05/24 00:00:00"), RaceTypeId=5 } };
             return aListOfRaces;
         }
 
@@ -103,6 +104,15 @@ namespace ClubSite.Migrations
                 new Member {UserName="ugeHidalgo",State=true,Federated=true,Visible=true,RegDate=DateTime.Now,FirstName="Eugenio",SecondName="Hidalgo Hernández", Address=anAdress},
             };
             return aListOfMembers;
+        }
+
+        private static List<Sponsor> GetSponsors()
+        {
+            var aListOfSponsors = new List<Sponsor> {
+                new Sponsor { SponsorId = 1, Nombre = "Humans Sapiens Runner", ContactPerson="Juan Sánchez", Activo=true, AportInicial=500, AportRecibida=350, RegDate=DateTime.Now },
+                new Sponsor { SponsorId = 1, Nombre = "Bike Point, Repuestos Andrés", ContactPerson="Andrés", Activo=true, AportInicial=600, AportRecibida=600, RegDate=DateTime.Now },
+                new Sponsor { SponsorId = 1, Nombre = "Ópticas Manzano", ContactPerson="Tomás Fernández", Activo=true, AportInicial=300, AportRecibida=300, RegDate=DateTime.Now } };
+            return aListOfSponsors;
         }
     }
 }
