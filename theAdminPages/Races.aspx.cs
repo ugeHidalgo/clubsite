@@ -70,7 +70,8 @@ namespace ClubSite.AdminPages
             //Select members taken part in race with ID aRace.Id, and populate lbClubbersTakenPart
             loadClubbersTakenPart();
 
-            //TO DO : Search points asigned to race an put on txbxPoints
+            //Search points asigned to race an put on txbxPoints
+            txbxPoints.Text = aRace.RaceType.Points.ToString();
         }
 
         private void loadClubbersTakenPart()
@@ -95,21 +96,13 @@ namespace ClubSite.AdminPages
             }
         }
         private Race LoadRaceFromForm()
-        {
-            Race aRace = new Race();
-
-            aRace.Id = Convert.ToInt32(txbxID.Text);
-            aRace.Name = txbxName.Text;
-            aRace.RaceDate = Convert.ToDateTime(txbxDate.Text);
-            aRace.RaceTypeId = Convert.ToInt32(txbxRaceTypeID.Text);
-            aRace.Address.Street = txbxStreet.Text;
-            aRace.Address.City = txbxCity.Text;
-            aRace.Address.PostalCode = txbxPostalCode.Text;
-            aRace.Address.Country = txbxCountry.Text;
-            aRace.Address.Number = txbxNumber.Text;
-            aRace.Memo = txbxMemo.Text;
-
-            return aRace;
+        {            
+            Int32 anId = Convert.ToInt32(txbxID.Text);
+            using (ClubSiteContext db = new ClubSiteContext())
+            {
+                Race aRace = (from r in db.Races where r.Id==anId select r).FirstOrDefault();
+                return aRace;
+            }                        
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -183,6 +176,7 @@ namespace ClubSite.AdminPages
                         aRace.Address = anAddres;
                         aRace.Memo = txbxMemo.Text;
                         db.Races.Add(aRace);
+                        messageError = "<script>alert('Nueva carrera grabada')</script>";
                     }
                     else
                     { //Update actual Race
@@ -201,13 +195,14 @@ namespace ClubSite.AdminPages
                         Address anAddres = new Address(txbxStreet.Text, txbxNumber.Text, txbxCity.Text, txbxCountry.Text, txbxPostalCode.Text);
                         aRace.Address = anAddres;
                         aRace.Memo = txbxMemo.Text;
+                        messageError = "<script>alert('Datos de carrera actualizados')</script>";
                     }
                     db.SaveChanges();
                     LoadRaceInForm(aRace);  //To update the ID (identity file)                                  
                     rUsed.CopyRace(aRace);
                     oldRUsed.CopyRace(rUsed);
                     gvRaces.DataBind();
-                    Response.Write("<script>alert('Nueva carrera grabada')</script>");
+                    Response.Write(messageError);
                 }
                 btnBorrar.Enabled = true;
             }
@@ -351,7 +346,16 @@ namespace ClubSite.AdminPages
 
         protected void ddlRaceTypes_SelectedIndexChanged(object sender, EventArgs e)
         {
-            txbxRaceTypeID.Text = Convert.ToString(ddlRaceTypes.SelectedValue);
+            // Put the RaceTypeId on text field
+            Int32 rtID =Convert.ToInt32(ddlRaceTypes.SelectedValue);
+            txbxRaceTypeID.Text = ddlRaceTypes.SelectedValue;
+
+            //Search for points asigned to RaceType.
+            using (ClubSiteContext db = new ClubSiteContext())
+            {
+                RaceType anRT = (from rt in db.RaceTypes where rt.RaceTypeID==rtID select rt).FirstOrDefault();
+                txbxPoints.Text = anRT.Points.ToString();
+            }
         }
 
         protected void ddlRaceTypes_DataBound(object sender, EventArgs e)

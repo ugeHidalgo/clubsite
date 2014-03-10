@@ -27,7 +27,21 @@ namespace ClubSite.AdminPages
                                        select members;
             return query;
         }
+        // The return type can be changed to IEnumerable, however to support
+        // paging and sorting, the following parameters must be added:
+        //     int maximumRows
+        //     int startRowIndex
+        //     out int totalRowCount
+        //     string sortByExpression
+        public IQueryable<ClubSite.Model.Race> gvRaces_GetData()
+        {
+            var db = new ClubSiteContext();
 
+            IQueryable<ClubSite.Model.Race> query = from races in db.Races
+                                       orderby races.Name
+                                       select races;
+            return query;
+        }
         public IQueryable<Member> ddlMembers_GetData()
         {
 
@@ -37,6 +51,16 @@ namespace ClubSite.AdminPages
                                         select members;
             return query;
         }
+        public IQueryable dllRaces_GetData()
+        {
+            ClubSiteContext db = new ClubSiteContext();
+            IQueryable query = from r in db.Races
+                               orderby r.Name
+                               select new { aRace = (r.Name), r.Id };
+            return query;
+
+        }
+        
         private void LoadMemberInForm(Member aMember)
         {
             actualUserName = aMember.UserName;
@@ -324,6 +348,18 @@ namespace ClubSite.AdminPages
                 memberUsed.ImageURL = imgImageURL.ImageUrl;
             }
         }
+
+        protected void btnAddRace_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnDelrace_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
 
 
     }
