@@ -200,6 +200,9 @@
     <Content Include="Scripts\jsSlider.js" />
     <Content Include="theAdminPages\DefaultAdmin.aspx" />
     <Content Include="theAdminPages\Deportes.aspx" />
+    <Content Include="theAdminPages\Material.aspx" />
+    <Content Include="theAdminPages\MaterialFamilies.aspx" />
+    <Content Include="theAdminPages\MaterialList.aspx" />
     <Content Include="theAdminPages\Members.aspx" />
     <Content Include="theAdminPages\Races.aspx" />
     <Content Include="theAdminPages\RaceTypes.aspx" />
@@ -374,6 +377,8 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\ClubSiteContext.cs" />
     <Compile Include="Model\Address.cs" />
+    <Compile Include="Model\Material.cs" />
+    <Compile Include="Model\MaterialType.cs" />
     <Compile Include="Model\Member.cs" />
     <Compile Include="Model\Person.cs" />
     <Compile Include="Model\RaceType.cs" />
@@ -393,6 +398,27 @@
     </Compile>
     <Compile Include="theAdminPages\Deportes.aspx.designer.cs">
       <DependentUpon>Deportes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="theAdminPages\Material.aspx.cs">
+      <DependentUpon>Material.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="theAdminPages\Material.aspx.designer.cs">
+      <DependentUpon>Material.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="theAdminPages\MaterialFamilies.aspx.cs">
+      <DependentUpon>MaterialFamilies.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="theAdminPages\MaterialFamilies.aspx.designer.cs">
+      <DependentUpon>MaterialFamilies.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="theAdminPages\MaterialList.aspx.cs">
+      <DependentUpon>MaterialList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="theAdminPages\MaterialList.aspx.designer.cs">
+      <DependentUpon>MaterialList.aspx</DependentUpon>
     </Compile>
     <Compile Include="theAdminPages\Members.aspx.cs">
       <DependentUpon>Members.aspx</DependentUpon>
