@@ -1,5 +1,4 @@
-﻿body
-{
+﻿body {
     background-position: left;
     background-image: url('../../Images/bandaLateral.PNG');
     background-repeat: repeat-y;
@@ -9,24 +8,20 @@
 }
 
 
-.float-left
-{
+.float-left {
     float: left;
 }
 
-.float-right
-{
+.float-right {
     float: right;
 }
 
-.content-wrapper
-{
+.content-wrapper {
     margin: 0 auto;
     max-width: 960px;
 }
 
-.miniClub
-{
+.miniClub {
     color: black; /*#c8c8c8;*/
     font-family: 'SignPainter HouseCasual';
     font-size: 28px;
@@ -36,8 +31,7 @@
 }
 
 
-.FollowImage
-{
+.FollowImage {
     Height: 30px;
     Width: 30px;
     border: none;
@@ -47,26 +41,23 @@
     float: right;
 }
 
-.FollowImageFooter
-{
+.FollowImageFooter {
     Height: 30px;
     Width: 30px;
     border: none;
     padding: 0px;
-    margin: 0px;    
+    margin: 0px;
 }
 
 
-#DetailsFile
-{
+#DetailsFile {
     width: 100%;
     margin: auto;
     display: inline-block;
 }
 
 /*#region Header*/
-header
-{
+header {
     clear: both;
     background-color: #1570cd;
     font-size: .8em;
@@ -75,8 +66,7 @@ header
     color: white;
 }
 
-.site-title
-{
+.site-title {
     color: black; /*#c8c8c8;*/
     font-family: 'SignPainter HouseCasual';
     font-size: 64px;
@@ -87,30 +77,26 @@ header
 /*#endregion*/
 
 /*#region AdminBody*/
-#AdminBody
-{
-    margin:0;
-    padding:0;
-    width:100%;    
+#AdminBody {
+    margin: 0;
+    padding: 0;
+    width: 100%;
 }
 
-#AdminContent
-{
-    width:auto;
-    float:left;
-    display:inline-block;
+#AdminContent {
+    width: auto;
+    float: left;
+    display: inline-block;
 }
 
 /*#region Admin Menu */
-#AdminMenu
-{
-    width:250px;
-    float:left;
-    display:inline-block;
+#AdminMenu {
+    width: 190px;
+    float: left;
+    display: inline-block;
 }
 
-.adminButton
-{
+.adminButton {
     -moz-box-shadow: inset 0px 1px 0px 0px #97c4fe;
     -webkit-box-shadow: inset 0px 1px 0px 0px #97c4fe;
     box-shadow: inset 0px 1px 0px 0px #97c4fe;
@@ -118,7 +104,7 @@ header
     background: -moz-linear-gradient( center top, #3d94f6 5%, #1e62d0 100% );
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3d94f6', endColorstr='#1e62d0');
     background-color: #3d94f6;
-    -webkit-border-radius: 0; 
+    -webkit-border-radius: 0;
     -moz-border-radius: 0;
     border-radius: 0;
     text-indent: 0px;
@@ -138,22 +124,19 @@ header
     text-shadow: 1px 1px 0px #1570cd;
 }
 
-    .adminButton:hover
-    {
+    .adminButton:hover {
         background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #1e62d0), color-stop(1, #3d94f6) );
         background: -moz-linear-gradient( center top, #1e62d0 5%, #3d94f6 100% );
         filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#1e62d0', endColorstr='#3d94f6');
         background-color: #1e62d0;
     }
 
-    .adminButton:active
-    {
+    .adminButton:active {
         position: relative;
         top: 1px;
     }
 
-.itemButton
-{
+.itemButton {
     -moz-box-shadow: inset 0px 1px 0px 0px #bee2f9;
     -webkit-box-shadow: inset 0px 1px 0px 0px #bee2f9;
     box-shadow: inset 0px 1px 0px 0px #bee2f9;
@@ -181,16 +164,14 @@ header
     text-shadow: 1px 1px 0px #7cacde;
 }
 
-    .itemButton:hover
-    {
+    .itemButton:hover {
         background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #468ccf), color-stop(1, #63b8ee) );
         background: -moz-linear-gradient( center top, #468ccf 5%, #63b8ee 100% );
         filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#468ccf', endColorstr='#63b8ee');
         background-color: #468ccf;
     }
 
-    .itemButton:active
-    {
+    .itemButton:active {
         position: relative;
         top: 1px;
     }
@@ -199,8 +180,7 @@ header
 /*#endregion*/
 
 /*#region Footer*/
-footer
-{
+footer {
     clear: both;
     background-color: #e2e2e2;
     font-size: .8em;
@@ -210,27 +190,24 @@ footer
     padding: 5px;
 }
 
-    footer .content-wrapper
-    {
+    footer .content-wrapper {
         width: 100%;
         height: 100%;
-        margin : 5px;
+        margin: 5px;
     }
 
 
-    
-#follow
-{
+
+#follow {
     float: left;
     width: 400px;
     padding: 0 0 0 0;
 }
 
-#follow li
-{
-    display: inline;
-    margin: 0 0 0 2px;
-}
+    #follow li {
+        display: inline;
+        margin: 0 0 0 2px;
+    }
 /*#endregion*/
 
 

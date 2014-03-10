@@ -25,12 +25,18 @@ namespace ClubSite.Migrations
             context.Database.ExecuteSqlCommand(@"delete from dbo.Sports;
                                                  dbcc checkident ('dbo.Sports',Reseed,0);");
             context.Database.ExecuteSqlCommand(@"delete from dbo.Members");
+            context.Database.ExecuteSqlCommand(@"delete from dbo.Materials;
+                                                 dbcc checkident ('dbo.Materials',Reseed,0);");
+            context.Database.ExecuteSqlCommand(@"delete from dbo.MaterialTypes;
+                                                 dbcc checkident ('dbo.MaterialTypes',Reseed,0);");
 
             //Seed Tables
             GetSports().ForEach(sp => context.Sports.Add(sp));
             GetRaceTypes().ForEach(rt => context.RaceTypes.Add(rt));
             GetRaces().ForEach(r => context.Races.Add(r));
             GetMembers().ForEach(m => context.Members.Add(m));
+            GetMaterialTypes().ForEach(mt => context.MaterialTypes.Add(mt));
+            GetMaterials().ForEach(m => context.Materials.Add(m));
 
             //Save Data into BD
             context.SaveChanges();
@@ -113,6 +119,30 @@ namespace ClubSite.Migrations
                 new Sponsor { SponsorId = 1, Nombre = "Bike Point, Repuestos Andrés", ContactPerson="Andrés", Activo=true, AportInicial=600, AportRecibida=600, RegDate=DateTime.Now },
                 new Sponsor { SponsorId = 1, Nombre = "Ópticas Manzano", ContactPerson="Tomás Fernández", Activo=true, AportInicial=300, AportRecibida=300, RegDate=DateTime.Now } };
             return aListOfSponsors;
+        }
+
+        private static List<MaterialType> GetMaterialTypes()
+        {
+            var aListOfMatTypes = new List<MaterialType> {
+                new MaterialType { MatTypeID=1, Name="Ropa Running", Memo="Ropa para correr: Mallas, camisetas, pantalones cortos, etc."},
+                new MaterialType { MatTypeID=2, Name="Ropa Bike", Memo= "Ropa de bicicleta: Mallots,culottes, manguitos, etc."},
+                new MaterialType { MatTypeID=3, Name="Ropa natación", Memo= "Ropa de natación: Bañadores, gorros, etc."},
+                new MaterialType { MatTypeID=4, Name="Otros Ropa", Memo="Otro tipo de ropa: Buffs, Polos, chandals, etc.."},
+                new MaterialType { MatTypeID=5, Name="Ropa de competición", Memo="Ropa de competición; Monos, Dos piezas, etc.."}                
+            };
+            return aListOfMatTypes;
+        }
+
+        private static List<Material> GetMaterials()
+        {
+            var aListOfMat = new List<Material> {
+                new Material { MatID=1, MatName="TriTraje", Active=true, Cost=(decimal)56.3,Price=(decimal)86.9,  MatTypeId =5, Memo="Mono de competición." },
+                new Material { MatID=2, MatName="Culotte", Active=true, Cost=(decimal)36.8,Price=(decimal)56.7, MatTypeId=2, Memo="Culotte corto de bicicleta." },
+                new Material { MatID=3, MatName="Mallot corto", Active=true, Cost=(decimal)34.1,Price=(decimal)46.2, MatTypeId=2, Memo="Mallot corto de bicicleta." },
+                new Material { MatID=4, MatName="Mallot Largo", Active=true, Cost=(decimal)52.7,Price=(decimal)66.9, MatTypeId=2, Memo="mallot largo de bicicleta" },
+                new Material { MatID=5, MatName="Mallas cortas", Active=true, Cost=(decimal)23.3,Price=(decimal)24.7, MatTypeId=1, Memo="Mallas cortas para correr" },
+            };
+            return aListOfMat;
         }
     }
 }

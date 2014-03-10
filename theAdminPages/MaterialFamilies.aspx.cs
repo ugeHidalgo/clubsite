@@ -13,5 +13,25 @@ namespace ClubSite.theAdminPages
         {
 
         }
+
+        protected void btnNuevo_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnGrabar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnCancelar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnBorrar_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

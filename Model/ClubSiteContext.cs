@@ -14,6 +14,8 @@ namespace ClubSite.Model
         public DbSet<RaceType> RaceTypes { get; set; }
         public DbSet<Sponsor> Sponsors { get; set; }
         public DbSet<Race> Races { get; set; }
+        public DbSet<Material> Materials { get; set; }
+        public DbSet<MaterialType> MaterialTypes { get; set; }
 
         public ClubSiteContext()
             : base("ClubSiteConn")

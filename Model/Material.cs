@@ -10,6 +10,7 @@ namespace ClubSite.Model
     {
         //Properties
         #region
+        [Key]
         public Int32 MatID {get; set;}
 
         [Required, StringLength(100)]
