@@ -25,7 +25,6 @@ namespace ModelClasssesTests
             Assert.AreEqual(aSportID, aRaceType.SportID);
         }
 
-
         [TestMethod]
         public void TestRaceTypeConstructorWithData()
         {

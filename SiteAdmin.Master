@@ -45,7 +45,11 @@
                             <asp:MenuItem NavigateUrl="~/theAdminPages/RaceTypes.aspx" Text="Tipos de Carrera" Value="Tipos de Carrera"></asp:MenuItem>
                             <asp:MenuItem NavigateUrl="~/theAdminPages/Races.aspx" Text="Pruebas" Value="Pruebas"></asp:MenuItem>                                            
                         </asp:MenuItem>
-                        <asp:MenuItem Text="Material" Value="Material"></asp:MenuItem>
+                        <asp:MenuItem Text="Material" Value="Material">
+                             <asp:MenuItem NavigateUrl="~/theAdminPages/Material.aspx" Text="Ficha de Material" Value="Ficha de Material"></asp:MenuItem>
+                            <asp:MenuItem NavigateUrl="~/theAdminPages/MaterialFamilies.aspx" Text="Familias" Value="Familias"></asp:MenuItem>
+                            <asp:MenuItem NavigateUrl="~/theAdminPages/MaterialList.aspx" Text="Todos los materiales" Value="Todos los materiales"></asp:MenuItem>     
+                        </asp:MenuItem>
                         <asp:MenuItem Selectable="False" Text="Configuración" Value="Configuración">
                             <asp:MenuItem Text="Fotos Portada" Value="Fotos Portada"></asp:MenuItem>
                             <asp:MenuItem Text="Banners" Value="Banners"></asp:MenuItem>
