@@ -98,10 +98,10 @@ namespace ClubSite.Account
             {
                 string virtualFolder = "~/Images/Clubbers/";
                 string physicalFolder = Server.MapPath(virtualFolder);
-                string fileName = Guid.NewGuid().ToString();
+                string fileName = ((FileUpload)RegisterUser.CreateUserStep.ContentTemplateContainer.FindControl("FileUploadNumber")).FileName; // Guid.NewGuid().ToString();
                 string extension = System.IO.Path.GetExtension(((FileUpload)RegisterUser.CreateUserStep.ContentTemplateContainer.FindControl("FileUploadNumber")).FileName);
-                ((FileUpload)RegisterUser.CreateUserStep.ContentTemplateContainer.FindControl("FileUploadNumber")).SaveAs(System.IO.Path.Combine(physicalFolder, fileName + extension));
-                ((Image)RegisterUser.CreateUserStep.ContentTemplateContainer.FindControl("imgNImageURL")).ImageUrl = virtualFolder + fileName + extension;
+                ((FileUpload)RegisterUser.CreateUserStep.ContentTemplateContainer.FindControl("FileUploadNumber")).SaveAs(System.IO.Path.Combine(physicalFolder, fileName /*+ extension*/));
+                ((Image)RegisterUser.CreateUserStep.ContentTemplateContainer.FindControl("imgNImageURL")).ImageUrl = virtualFolder + fileName /*+ extension*/;
                 newNumber = true;
             }
         }
@@ -111,10 +111,10 @@ namespace ClubSite.Account
             {
                 string virtualFolder = "~/Images/Clubbers/";
                 string physicalFolder = Server.MapPath(virtualFolder);
-                string fileName = Guid.NewGuid().ToString();
+                string fileName = ((FileUpload)RegisterUser.CreateUserStep.ContentTemplateContainer.FindControl("FileUploadImage")).FileName; // Guid.NewGuid().ToString();
                 string extension = System.IO.Path.GetExtension(((FileUpload)RegisterUser.CreateUserStep.ContentTemplateContainer.FindControl("FileUploadImage")).FileName);
-                ((FileUpload)RegisterUser.CreateUserStep.ContentTemplateContainer.FindControl("FileUploadImage")).SaveAs(System.IO.Path.Combine(physicalFolder, fileName + extension));
-                ((Image)RegisterUser.CreateUserStep.ContentTemplateContainer.FindControl("imgImageURL")).ImageUrl = virtualFolder + fileName + extension;
+                ((FileUpload)RegisterUser.CreateUserStep.ContentTemplateContainer.FindControl("FileUploadImage")).SaveAs(System.IO.Path.Combine(physicalFolder, fileName /*+ extension*/));
+                ((Image)RegisterUser.CreateUserStep.ContentTemplateContainer.FindControl("imgImageURL")).ImageUrl = virtualFolder + fileName /*+ extension*/;
                 newImage = true;
             }
         }

@@ -326,10 +326,10 @@ namespace ClubSite.AdminPages
             {
                 string virtualFolder = "~/Images/Clubbers/";
                 string physicalFolder = Server.MapPath(virtualFolder);
-                string fileName = Guid.NewGuid().ToString();
+                string fileName = FileUploadNumber.FileName;//Guid.NewGuid().ToString();
                 string extension = System.IO.Path.GetExtension(FileUploadNumber.FileName);
-                FileUploadNumber.SaveAs(System.IO.Path.Combine(physicalFolder, fileName + extension));
-                imgNImageURL.ImageUrl = virtualFolder + fileName + extension;
+                FileUploadNumber.SaveAs(System.IO.Path.Combine(physicalFolder, fileName /*+ extension*/));
+                imgNImageURL.ImageUrl = virtualFolder + fileName /*+ extension*/;
                 newNumber = true;
                 memberUsed.NImageURL = imgNImageURL.ImageUrl;
             }
@@ -340,10 +340,10 @@ namespace ClubSite.AdminPages
             {
                 string virtualFolder = "~/Images/Clubbers/";
                 string physicalFolder = Server.MapPath(virtualFolder);
-                string fileName = Guid.NewGuid().ToString();
+                string fileName = FileUploadImage.FileName; // Guid.NewGuid().ToString();
                 string extension = System.IO.Path.GetExtension(FileUploadImage.FileName);
-                FileUploadImage.SaveAs(System.IO.Path.Combine(physicalFolder, fileName + extension));
-                imgImageURL.ImageUrl = virtualFolder + fileName + extension;
+                FileUploadImage.SaveAs(System.IO.Path.Combine(physicalFolder, fileName /*+ extension*/));
+                imgImageURL.ImageUrl = virtualFolder + fileName /* + extension*/;
                 newImage = true;
                 memberUsed.ImageURL = imgImageURL.ImageUrl;
             }
