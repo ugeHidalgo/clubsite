@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Subgurim.Maps</id>
+    <version>4.1.0.6</version>
+    <title>Subgurim GoogleMaps for ASP.NET</title>
+    <authors>Marc Climent, Subgurim</authors>
+    <owners>Marc Climent, Subgurim</owners>
+    <projectUrl>http://en.googlemaps.subgurim.net/</projectUrl>
+    <iconUrl>http://i46.tinypic.com/31435o6.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Subgurim Maps for ASP.NET is lightweight and offers all the power of the GoogleMaps API v3 and much more without any external dependencies.
+
+Report any bug or suggestion on the project page or to @SubgurimMaps on Twitter</description>
+    <releaseNotes>Updated Geocoding to API v3 with compatibility.</releaseNotes>
+    <copyright>Copyright 2013</copyright>
+    <tags>asp.net google maps googlemaps</tags>
+  </metadata>
+</package>

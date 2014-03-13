@@ -14,8 +14,7 @@
             <EmptyDataTemplate>
                 <table id="Table1" runat="server" style="">
                     <tr>
-                        <td>No hay datos de Clubbers en la base. Debes de dar de alta algun miembro para verlo en esta zona.<br />
-                            Usa la zona de Registro para ello.</td>
+                        <td>No hay datos de Sponsors dados de alta en la base.</td>
                     </tr>
                 </table>
             </EmptyDataTemplate>
@@ -34,7 +33,7 @@
                 <td id="Td2" runat="server" style="border: groove; border-color: black;">
                     <div style="border: thick; border-color: black; display: block; background-color: white; padding: 5px;">
                         <div>
-                            <a href='<%# Eval("WebURL") %>' style="color: white">
+                            <a href='ColabDetail.aspx?SponsorId=<%# Eval("SponsorId") %>' style="color: white">
                                 <asp:Image ID="Image2" ImageUrl='<%# Eval("LogoURL") %>' runat="server" Width="300px" Height="220px" ForeColor="white" />
                             </a>
                         </div>
@@ -72,7 +71,7 @@
 
 
         </asp:ListView>
-        <asp:LinqDataSource ID="LinqDataSource1" runat="server" ContextTypeName="ClubSite.Model.ClubSiteContext" EntityTypeName="" OrderBy="Nombre" Select="new (Nombre, LogoURL, WebURL, Activo)" TableName="Sponsors" Where="Activo == true">            
+        <asp:LinqDataSource ID="LinqDataSource1" runat="server" ContextTypeName="ClubSite.Model.ClubSiteContext" EntityTypeName="" OrderBy="Nombre" Select="new (SponsorId, Nombre, LogoURL, WebURL, Activo)" TableName="Sponsors" Where="Activo == true">            
         </asp:LinqDataSource>
     </div>
 </asp:Content>

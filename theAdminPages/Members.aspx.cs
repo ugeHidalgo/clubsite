@@ -27,21 +27,16 @@ namespace ClubSite.AdminPages
                                        select members;
             return query;
         }
-        // The return type can be changed to IEnumerable, however to support
-        // paging and sorting, the following parameters must be added:
-        //     int maximumRows
-        //     int startRowIndex
-        //     out int totalRowCount
-        //     string sortByExpression
+
         public IQueryable<ClubSite.Model.Race> gvRaces_GetData()
         {
             var db = new ClubSiteContext();
-
-            IQueryable<ClubSite.Model.Race> query = from races in db.Races
-                                       orderby races.Name
-                                       select races;
+            var query = from r in db.Races
+                        where r.Members.Any(m => m.UserName == txbxUserName.Text)
+                        select r;                        
             return query;
         }
+
         public IQueryable<Member> ddlMembers_GetData()
         {
 

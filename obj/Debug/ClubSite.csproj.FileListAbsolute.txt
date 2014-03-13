@@ -123,3 +123,4 @@ C:\Sites\ClubSite\bin\zh-Hant\System.Spatial.resources.dll
 C:\Sites\ClubSite\obj\Debug\ClubSite.csprojResolveAssemblyReference.cache
 C:\Sites\ClubSite\obj\Debug\ClubSite.dll
 C:\Sites\ClubSite\obj\Debug\ClubSite.pdb
+C:\Sites\ClubSite\bin\GMaps.dll

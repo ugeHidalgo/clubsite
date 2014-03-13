@@ -29,6 +29,8 @@ namespace ClubSite.Migrations
                                                  dbcc checkident ('dbo.Materials',Reseed,0);");
             context.Database.ExecuteSqlCommand(@"delete from dbo.MaterialTypes;
                                                  dbcc checkident ('dbo.MaterialTypes',Reseed,0);");
+            context.Database.ExecuteSqlCommand(@"delete from dbo.Sponsors;
+                                                 dbcc checkident ('dbo.Sponsors',Reseed,0);");
 
             //Seed Tables
             GetSports().ForEach(sp => context.Sports.Add(sp));
@@ -37,6 +39,7 @@ namespace ClubSite.Migrations
             GetMembers().ForEach(m => context.Members.Add(m));
             GetMaterialTypes().ForEach(mt => context.MaterialTypes.Add(mt));
             GetMaterials().ForEach(m => context.Materials.Add(m));
+            GetSponsors().ForEach(sp => context.Sponsors.Add(sp));
 
             //Save Data into BD
             context.SaveChanges();
@@ -126,9 +129,17 @@ namespace ClubSite.Migrations
         private static List<Sponsor> GetSponsors()
         {
             var aListOfSponsors = new List<Sponsor> {
-                new Sponsor { SponsorId = 1, Nombre = "Humans Sapiens Runner", ContactPerson="Juan Sánchez", Activo=true, AportInicial=500, AportRecibida=350, RegDate=DateTime.Now },
-                new Sponsor { SponsorId = 2, Nombre = "Bike Point, Repuestos Andrés", ContactPerson="Andrés", Activo=true, AportInicial=600, AportRecibida=600, RegDate=DateTime.Now },
-                new Sponsor { SponsorId = 3, Nombre = "Ópticas Manzano", ContactPerson="Tomás Fernández", Activo=true, AportInicial=300, AportRecibida=300, RegDate=DateTime.Now } };
+                new Sponsor { SponsorId = 1, Nombre = "Humans Sapiens Runner", ContactPerson="Juan Sánchez", Activo=true, AportInicial=500, AportRecibida=350, RegDate=DateTime.Now,
+                              LogoURL="~/Images/Sponsors/human sapiens.png", WebURL="http://sapiensrunner.es/", Latitud=37.159807, Longitud=-3.605489  },
+                new Sponsor { SponsorId = 2, Nombre = "Bike Point, Repuestos Andrés", ContactPerson="Andrés", Activo=true, AportInicial=600, AportRecibida=600, RegDate=DateTime.Now,
+                              LogoURL="~/Images/Sponsors/bike point.jpg", WebURL="http://www.motosandres.com/", Latitud=37.166717, Longitud=-3.603458 },
+                new Sponsor { SponsorId = 3, Nombre = "Ópticas Manzano", ContactPerson="Sr Manzano", Activo=true, AportInicial=300, AportRecibida=300, RegDate=DateTime.Now,
+                              LogoURL="~/Images/Sponsors/Manzano.jpg", WebURL="http://www.opticasmanzano.es/"  },
+                new Sponsor { SponsorId = 3, Nombre = "Dauro Sport Nutrición", ContactPerson="Tomás Fernández", Activo=true, AportInicial=300, AportRecibida=300, RegDate=DateTime.Now,
+                              LogoURL="~/Images/Sponsors/DSN.jpg", WebURL="http://www.dsnstore.com/"  },
+                new Sponsor { SponsorId = 3, Nombre = "Fisioterapia Juan Manuel Casares", ContactPerson="Juan Manuel Casares", Activo=true, AportInicial=300, AportRecibida=300, RegDate=DateTime.Now,
+                              LogoURL="~/Images/Sponsors/juanmanuelCasares.jpg", WebURL="https://www.facebook.com/fisioterapiajuanmanuel.casares"  }
+            };
             return aListOfSponsors;
         }
 

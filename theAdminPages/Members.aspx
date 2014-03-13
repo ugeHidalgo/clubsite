@@ -238,11 +238,11 @@
             <td colspan="5">
                 <asp:GridView ID="GridView2" runat="server" Width="815px" Height="171px"
                     SelectMethod="gvRaces_GetData" CellPadding="4" ForeColor="#333333" GridLines="None"
-                    ItemType="ClubSite.Model.Race" DataKeyNames="Id">
+                    ItemType="ClubSite.Model.Race" AutoGenerateColumns="False">
                     <AlternatingRowStyle BackColor="White" />
                     <Columns>
-                        <asp:BoundField DataField="Name" HeaderText="Carrera" SortExpression="Name" ItemStyle-Width="180px" />
-                        <asp:BoundField DataField="RaceDate" HeaderText="Fecha" SortExpression="RaceDate" ItemStyle-Width="80px" />
+                        <asp:BoundField DataField="RaceDate" HeaderText="Fecha" SortExpression="RaceDate" ItemStyle-Width="80px" ReadOnly="True" />
+                        <asp:BoundField DataField="Name" HeaderText="Nombre" SortExpression="Name" ItemStyle-Width="280px" ReadOnly="True" />
                     </Columns>
                     <FooterStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
                     <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
@@ -253,7 +253,7 @@
                     <SortedAscendingHeaderStyle BackColor="#4D0000" />
                     <SortedDescendingCellStyle BackColor="#FCF6C0" />
                     <SortedDescendingHeaderStyle BackColor="#820000" />
-                </asp:GridView>
+                </asp:GridView>                
             </td>
         </tr>
         <tr>

@@ -53,6 +53,9 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>packages\EntityFramework.6.0.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="GMaps">
+      <HintPath>packages\Subgurim.Maps.4.1.0.6\lib\net20\GMaps.dll</HintPath>
+    </Reference>
     <Reference Include="HtmlAgilityPack, Version=1.4.6.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>packages\HtmlAgilityPack.1.4.6\lib\Net45\HtmlAgilityPack.dll</HintPath>
@@ -327,6 +330,7 @@
     <Content Include="Scripts\WebForms\WebParts.js" />
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
     <Content Include="theClub\Colab.aspx" />
+    <Content Include="theClub\ColabDetail.aspx" />
     <Content Include="theClub\Equip.aspx" />
     <Content Include="theClub\Historia.aspx" />
     <Content Include="theClub\historia1.jpg" />
@@ -538,6 +542,13 @@
     </Compile>
     <Compile Include="theClub\Colab.aspx.designer.cs">
       <DependentUpon>Colab.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="theClub\ColabDetail.aspx.cs">
+      <DependentUpon>ColabDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="theClub\ColabDetail.aspx.designer.cs">
+      <DependentUpon>ColabDetail.aspx</DependentUpon>
     </Compile>
     <Compile Include="theClub\Equip.aspx.cs">
       <DependentUpon>Equip.aspx</DependentUpon>

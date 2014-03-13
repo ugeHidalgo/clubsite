@@ -132,7 +132,7 @@
     <table style="width: 800px; margin: 5px auto 5px 5px; border: thin;">
         <tr>
             <td class="auto-style3">
-                <asp:Label ID="Label11" runat="server" Text="Blog Personal :" Font-Bold="True"></asp:Label>
+                <asp:Label ID="Label11" runat="server" Text="Web Site :" Font-Bold="True"></asp:Label>
             </td>
             <td class="auto-style4">
                 <asp:TextBox ID="txbxBlogURL" runat="server" Width="310px"></asp:TextBox>

@@ -431,10 +431,10 @@ namespace ClubSite.AdminPages
             {
                 string virtualFolder = "~/Images/Sponsors/";
                 string physicalFolder = Server.MapPath(virtualFolder);
-                string fileName = Guid.NewGuid().ToString();
+                string fileName = FileUploadImage.FileName; //Guid.NewGuid().ToString();
                 string extension = System.IO.Path.GetExtension(FileUploadImage.FileName);
-                FileUploadImage.SaveAs(System.IO.Path.Combine(physicalFolder, fileName + extension));
-                imgImageURL.ImageUrl = virtualFolder + fileName + extension;
+                FileUploadImage.SaveAs(System.IO.Path.Combine(physicalFolder, fileName /*+ extension*/));
+                imgImageURL.ImageUrl = virtualFolder + fileName /*+ extension*/;
                 newImage = true;
                 sponsorUsed.ImageURL = imgImageURL.ImageUrl;
             }
@@ -453,10 +453,10 @@ namespace ClubSite.AdminPages
             {
                 string virtualFolder = "~/Images/Sponsors/";
                 string physicalFolder = Server.MapPath(virtualFolder);
-                string fileName = Guid.NewGuid().ToString();
+                string fileName = FileUploadLogo.FileName; // Guid.NewGuid().ToString();
                 string extension = System.IO.Path.GetExtension(FileUploadLogo.FileName);
-                FileUploadLogo.SaveAs(System.IO.Path.Combine(physicalFolder, fileName + extension));
-                imgLogoURL.ImageUrl = virtualFolder + fileName + extension;
+                FileUploadLogo.SaveAs(System.IO.Path.Combine(physicalFolder, fileName /*+ extension*/));
+                imgLogoURL.ImageUrl = virtualFolder + fileName /*+ extension*/;
                 newLogo = true;
                 sponsorUsed.LogoURL = imgLogoURL.ImageUrl;
             }

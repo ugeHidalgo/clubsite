@@ -24,6 +24,8 @@ namespace ModelClasssesTests
             string aLogoURL = null;
             string anImageURL = null;
             bool activo=false;
+            double aLatitud = 0;
+            double aLongitud = 0;
             string aMemo = null;
             string aStreet = null;
             string aNumber = null;
@@ -54,6 +56,8 @@ namespace ModelClasssesTests
             Assert.AreEqual(aLogoURL, aSponsor.LogoURL);
             Assert.AreEqual(anImageURL, aSponsor.ImageURL);
             Assert.AreEqual(activo, aSponsor.Activo);
+            Assert.AreEqual(aLatitud, aSponsor.Latitud);
+            Assert.AreEqual(aLongitud, aSponsor.Longitud);
             Assert.AreEqual(aMemo, aSponsor.Memo);
         }
         
@@ -74,6 +78,8 @@ namespace ModelClasssesTests
             string aLogoURL = "a logo URL";
             string anImageURL = " An image URL";
             bool activo = false;
+            double aLatitud = 40.381090863719436;
+            double aLongitud = -3.6222052574157715;
             string aMemo = "Observaciones varias";
 
             string aStreet = "Street";
@@ -83,8 +89,8 @@ namespace ModelClasssesTests
             string aPostalCode = "18007";
             Address anAddress = new Address(aStreet, aNumber, aCity, aCountry, aPostalCode);
 
-            Sponsor aSponsor = new Sponsor(aSponsorId, aNombre, anAddress, aContactPerson, aMobile, aTlf, aRegDate, aCondOfertadas, anAportInicial, 
-                anAportRecibida, aWebURL, anEMail, aLogoURL, anImageURL, activo, aMemo);
+            Sponsor aSponsor = new Sponsor(aSponsorId, aNombre, anAddress, aContactPerson, aMobile, aTlf, aRegDate, aCondOfertadas, anAportInicial,
+                anAportRecibida, aWebURL, anEMail, aLogoURL, anImageURL, aLongitud, aLatitud, activo, aMemo);
                 
             Assert.AreEqual(aSponsorId, aSponsor.SponsorId);
             Assert.AreEqual(aNombre, aSponsor.Nombre);
@@ -100,6 +106,8 @@ namespace ModelClasssesTests
             Assert.AreEqual(aLogoURL, aSponsor.LogoURL);
             Assert.AreEqual(anImageURL, aSponsor.ImageURL);
             Assert.AreEqual(activo, aSponsor.Activo);
+            Assert.AreEqual(aLatitud, aSponsor.Latitud);
+            Assert.AreEqual(aLongitud, aSponsor.Longitud);
             Assert.AreEqual(aMemo, aSponsor.Memo);
 
             Assert.AreEqual(aStreet, aSponsor.Address.Street);
@@ -126,6 +134,8 @@ namespace ModelClasssesTests
             string aLogoURL = "a logo URL";
             string anImageURL = " An image URL";
             bool activo = false;
+            double aLatitud = 40.381090863719436;
+            double aLongitud = -3.6222052574157715;
             string aMemo = "Observaciones varias";
 
             string aStreet = "Street";
@@ -136,7 +146,7 @@ namespace ModelClasssesTests
             Address anAddress = new Address(aStreet, aNumber, aCity, aCountry, aPostalCode);
             Sponsor aSponsor = new Sponsor();
             aSponsor.SetSponsor(aSponsorId, aNombre, anAddress, aContactPerson, aMobile, aTlf, aRegDate, aCondOfertadas, anAportInicial,
-                anAportRecibida, aWebURL, anEMail, aLogoURL, anImageURL, activo, aMemo);
+                anAportRecibida, aWebURL, anEMail, aLogoURL, anImageURL, aLongitud, aLatitud, activo, aMemo);
 
             Assert.AreEqual(aSponsorId, aSponsor.SponsorId);
             Assert.AreEqual(aNombre, aSponsor.Nombre);
@@ -152,6 +162,8 @@ namespace ModelClasssesTests
             Assert.AreEqual(aLogoURL, aSponsor.LogoURL);
             Assert.AreEqual(anImageURL, aSponsor.ImageURL);
             Assert.AreEqual(activo, aSponsor.Activo);
+            Assert.AreEqual(aLatitud, aSponsor.Latitud);
+            Assert.AreEqual(aLongitud, aSponsor.Longitud);
             Assert.AreEqual(aMemo, aSponsor.Memo);
 
             Assert.AreEqual(aStreet, aSponsor.Address.Street);
@@ -179,6 +191,8 @@ namespace ModelClasssesTests
             string aLogoURL = "a logo URL";
             string anImageURL = " An image URL";
             bool activo = false;
+            double aLatitud = 40.381090863719436;
+            double aLongitud = -3.6222052574157715;
             string aMemo = "Observaciones varias";
 
             string aStreet = "Street";
@@ -190,7 +204,7 @@ namespace ModelClasssesTests
             Address anAddress = new Address(aStreet, aNumber, aCity, aCountry, aPostalCode);
             Sponsor aSponsor = new Sponsor();
             aSponsor.SetSponsor(aSponsorId, aNombre, anAddress, aContactPerson, aMobile, aTlf, aRegDate, aCondOfertadas, anAportInicial,
-                anAportRecibida, aWebURL, anEMail, aLogoURL, anImageURL, activo, aMemo);
+                anAportRecibida, aWebURL, anEMail, aLogoURL, anImageURL, aLongitud, aLatitud, activo, aMemo);
 
             Assert.AreEqual(aSponsorId, aSponsor.SponsorId);
             Assert.AreEqual(aNombre, aSponsor.Nombre);
@@ -206,6 +220,8 @@ namespace ModelClasssesTests
             Assert.AreEqual(aLogoURL, aSponsor.LogoURL);
             Assert.AreEqual(anImageURL, aSponsor.ImageURL);
             Assert.AreEqual(activo, aSponsor.Activo);
+            Assert.AreEqual(aLatitud, aSponsor.Latitud);
+            Assert.AreEqual(aLongitud, aSponsor.Longitud);
             Assert.AreEqual(aMemo, aSponsor.Memo);
 
             Assert.AreEqual(aStreet, aSponsor.Address.Street);
@@ -231,6 +247,8 @@ namespace ModelClasssesTests
             Assert.AreEqual(null, aSponsor.LogoURL);
             Assert.AreEqual(null, aSponsor.ImageURL);
             Assert.AreEqual(false, aSponsor.Activo);
+            Assert.AreEqual(0, aSponsor.Latitud);
+            Assert.AreEqual(0, aSponsor.Longitud);
             Assert.AreEqual(null, aSponsor.Memo);            
         }
 
@@ -252,6 +270,8 @@ namespace ModelClasssesTests
             string aLogoURL = "a logo URL";
             string anImageURL = " An image URL";
             bool activo = false;
+            double aLatitud = 40.381090863719436;
+            double aLongitud = -3.6222052574157715;
             string aMemo = "Observaciones varias";
 
             string aStreet = "Street";
@@ -263,7 +283,7 @@ namespace ModelClasssesTests
             Address anAddress = new Address(aStreet, aNumber, aCity, aCountry, aPostalCode);
             Sponsor aSponsor1 = new Sponsor();
             aSponsor1.SetSponsor(aSponsorId, aNombre, anAddress, aContactPerson, aMobile, aTlf, aRegDate, aCondOfertadas, anAportInicial,
-                anAportRecibida, aWebURL, anEMail, aLogoURL, anImageURL, activo, aMemo);
+                anAportRecibida, aWebURL, anEMail, aLogoURL, anImageURL, aLongitud, aLatitud, activo, aMemo);
 
             Assert.AreEqual(aSponsorId, aSponsor1.SponsorId);
             Assert.AreEqual(aNombre, aSponsor1.Nombre);
@@ -279,6 +299,8 @@ namespace ModelClasssesTests
             Assert.AreEqual(aLogoURL, aSponsor1.LogoURL);
             Assert.AreEqual(anImageURL, aSponsor1.ImageURL);
             Assert.AreEqual(activo, aSponsor1.Activo);
+            Assert.AreEqual(aLatitud, aSponsor1.Latitud);
+            Assert.AreEqual(aLongitud, aSponsor1.Longitud);
             Assert.AreEqual(aMemo, aSponsor1.Memo);
 
             Assert.AreEqual(aStreet, aSponsor1.Address.Street);
@@ -306,6 +328,8 @@ namespace ModelClasssesTests
             Assert.AreEqual(aLogoURL, aSponsor2.LogoURL);
             Assert.AreEqual(anImageURL, aSponsor2.ImageURL);
             Assert.AreEqual(activo, aSponsor2.Activo);
+            Assert.AreEqual(aLatitud, aSponsor2.Latitud);
+            Assert.AreEqual(aLongitud, aSponsor2.Longitud);
             Assert.AreEqual(aMemo, aSponsor2.Memo);
 
             Assert.AreEqual(aStreet, aSponsor2.Address.Street);

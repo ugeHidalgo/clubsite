@@ -44,6 +44,10 @@ namespace ClubSite.Model
         public string LogoURL { get; set; }
         
         public string ImageURL { get; set; }
+
+        public double Longitud { get; set; }
+
+        public double Latitud { get; set; }
               
         public bool Activo { get; set; }
         
@@ -62,7 +66,7 @@ namespace ClubSite.Model
 
         public Sponsor(int aSponsorId, string aNombre, Address anAddress, string aContactPerson, string aMobile, string aTlf, DateTime aRegDate, 
             string aCondOfertadas, decimal anAportInicial, decimal anAportRecibida, string aWebURL, string anEMail, string aLogoURL, string anImageURL, 
-            bool activo, string aMemo)
+            double aLongitud, double aLatitud, bool activo, string aMemo)
         {
             this.SponsorId = aSponsorId;
             this.Nombre = aNombre;
@@ -78,6 +82,8 @@ namespace ClubSite.Model
             this.EMail = anEMail;
             this.LogoURL = aLogoURL;
             this.ImageURL = anImageURL;
+            this.Longitud = aLongitud;
+            this.Latitud = aLatitud;
             this.Activo = activo;
             this.Memo = aMemo;
         }
@@ -88,8 +94,8 @@ namespace ClubSite.Model
         //Methods
         #region 
         public void SetSponsor(int aSponsorId, string aNombre, Address anAddress, string aContactPerson, string aMobile, string aTlf, DateTime aRegDate,  
-            string aCondOfertadas, decimal anAportInicial, decimal anAportRecibida, string aWebURL, string anEMail, string aLogoURL, string anImageURL, 
-            bool activo, string aMemo)
+            string aCondOfertadas, decimal anAportInicial, decimal anAportRecibida, string aWebURL, string anEMail, string aLogoURL, string anImageURL,
+            double aLongitud, double aLatitud, bool activo, string aMemo)
         {
             this.SponsorId = aSponsorId;
             this.Nombre = aNombre;
@@ -106,6 +112,8 @@ namespace ClubSite.Model
             this.LogoURL = aLogoURL;
             this.ImageURL = anImageURL;
             this.Activo = activo;
+            this.Longitud = aLongitud;
+            this.Latitud = aLatitud;
             this.Memo = aMemo;
         }
 
@@ -126,6 +134,8 @@ namespace ClubSite.Model
             this.LogoURL = null;
             this.ImageURL = null;
             this.Activo = false;
+            this.Longitud = 0;
+            this.Latitud = 0;
             this.Memo = null;
         }
 
@@ -146,6 +156,8 @@ namespace ClubSite.Model
             this.LogoURL = aSponsor1.LogoURL;
             this.ImageURL = aSponsor1.ImageURL;
             this.Activo = aSponsor1.Activo;
+            this.Longitud = aSponsor1.Longitud;
+            this.Latitud = aSponsor1.Latitud;
             this.Memo = aSponsor1.Memo;
         }
 
