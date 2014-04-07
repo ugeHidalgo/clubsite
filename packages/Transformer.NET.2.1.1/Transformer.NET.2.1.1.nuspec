@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Transformer.NET</id>
+    <version>2.1.1</version>
+    <title>Transformer.NET</title>
+    <authors>Ext.NET Inc.</authors>
+    <owners>Ext.NET Inc.</owners>
+    <licenseUrl>http://www.ext.net/licensetransformer/</licenseUrl>
+    <projectUrl>http://www.ext.net/</projectUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>A .NET template parsing and transformation library.</description>
+    <summary>A .NET template parsing and transformation library.</summary>
+    <copyright>Copyright (c) 2007-2012, Ext.NET, Inc. (http://www.ext.net/). All rights reserved.</copyright>
+    <tags>utility utilities helper library ext.net extnet asp.net aspnet web</tags>
+  </metadata>
+</package>

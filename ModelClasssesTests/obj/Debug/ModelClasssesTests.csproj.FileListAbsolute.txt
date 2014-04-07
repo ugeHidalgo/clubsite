@@ -12,10 +12,15 @@ C:\Sites\ClubSite\ModelClasssesTests\bin\Debug\Microsoft.WindowsAzure.Configurat
 C:\Sites\ClubSite\ModelClasssesTests\bin\Debug\Microsoft.WindowsAzure.Storage.dll
 C:\Sites\ClubSite\ModelClasssesTests\bin\Debug\System.Spatial.dll
 C:\Sites\ClubSite\ModelClasssesTests\bin\Debug\EntityFramework.dll
+C:\Sites\ClubSite\ModelClasssesTests\bin\Debug\Ext.Net.dll
 C:\Sites\ClubSite\ModelClasssesTests\bin\Debug\System.Web.Optimization.dll
 C:\Sites\ClubSite\ModelClasssesTests\bin\Debug\Microsoft.AspNet.Membership.OpenAuth.dll
+C:\Sites\ClubSite\ModelClasssesTests\bin\Debug\GMaps.dll
 C:\Sites\ClubSite\ModelClasssesTests\bin\Debug\DotNetOpenAuth.AspNet.dll
 C:\Sites\ClubSite\ModelClasssesTests\bin\Debug\Microsoft.AspNet.FriendlyUrls.dll
+C:\Sites\ClubSite\ModelClasssesTests\bin\Debug\Transformer.NET.dll
+C:\Sites\ClubSite\ModelClasssesTests\bin\Debug\Newtonsoft.Json.dll
+C:\Sites\ClubSite\ModelClasssesTests\bin\Debug\Ext.Net.Utilities.dll
 C:\Sites\ClubSite\ModelClasssesTests\bin\Debug\WebGrease.dll
 C:\Sites\ClubSite\ModelClasssesTests\bin\Debug\DotNetOpenAuth.OAuth.Consumer.dll
 C:\Sites\ClubSite\ModelClasssesTests\bin\Debug\DotNetOpenAuth.OAuth.dll
@@ -31,9 +36,13 @@ C:\Sites\ClubSite\ModelClasssesTests\bin\Debug\Microsoft.Data.OData.xml
 C:\Sites\ClubSite\ModelClasssesTests\bin\Debug\Microsoft.WindowsAzure.Storage.xml
 C:\Sites\ClubSite\ModelClasssesTests\bin\Debug\System.Spatial.xml
 C:\Sites\ClubSite\ModelClasssesTests\bin\Debug\EntityFramework.xml
+C:\Sites\ClubSite\ModelClasssesTests\bin\Debug\Ext.Net.xml
 C:\Sites\ClubSite\ModelClasssesTests\bin\Debug\Microsoft.AspNet.Membership.OpenAuth.xml
 C:\Sites\ClubSite\ModelClasssesTests\bin\Debug\DotNetOpenAuth.AspNet.xml
 C:\Sites\ClubSite\ModelClasssesTests\bin\Debug\Microsoft.AspNet.FriendlyUrls.xml
+C:\Sites\ClubSite\ModelClasssesTests\bin\Debug\Transformer.NET.xml
+C:\Sites\ClubSite\ModelClasssesTests\bin\Debug\Newtonsoft.Json.xml
+C:\Sites\ClubSite\ModelClasssesTests\bin\Debug\Ext.Net.Utilities.xml
 C:\Sites\ClubSite\ModelClasssesTests\bin\Debug\DotNetOpenAuth.OAuth.Consumer.xml
 C:\Sites\ClubSite\ModelClasssesTests\bin\Debug\DotNetOpenAuth.OAuth.xml
 C:\Sites\ClubSite\ModelClasssesTests\bin\Debug\DotNetOpenAuth.Core.xml
@@ -86,4 +95,3 @@ C:\Sites\ClubSite\ModelClasssesTests\bin\Debug\zh-Hant\System.Spatial.resources.
 C:\Sites\ClubSite\ModelClasssesTests\obj\Debug\ModelClasssesTests.csprojResolveAssemblyReference.cache
 C:\Sites\ClubSite\ModelClasssesTests\obj\Debug\ModelClasssesTests.dll
 C:\Sites\ClubSite\ModelClasssesTests\obj\Debug\ModelClasssesTests.pdb
-C:\Sites\ClubSite\ModelClasssesTests\bin\Debug\GMaps.dll

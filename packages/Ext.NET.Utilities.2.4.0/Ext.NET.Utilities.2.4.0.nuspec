@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Ext.NET.Utilities</id>
+    <version>2.4.0</version>
+    <title>Ext.NET Utilities</title>
+    <authors>Ext.NET Inc.</authors>
+    <owners>Ext.NET Inc.</owners>
+    <licenseUrl>http://www.ext.net/licenseutilities/</licenseUrl>
+    <projectUrl>http://www.ext.net/</projectUrl>
+    <iconUrl>http://speed.ext.net/identity/extnet-100x100-cog.png</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>A .NET Utility Class Library</description>
+    <summary>A .NET Utility Class Library</summary>
+    <copyright>Copyright (c) 2008-2014, Ext.NET, Inc. (http://www.ext.net/). All rights reserved.</copyright>
+    <tags>utility utilities helper library ext.net extnet asp.net aspnet web sencha extjs</tags>
+  </metadata>
+</package>

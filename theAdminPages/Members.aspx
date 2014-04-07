@@ -15,11 +15,27 @@
         }
 
         .auto-style3 {
+            width: 180px;
             text-align: right;
         }
 
         .auto-style4 {
             text-align: left;
+        }
+        .auto-style5 {
+            text-align: right;
+            width: 150px;
+        }
+        .auto-style6 {
+            width: 200px;
+        }
+        .auto-style7 {
+            text-align: left;
+            width: 180px;
+        }
+        .auto-style8 {
+            text-align: left;
+            width: 300px;
         }
     </style>
 
@@ -112,50 +128,60 @@
     <table style="width: 800px; margin: 5px auto 5px 5px; border: thin;">
         <tr>
             <td class="auto-style3">
-                <asp:Label ID="Label11" runat="server" Text="Blog Personal :" Font-Bold="True"></asp:Label>
+                <asp:Label ID="Label11" runat="server" Text="Blog/Web :" Font-Bold="True"></asp:Label>
             </td>
-            <td class="auto-style4" colspan="2">
+            <td class="auto-style4" colspan="4">
                 <asp:TextBox ID="txbxBlogURL" runat="server" Width="310px"></asp:TextBox>
             </td>
-            <td class="auto-style4">
-                <asp:Label ID="LaMovil" runat="server" Text="Móvil :" Font-Bold="True"></asp:Label>
-            </td>
-            <td class="auto-style4">
-                <asp:TextBox ID="txbxMobile" runat="server" Width="100px"></asp:TextBox>
+            <td class="auto-style6" colspan="2">
+                
+                <asp:Label ID="Label10" runat="server" Text="Carreras :" Font-Bold="True"></asp:Label>
+                
             </td>
         </tr>
         <tr>
             <td class="auto-style3">
                 <asp:Label ID="LaEMail" runat="server" Text="e-mail :" Font-Bold="True"></asp:Label>
             </td>
-            <td class="auto-style4" colspan="2">
+            <td class="auto-style4" colspan="4">
                 <asp:TextBox ID="txbxEMail" runat="server" Width="310px"></asp:TextBox>
             </td>
-            <td class="auto-style4">
-                <asp:Label ID="LaTlf" runat="server" Text="Tlf :" Font-Bold="True"></asp:Label>
-            </td>
-            <td class="auto-style4">
-                <asp:TextBox ID="txbxTlf" runat="server" Width="100px"></asp:TextBox>
+            <td class="auto-style4" colspan="2">
+                <asp:DropDownList ID="ddlRaces" runat="server" Width="300px" SelectMethod="dllRaces_GetData"
+                    DataTextField="aRace" DataValueField="Id" AutoPostBack="true">
+                </asp:DropDownList>
             </td>
         </tr>
         <tr>
             <td class="auto-style3"></td>
-            <td class="auto-style4"></td>
+            <td class="auto-style4" colspan="3"></td>
             <td colspan="2">&nbsp;</td>
-            <td>&nbsp;</td>
+            <td class="auto-style6">
+                <asp:Button ID="btnAddRace" runat="server" Text="+"
+                    OnClientClick="javascript:if(!confirm('¿Añadimos la carrera seleccionada a la lista de carreras del clubber?'))return false"
+                    OnClick="btnAddRace_Click" />
+                <asp:Button ID="btnDelrace" runat="server" Text="-"
+                    OnClientClick="javascript:if(!confirm('¿Quitamos la carrera seleccionada de la lista?'))return false"
+                    OnClick="btnDelrace_Click" />
+            </td>
         </tr>
         <tr>
             <td class="auto-style3">
                 <asp:Label ID="LaCalle" runat="server" Text="Calle :" Font-Bold="True"></asp:Label>
             </td>
-            <td class="auto-style4">
-                <asp:TextBox ID="txbxStreet" runat="server" Width="310px"></asp:TextBox>
+            <td class="auto-style8">
+                <asp:TextBox ID="txbxStreet" runat="server" Width="200px"></asp:TextBox>
+            </td>
+            <td class="auto-style5">
+                <asp:Label ID="LaNumero" runat="server" Text="Nº :" Font-Bold="True"></asp:Label>
+            </td>
+            <td class="auto-style7">
+                <asp:TextBox ID="txbxNumber" runat="server" Width="50px"></asp:TextBox>
             </td>
             <td colspan="2">&nbsp                           
-                <asp:Label ID="LaNumero" runat="server" Text="Número :" Font-Bold="True"></asp:Label>
-            </td>
-            <td>
-                <asp:TextBox ID="txbxNumber" runat="server" Width="50px"></asp:TextBox>
+                </td>
+            <td rowspan="6" class="auto-style6">
+                <asp:ListBox ID="ListBox1" runat="server" Width="300px" Height="200px"></asp:ListBox>
             </td>
         </tr>
 
@@ -163,44 +189,64 @@
             <td class="auto-style3">
                 <asp:Label ID="LaPoblacion" runat="server" Text="Población :" Font-Bold="True"></asp:Label>
             </td>
-            <td class="auto-style4">
+            <td class="auto-style8">
                 <asp:TextBox ID="txbxCity" runat="server" Width="200px"></asp:TextBox>
             </td>
+            <td class="auto-style5">
+                <asp:Label ID="LaCPostal" runat="server" Text="C.Post. :" Font-Bold="True"></asp:Label>
+            </td>
+            <td class="auto-style7">
+                <asp:TextBox ID="txbxPostalCode" runat="server" Width="80px"></asp:TextBox>
+            </td>
             <td colspan="2">
-                <asp:Label ID="LaCPostal" runat="server" Text="C.Postal :" Font-Bold="True"></asp:Label>
-            </td>
-            <td>
-                <asp:TextBox ID="txbxPostalCode" runat="server" Width="100px"></asp:TextBox>
-            </td>
+                &nbsp;</td>
         </tr>
 
         <tr>
             <td class="auto-style3">
                 <asp:Label ID="LaPais" runat="server" Text="País :" Font-Bold="True"></asp:Label>
             </td>
-            <td class="auto-style4">
+            <td class="auto-style4" colspan="3">
                 <asp:TextBox ID="txbxCountry" runat="server" Width="200px"></asp:TextBox>
             </td>
             <td colspan="2">&nbsp;</td>
-            <td>&nbsp;</td>
         </tr>
+
+
         <tr>
-            <td colspan="5"></td>
+            <td class="auto-style3">
+                <asp:Label ID="LaMovil" runat="server" Text="Móvil :" Font-Bold="True"></asp:Label>
+            </td>
+            <td class="auto-style8">
+                <asp:TextBox ID="txbxMobile" runat="server" Width="100px"></asp:TextBox>
+            </td>
+            <td class="auto-style5">
+                <asp:Label ID="LaTlf" runat="server" Text="Tlf :" Font-Bold="True"></asp:Label>
+            </td>
+            <td class="auto-style7">
+                <asp:TextBox ID="txbxTlf" runat="server" Width="100px"></asp:TextBox>
+            </td>
+            <td colspan="2">&nbsp;</td>
+        </tr>
+
+        <tr>
+            <td class="auto-style3">                
+            </td>
+            <td class="auto-style4" colspan="5">&nbsp;</td>
         </tr>
         <tr>
             <td class="auto-style3">
-                <asp:Label ID="Label8" runat="server" Text="Observaciones :" Font-Bold="True"></asp:Label>
+                <asp:Label ID="Label8" runat="server" Text="Observ. :" Font-Bold="True"></asp:Label>
             </td>
-            <td class="auto-style4" colspan="3">&nbsp;</td>
-            <td>&nbsp;</td>
+            <td class="auto-style4" colspan="5">&nbsp;</td>
         </tr>
         <tr>
-            <td colspan="5">
+            <td colspan="7">
                 <asp:TextBox ID="txbxMemo" runat="server" TextMode="MultiLine" Width="100%"></asp:TextBox>
             </td>
         </tr>
         <tr>
-            <td colspan="5" style="text-align: center">
+            <td colspan="7" style="text-align: center">
                 <asp:Button ID="btnGrabar" runat="server" Text="Grabar" Width="150px"
                     OnClientClick="javascript:if(!confirm('Vas a grabar los datos del ususario.¿Continuamos?'))return false"
                     OnClick="btnGrabar_Click" />&nbsp;
@@ -213,60 +259,16 @@
             </td>
         </tr>
         <tr>
-            <td colspan="5">
-                <asp:Label ID="Label10" runat="server" Text="Carreras :" Font-Bold="True"></asp:Label>
-            </td>
+            <td colspan="7">
+                &nbsp;</td>
         </tr>
         <tr>
-            <td colspan="5">
-                <asp:DropDownList ID="ddlRaces" runat="server" Width="300px" SelectMethod="dllRaces_GetData"
-                    DataTextField="aRace" DataValueField="Id" AutoPostBack="true">
-                </asp:DropDownList>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="5">
-                <asp:Button ID="btnAddRace" runat="server" Text="+"
-                    OnClientClick="javascript:if(!confirm('¿Añadimos la carrera seleccionada a la lista de carreras del clubber?'))return false"
-                    OnClick="btnAddRace_Click" />
-                <asp:Button ID="btnDelrace" runat="server" Text="-"
-                    OnClientClick="javascript:if(!confirm('¿Quitamos la carrera seleccionada de la lista?'))return false"
-                    OnClick="btnDelrace_Click" />
-            </td>
-        </tr>
-        <tr>
-            <td colspan="5">
-                <asp:GridView ID="GridView2" runat="server" Width="815px" Height="171px"
-                    SelectMethod="gvRaces_GetData" CellPadding="4" ForeColor="#333333" GridLines="None"
-                    ItemType="ClubSite.Model.Race" AutoGenerateColumns="False">
-                    <AlternatingRowStyle BackColor="White" />
-                    <Columns>
-                        <asp:BoundField DataField="RaceDate" HeaderText="Fecha" SortExpression="RaceDate" ItemStyle-Width="80px" ReadOnly="True" />
-                        <asp:BoundField DataField="Name" HeaderText="Nombre" SortExpression="Name" ItemStyle-Width="280px" ReadOnly="True" />
-                    </Columns>
-                    <FooterStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
-                    <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
-                    <PagerStyle BackColor="#FFCC66" ForeColor="#333333" HorizontalAlign="Center" />
-                    <RowStyle BackColor="#FFFBD6" ForeColor="#333333" />
-                    <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="Navy" />
-                    <SortedAscendingCellStyle BackColor="#FDF5AC" />
-                    <SortedAscendingHeaderStyle BackColor="#4D0000" />
-                    <SortedDescendingCellStyle BackColor="#FCF6C0" />
-                    <SortedDescendingHeaderStyle BackColor="#820000" />
-                </asp:GridView>                
-            </td>
-        </tr>
-        <tr>
-            <td colspan="5">             
-            </td>
-        </tr>
-        <tr>
-            <td colspan="5">
+            <td colspan="7">
                 <asp:Label ID="Label1" runat="server" Text="Clubbers :" Font-Bold="True"></asp:Label>
             </td>
         </tr>
         <tr>
-            <td colspan="5">
+            <td colspan="7">
                 <div style="width: 850px; margin: auto;">
                     <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" CellPadding="4"
                         DataKeyNames="UserName" ForeColor="#333333" GridLines="None"

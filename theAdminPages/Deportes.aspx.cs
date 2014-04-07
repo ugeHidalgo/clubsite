@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using ClubSite.Model;
+using Ext.Net;
 
 namespace ClubSite.theAdminPages
 {
@@ -13,21 +14,12 @@ namespace ClubSite.theAdminPages
         static Sport sportUsed;
         static Sport oldSportUsed;
 
-        public IQueryable<Sport> GridView1_GetData()
-        {
-            var db = new ClubSiteContext();
-            IQueryable<Sport> query = from sports in db.Sports
-                                      orderby sports.Name
-                                      select sports;
-            return query;
-        }
         public void LoadSportInForm(Sport aSport)
         {
-            txbxId.Text = Convert.ToString(aSport.SportID);
-            txbxName.Text = aSport.Name;
-            txbxMemo.Text = aSport.Memo;
+            txfId.Text = Convert.ToString(aSport.SportID);
+            txfName.Text = aSport.Name;
+            txfMemo.Text = aSport.Memo;
         }
-
         protected void Page_Load(object sender, EventArgs e)
         {            
             if (!Page.IsPostBack)
@@ -50,12 +42,12 @@ namespace ClubSite.theAdminPages
                 }
             }
         }
-
-        protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
+        protected void GridPanel1_Cell_Click(object sender, EventArgs e)
         {
             try
             {
-                Int32 actualSportId = Convert.ToInt32(GridView1.SelectedRow.Cells[1].Text);
+                CellSelectionModel sm = this.GridPanel1.GetSelectionModel() as CellSelectionModel;             
+                Int32 actualSportId = Convert.ToInt32(sm.SelectedCell.RecordID);
                 using (var db = new ClubSiteContext())
                 {
                     sportUsed = (from sports in db.Sports
@@ -64,7 +56,7 @@ namespace ClubSite.theAdminPages
                                  select sports).FirstOrDefault();
 
                     if (sportUsed == null)
-                    {                        
+                    {
                         Response.Write("<script>alert('No hay ningún deporte registrado en la Base de datos.')</script>");
                     }
                     oldSportUsed.CopySport(sportUsed);
@@ -72,9 +64,10 @@ namespace ClubSite.theAdminPages
                 }
             }
             catch (Exception) { }
-            btnBorrar.Enabled = true;            
+            btnBorrar.Enabled = true;
         }
-        protected void btnBorrar_Click(object sender, EventArgs e)
+
+        protected void btnBorrar_Click(object sender, DirectEventArgs e)
         {
             if (sportUsed.SportID == 0)
             { //No sport selected
@@ -95,11 +88,12 @@ namespace ClubSite.theAdminPages
                     }
                     db.Sports.Remove(item);
                     db.SaveChanges();
-                    GridView1.DataBind();
+                    GridPanel1.DataBind();
                     try
                     {
-                        Int32 actualSportId = Convert.ToInt32(GridView1.SelectedRow.Cells[1].Text);
-
+                        CellSelectionModel sm = this.GridPanel1.GetSelectionModel() as CellSelectionModel;
+                        sm.SelectedCell.RowIndex = sm.SelectedCell.RowIndex - 1;
+                        Int32 actualSportId = Convert.ToInt32(sm.SelectedCell.RecordID);
                         sportUsed = (from sports in db.Sports
                                      orderby sports.Name
                                      where sports.SportID == actualSportId
@@ -117,10 +111,9 @@ namespace ClubSite.theAdminPages
                     {                       
                         //Last object was deleted, search for new object if it exists                        
                         try
-                        {
-                            GridView1.SelectedIndex = GridView1.Rows.Count - 1;
-                            Int32 actualSportId = Convert.ToInt32(GridView1.SelectedRow.Cells[1].Text);
-
+                        {                                                        
+                            CellSelectionModel sm = this.GridPanel1.GetSelectionModel() as CellSelectionModel;             
+                            Int32 actualSportId = Convert.ToInt32(sm.SelectedCell.RecordID);                            
                             sportUsed = (from sports in db.Sports
                                          orderby sports.Name
                                          where sports.SportID == actualSportId
@@ -143,10 +136,10 @@ namespace ClubSite.theAdminPages
                 }
             }
         }
-        protected void btnGrabar_Click(object sender, EventArgs e)
+        protected void btnGrabar_Click(object sender, DirectEventArgs e)
         {
             //Verify conditions
-            if (txbxName.Text == "")
+            if (txfName.Text == "")
             {
                 Response.Write("<script>alert('Falta el nombre del deporte')</script>");
             }
@@ -159,8 +152,8 @@ namespace ClubSite.theAdminPages
                     if (sportUsed.SportID == 0)
                     { //New Sport
                         aSport = new Sport();
-                        aSport.Name = txbxName.Text;
-                        aSport.Memo = txbxMemo.Text;
+                        aSport.Name = txfName.Text;
+                        aSport.Memo = txfMemo.Text;
                         db.Sports.Add(aSport);
                     }
                     else
@@ -174,32 +167,73 @@ namespace ClubSite.theAdminPages
                             ModelState.AddModelError("", String.Format("Deporte con Id : {0} no encontrado", sportUsed.SportID));
                             return;
                         }
-                        aSport.SportID = Convert.ToInt32(txbxId.Text);
-                        aSport.Name = txbxName.Text;
-                        aSport.Memo = txbxMemo.Text;
+                        aSport.SportID = Convert.ToInt32(txfId.Text);
+                        aSport.Name = txfName.Text;
+                        aSport.Memo = txfMemo.Text;
                     }
                     db.SaveChanges();
                     LoadSportInForm(aSport);  //To update the ID (identity file)                                  
                     sportUsed = aSport;
                     oldSportUsed.CopySport(sportUsed);
-                    GridView1.DataBind();
+                    GridPanel1.DataBind();
                     Response.Write("<script>alert('Datos de deporte grabados')</script>");
                 }
                 btnBorrar.Enabled = true;
             }
         }
-        protected void btnCancelar_Click(object sender, EventArgs e)
+        protected void btnCancelar_Click(object sender, DirectEventArgs e)
         {
             sportUsed.CopySport(oldSportUsed);
             LoadSportInForm(sportUsed);
-            GridView1.DataBind();
+            GridPanel1.DataBind();
             btnBorrar.Enabled = true;
         }
-        protected void btnNuevo_Click(object sender, EventArgs e)
+        // [DirectMethod]
+        //public void btnNuevo_Click(string result)  //(object sender, DirectEventArgs e)
+        //{
+        //    oldSportUsed.CopySport(sportUsed);
+        //    sportUsed.ClearSport();
+        //    LoadSportInForm(sportUsed);
+        //}
+
+        //protected void btnNuevo_DirectClick(object sender, DirectEventArgs e)
+        //{
+        //    X.Msg.Confirm("Atención", "¿Crear nuevo?", new JFunction("btnNuevo_Click(result);", "result")).Show();
+        //}
+                
+        public void btnNuevo_Click()  //(object sender, DirectEventArgs e)
         {
             oldSportUsed.CopySport(sportUsed);
             sportUsed.ClearSport();
             LoadSportInForm(sportUsed);
         }
+
+
+        protected void AskNuevo(object sender, DirectEventArgs e)
+        {
+            X.Msg.Show(new MessageBoxConfig
+            {
+                Title = "Atención",
+                Message = "Continuamos?",
+                Buttons = MessageBox.Button.YESNO,
+                Icon = MessageBox.Icon.QUESTION,                
+                Fn = new JFunction { Fn = "showResult" }
+            });
+        }
+
+        [DirectMethod]
+        public void DoYes()
+        {
+            oldSportUsed.CopySport(sportUsed);
+            sportUsed.ClearSport();
+            LoadSportInForm(sportUsed);
+        }
+
+        [DirectMethod]
+        public void DoNo()
+        {
+        }
+
+
     }
 }

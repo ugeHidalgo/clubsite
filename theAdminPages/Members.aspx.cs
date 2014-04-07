@@ -28,12 +28,12 @@ namespace ClubSite.AdminPages
             return query;
         }
 
-        public IQueryable<ClubSite.Model.Race> gvRaces_GetData()
+        public IEnumerable<ClubSite.Model.Race> gvRaces_GetData()
         {
             var db = new ClubSiteContext();
-            var query = from r in db.Races
-                        where r.Members.Any(m => m.UserName == txbxUserName.Text)
-                        select r;                        
+            var query = (from m in db.Members
+                        where m.UserName== txbxUserName.Text
+                        select m).FirstOrDefault().Races;
             return query;
         }
 
@@ -50,8 +50,8 @@ namespace ClubSite.AdminPages
         {
             ClubSiteContext db = new ClubSiteContext();
             IQueryable query = from r in db.Races
-                               orderby r.Name
-                               select new { aRace = (r.Name), r.Id };
+                               orderby r.RaceDate, r.Name
+                               select new { aRace = r.Name, r.Id };
             return query;
 
         }
@@ -91,7 +91,7 @@ namespace ClubSite.AdminPages
                 txbxCity.Text = aMember.Address.City;
                 txbxCountry.Text = aMember.Address.Country;
                 txbxPostalCode.Text = aMember.Address.PostalCode;
-            }
+            }                        
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -352,6 +352,10 @@ namespace ClubSite.AdminPages
         protected void btnDelrace_Click(object sender, EventArgs e)
         {
 
+        }
+
+        protected void gvRacesForMember_SelectedIndexChanged(object sender, EventArgs e)
+        {
         }
 
 
