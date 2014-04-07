@@ -64,7 +64,7 @@ namespace ClubSite.theAdminPages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.TextField txfMemo;
+        protected global::Ext.Net.TextArea txfMemo;
         
         /// <summary>
         /// Container4 control.

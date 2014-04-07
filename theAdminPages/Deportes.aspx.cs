@@ -68,8 +68,35 @@ namespace ClubSite.theAdminPages
             btnBorrar.Enabled = true;
         }
 
-        protected void btnBorrar_Click(object sender, DirectEventArgs e)
+        [DirectMethod]
+        public void AskDel()
         {
+            X.Msg.Confirm("Atención", "¿Desea borrar el deporte mostrado en la ficha?", new MessageBoxButtonsConfig
+            {
+                Yes = new MessageBoxButtonConfig
+                {
+                    Handler = "App.direct.DoDel()",
+                    Text = "Si"
+                }
+                ,
+                No = new MessageBoxButtonConfig
+                {
+                    Handler = "App.direct.DoNoDel()",
+                    Text = "No"
+                }
+            }).Show();
+        }
+
+        [DirectMethod]
+        public void DoNoDel()
+        {
+            Notification.Show(new NotificationConfig { Title = "Aviso", Icon = Icon.Information, Html = "Se ha cancelado el borrado." });
+        }
+
+        [DirectMethod]
+        public void DoDel()
+        {
+            Notification.Show(new NotificationConfig { Title = "Aviso", Icon = Icon.Information, Html = "Borrando el deporte en pantalla edición" });
             if (sportUsed.SportID == 0)
             { //No sport selected
                 Response.Write(@"<script>alert('No hay nada que borrar ya que no hay deportes registrados.')</script>");
@@ -89,6 +116,7 @@ namespace ClubSite.theAdminPages
                     }
                     db.Sports.Remove(item);
                     db.SaveChanges();
+                    Notification.Show(new NotificationConfig { Title = "Aviso", Icon = Icon.Information, Html = "¡¡¡ Deporte borrado !!!" });
                     GridPanel1.DataBind();
                     try
                     {
@@ -137,8 +165,37 @@ namespace ClubSite.theAdminPages
                 }
             }
         }
-        protected void btnGrabar_Click(object sender, DirectEventArgs e)
+
+        [DirectMethod]
+        public void AskSave()
         {
+            X.Msg.Confirm("Atención", "¿Grabamos los datos en pantalla?", new MessageBoxButtonsConfig
+            {
+                Yes = new MessageBoxButtonConfig
+                {
+                    Handler = "App.direct.DoSave()",
+                    Text = "Si"
+                }
+                ,
+                No = new MessageBoxButtonConfig
+                {
+                    Handler = "App.direct.DoNoSave()",
+                    Text = "No"
+                }
+            }).Show();
+        }
+
+        [DirectMethod]
+        public void DoNoSave()
+        {
+            Notification.Show(new NotificationConfig { Title = "Aviso", Icon = Icon.Information, Html = "Grabación Cancelada" });
+        }
+
+        [DirectMethod]
+        public void DoSave()
+        {
+            Notification.Show(new NotificationConfig { Title = "Aviso", Icon = Icon.Information, Html = "Grabando" });
+
             //Verify conditions
             if (txfName.Text == "")
             {
@@ -177,50 +234,98 @@ namespace ClubSite.theAdminPages
                     sportUsed = aSport;
                     oldSportUsed.CopySport(sportUsed);
                     GridPanel1.DataBind();
+                    Notification.Show(new NotificationConfig { Title = "Aviso", Icon = Icon.Information, Html = "¡¡ Datos Grabados !!" });
                     Response.Write("<script>alert('Datos de deporte grabados')</script>");
                 }
                 btnBorrar.Enabled = true;
             }
         }
-        protected void btnCancelar_Click(object sender, DirectEventArgs e)
-        {
-            sportUsed.CopySport(oldSportUsed);
-            LoadSportInForm(sportUsed);
-            GridPanel1.DataBind();
-            btnBorrar.Enabled = true;
-        }
-        // [DirectMethod]
-        //public void btnNuevo_Click(string result)  //(object sender, DirectEventArgs e)
+
+
+        [DirectMethod]
+        public void AskCancel()
+         {
+             X.Msg.Confirm("Atención", "¿Desea cancelar la edición del deporte actual?", new MessageBoxButtonsConfig
+             {
+                 Yes = new MessageBoxButtonConfig
+                 {
+                     Handler = "App.direct.DoCancel()",
+                     Text = "Si"
+                 }
+                 ,
+                 No = new MessageBoxButtonConfig
+                 {
+                     Handler = "App.direct.DoNoCancel()",
+                     Text = "No"
+                 }
+             }).Show();
+         }
+
+        [DirectMethod]
+        public void DoNocancel()
+         {
+             Notification.Show(new NotificationConfig { Title = "Aviso", Icon = Icon.Information, Html = "Puede continuar la edicion." });
+         }
+
+        [DirectMethod]
+        public void DoCancel()
+         {
+             Notification.Show(new NotificationConfig { Title = "Aviso", Icon = Icon.Information, Html = "Cancelada la edición" });
+             sportUsed.CopySport(oldSportUsed);
+             LoadSportInForm(sportUsed);
+             GridPanel1.DataBind();
+             btnBorrar.Enabled = true;
+         }
+
+                
+        //protected void AskNuevo(object sender, DirectEventArgs e)
         //{
-        //    oldSportUsed.CopySport(sportUsed);
-        //    sportUsed.ClearSport();
-        //    LoadSportInForm(sportUsed);
+        //    X.Msg.Show(new MessageBoxConfig
+        //    {
+        //        Title = "Atención",
+        //        Message = "Continuamos?",
+        //        Buttons = MessageBox.Button.YESNO,
+        //        Icon = MessageBox.Icon.QUESTION,                
+        //        Fn = new JFunction { Fn = "AskNuevo" }
+        //    });
         //}
 
-        //protected void btnNuevo_DirectClick(object sender, DirectEventArgs e)
-        //{
-        //    X.Msg.Confirm("Atención", "¿Crear nuevo?", new JFunction("btnNuevo_Click(result);", "result")).Show();
-        //}
-                
-        public void btnNuevo_Click()  //(object sender, DirectEventArgs e)
+        [DirectMethod]
+        public void AskNew()
         {
+            X.Msg.Confirm("Atención", "¿Desea crear un nuevo deporte?", new MessageBoxButtonsConfig
+            {
+                Yes = new MessageBoxButtonConfig
+                {
+                    Handler = "App.direct.DoNew()",
+                    Text = "Si"
+                }
+                ,
+                No = new MessageBoxButtonConfig
+                {
+                    Handler = "App.direct.DoNoNew()",
+                    Text = "No"
+                }
+            }).Show();
+        }
+
+        [DirectMethod]
+        public void DoNoNew()
+        {
+            Notification.Show(new NotificationConfig { Title = "Aviso", Icon = Icon.Information, Html = "Cancelada la creación de nuevo deporte" });
+        }
+
+        [DirectMethod]
+        public void DoNew()
+        {
+            Notification.Show(new NotificationConfig { Title = "Aviso", Icon = Icon.Information, Html = "Ficha para nuevo deporte" });
             oldSportUsed.CopySport(sportUsed);
             sportUsed.ClearSport();
             LoadSportInForm(sportUsed);
         }
 
 
-        protected void AskNuevo(object sender, DirectEventArgs e)
-        {
-            X.Msg.Show(new MessageBoxConfig
-            {
-                Title = "Atención",
-                Message = "Continuamos?",
-                Buttons = MessageBox.Button.YESNO,
-                Icon = MessageBox.Icon.QUESTION,                
-                Fn = new JFunction { Fn = "showResult" }
-            });
-        }
+
 
     }
 }

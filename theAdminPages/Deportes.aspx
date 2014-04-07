@@ -8,13 +8,6 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cpMainContent" runat="server">
 
-     <script>
-         var showResult = function (btn) {             
-             Ext.Msg.notify("Button Click", "You clicked the " + btn + " button");
-
-         };         
-    </script> 
-
     <ext:Panel
         ID="Panel1"
         runat="server"
@@ -33,7 +26,7 @@
             <ext:Container ID="Container6" runat="server" Layout="FormLayout" ColumnWidth=".5" Padding="5">
                 <Items>
                     <ext:TextField ID="txfName" runat="server" FieldLabel="Nombre :" LabelAlign="Top" Width="200" Padding="5" />
-                    <ext:TextField ID="txfMemo" runat="server" FieldLabel="Descripción :" LabelAlign="Top" Width="550" Height="100" Padding="5" />
+                    <ext:TextArea ID="txfMemo" runat="server" FieldLabel="Descripción :" LabelAlign="Top" Width="550" Height="100" Padding="5"  />
                 </Items>
             </ext:Container>
 
@@ -84,22 +77,25 @@
             </ext:Container>
         </Items>
         <Buttons>
-            <ext:Button ID="btnNuevo" runat="server" Text="Nuevo" Width="150" OnDirectClick="AskNuevo">
+            <ext:Button ID="btnNuevo" runat="server" Text="Nuevo" Width="150">
+                <Listeners>
+                        <Click Handler="App.direct.AskNew();" />
+                </Listeners>
             </ext:Button>
-            <ext:Button ID="btnGrabar" runat="server" Text="Grabar" Width="150px" >
-                <DirectEvents>
-                    <Click OnEvent="btnGrabar_Click" />
-                </DirectEvents>
+            <ext:Button ID="btnGrabar" runat="server" Text="Grabar" Width="150px">
+                <Listeners>
+                        <Click Handler="App.direct.AskSave();" />
+                </Listeners>
             </ext:Button>
-            <ext:Button ID="btnCancelar" runat="server" Text="Deshacer" Width="90px"  >
-                <DirectEvents>
-                    <Click OnEvent="btnCancelar_Click" />
-                </DirectEvents>
+            <ext:Button ID="btnCancelar" runat="server" Text="Deshacer" Width="150px">
+                <Listeners>
+                        <Click Handler="App.direct.AskCancel();" />
+                </Listeners>
             </ext:Button>
-            <ext:Button ID="btnBorrar" runat="server" Text="Borrar" Width="150px" >
-                <DirectEvents>
-                    <Click OnEvent="btnBorrar_Click" />
-                </DirectEvents>
+            <ext:Button ID="btnBorrar" runat="server" Text="Borrar" Width="150px">
+                <Listeners>
+                        <Click Handler="App.direct.AskDel();" />
+                </Listeners>
             </ext:Button>
         </Buttons>
     </ext:Panel>
@@ -113,9 +109,7 @@
                 [SportID], 
                 [Name], 
                 [Memo]
-            FROM [Sports]" />
+            FROM [Sports]
+            ORDER BY [Name]" />
 
-    <%--<asp:Button ID="btnNuevo" runat="server" Text="Nuevo" Width="150px"
-        OnClientClick="javascript:if(!confirm('Crear un nuevo deporte.¿Continuamos?'))return false"
-        OnClick="btnNuevo_Click" />&nbsp; --%>
 </asp:Content>
