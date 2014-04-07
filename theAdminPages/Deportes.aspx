@@ -85,9 +85,6 @@
         </Items>
         <Buttons>
             <ext:Button ID="btnNuevo" runat="server" Text="Nuevo" Width="150" OnDirectClick="AskNuevo">
-                <%--<DirectEvents>                    
-                    <Click OnEvent="btnNuevo_Click" />
-                </DirectEvents>--%>
             </ext:Button>
             <ext:Button ID="btnGrabar" runat="server" Text="Grabar" Width="150px" >
                 <DirectEvents>
