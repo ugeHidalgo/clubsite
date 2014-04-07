@@ -9,6 +9,7 @@ using Ext.Net;
 
 namespace ClubSite.theAdminPages
 {
+
     public partial class Deportes : System.Web.UI.Page
     {
         static Sport sportUsed;
@@ -220,20 +221,6 @@ namespace ClubSite.theAdminPages
                 Fn = new JFunction { Fn = "showResult" }
             });
         }
-
-        [DirectMethod]
-        public void DoYes()
-        {
-            oldSportUsed.CopySport(sportUsed);
-            sportUsed.ClearSport();
-            LoadSportInForm(sportUsed);
-        }
-
-        [DirectMethod]
-        public void DoNo()
-        {
-        }
-
 
     }
 }
