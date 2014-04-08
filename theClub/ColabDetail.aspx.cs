@@ -50,7 +50,7 @@ namespace ClubSite.theClub
 
                     //Establecemos alto y ancho en px
                     GMap1.Height = 500;
-                    GMap1.Width = 500;
+                    GMap1.Width = 845;
 
                     //Adiciona el control de la parte izq superior (moverse, ampliar y reducir)
                     GMap1.Add(new GControl(GControl.preBuilt.LargeMapControl));
@@ -71,7 +71,7 @@ namespace ClubSite.theClub
 
                     //Pone la marca de gota de agua con el nombre de la ubicacion
                     GMarker marker = new GMarker(ubicacion);
-                    string strMarker = "<div style='width: 250px; height: 185px'><b>" +
+                    string strMarker = "<div style='width: 250px; height: 150px'><b>" +
                         "<span style='color:#ff7e00'></span>" + laSponsorName.Text + "</b><br>" +
                         " C/ " + laCalle.Text + ", No " + laNumero.Text + " <br /> "+ laCPostal.Text + " " +
                           laCiudad.Text + ", " + laProvincia.Text + "<br />" +

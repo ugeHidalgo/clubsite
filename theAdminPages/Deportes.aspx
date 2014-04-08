@@ -25,8 +25,8 @@
 
             <ext:Container ID="Container6" runat="server" Layout="FormLayout" ColumnWidth=".5" Padding="5">
                 <Items>
-                    <ext:TextField ID="txfName" runat="server" FieldLabel="Nombre :" LabelAlign="Top" Width="200" Padding="5" />
-                    <ext:TextArea ID="txfMemo" runat="server" FieldLabel="Descripción :" LabelAlign="Top" Width="550" Height="100" Padding="5"  />
+                    <ext:TextField ID="txfName" runat="server" FieldLabel="Nombre :" LabelAlign="Top" Width="300" Padding="5" />
+                    <ext:TextArea ID="txfMemo" runat="server" FieldLabel="Descripción :" LabelAlign="Top" Width="650" Height="100" Padding="5"  />
                 </Items>
             </ext:Container>
 
@@ -52,11 +52,9 @@
                         </Store>
                         <ColumnModel ID="ColumnModel1" runat="server">
                             <Columns>
-                                <ext:ActionColumn ID="Action" runat="server">
-                                </ext:ActionColumn>
                                 <ext:Column ID="Column1" runat="server" DataIndex="SportID" Text="Código" Width="50" />
                                 <ext:Column ID="Column2" runat="server" DataIndex="Name" Text="Nombre" Width="150" />
-                                <ext:Column ID="Column3" runat="server" DataIndex="Memo" Text="Address" Width="400" />
+                                <ext:Column ID="Column3" runat="server" DataIndex="Memo" Text="Descripción" Width="40" />
                             </Columns>
                         </ColumnModel>
                         <View>

@@ -319,7 +319,7 @@ namespace ClubSite.AdminPages
         {
             if (FileUploadNumber.HasFile)
             {
-                string virtualFolder = "~/Images/Clubbers/";
+                string virtualFolder = "../Images/Clubbers/";
                 string physicalFolder = Server.MapPath(virtualFolder);
                 string fileName = FileUploadNumber.FileName;//Guid.NewGuid().ToString();
                 string extension = System.IO.Path.GetExtension(FileUploadNumber.FileName);
@@ -333,7 +333,7 @@ namespace ClubSite.AdminPages
         {
             if (FileUploadImage.HasFile)
             {
-                string virtualFolder = "~/Images/Clubbers/";
+                string virtualFolder = "../Images/Clubbers/";
                 string physicalFolder = Server.MapPath(virtualFolder);
                 string fileName = FileUploadImage.FileName; // Guid.NewGuid().ToString();
                 string extension = System.IO.Path.GetExtension(FileUploadImage.FileName);

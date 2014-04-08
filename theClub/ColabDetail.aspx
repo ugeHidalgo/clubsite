@@ -72,7 +72,7 @@
         </tr>
         <tr>
             <td colspan="4" style="text-align: center">
-                <div style="width: 500px; height: 500px;">
+                <div style="width: 847px; height: 500px;">
                     <cc:GMap id="GMap1" runat="server" />
                 </div>
             </td>

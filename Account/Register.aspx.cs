@@ -96,7 +96,7 @@ namespace ClubSite.Account
         {
             if (((FileUpload)RegisterUser.CreateUserStep.ContentTemplateContainer.FindControl("FileUploadNumber")).HasFile)
             {
-                string virtualFolder = "~/Images/Clubbers/";
+                string virtualFolder = "../Images/Clubbers/";
                 string physicalFolder = Server.MapPath(virtualFolder);
                 string fileName = ((FileUpload)RegisterUser.CreateUserStep.ContentTemplateContainer.FindControl("FileUploadNumber")).FileName; // Guid.NewGuid().ToString();
                 string extension = System.IO.Path.GetExtension(((FileUpload)RegisterUser.CreateUserStep.ContentTemplateContainer.FindControl("FileUploadNumber")).FileName);
@@ -109,7 +109,7 @@ namespace ClubSite.Account
         {
             if (((FileUpload)RegisterUser.CreateUserStep.ContentTemplateContainer.FindControl("FileUploadImage")).HasFile)
             {
-                string virtualFolder = "~/Images/Clubbers/";
+                string virtualFolder = "../Images/Clubbers/";
                 string physicalFolder = Server.MapPath(virtualFolder);
                 string fileName = ((FileUpload)RegisterUser.CreateUserStep.ContentTemplateContainer.FindControl("FileUploadImage")).FileName; // Guid.NewGuid().ToString();
                 string extension = System.IO.Path.GetExtension(((FileUpload)RegisterUser.CreateUserStep.ContentTemplateContainer.FindControl("FileUploadImage")).FileName);

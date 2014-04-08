@@ -429,7 +429,7 @@ namespace ClubSite.AdminPages
         {
             if (FileUploadImage.HasFile)
             {
-                string virtualFolder = "~/Images/Sponsors/";
+                string virtualFolder = "../Images/Sponsors/";
                 string physicalFolder = Server.MapPath(virtualFolder);
                 string fileName = FileUploadImage.FileName; //Guid.NewGuid().ToString();
                 string extension = System.IO.Path.GetExtension(FileUploadImage.FileName);
@@ -451,7 +451,7 @@ namespace ClubSite.AdminPages
         {
             if (FileUploadLogo.HasFile)
             {
-                string virtualFolder = "~/Images/Sponsors/";
+                string virtualFolder = "../Images/Sponsors/";
                 string physicalFolder = Server.MapPath(virtualFolder);
                 string fileName = FileUploadLogo.FileName; // Guid.NewGuid().ToString();
                 string extension = System.IO.Path.GetExtension(FileUploadLogo.FileName);

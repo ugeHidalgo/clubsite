@@ -107,21 +107,21 @@ namespace ClubSite.Migrations
             Address anAdress = new Address();
             var aListOfMembers = new List<Member> {
                 new Member {UserName="adminuser",State=true,Federated=true,Visible=false,RegDate=DateTime.Now,FirstName="adminuser",SecondName="Administrador", Address=anAdress,
-                            ImageURL="~/Images/Clubbers/logoHistoria.jpg", NImageURL ="~/Images/Clubbers/believe2.jpg", BlogURL="http://www.sharptheclub.net"},
+                            ImageURL="../Images/Clubbers/logoHistoria.jpg", NImageURL ="../Images/Clubbers/believe2.jpg", BlogURL="http://www.sharptheclub.net"},
                 new Member {UserName="dlirio",State=true,Federated=true,Visible=true,RegDate=DateTime.Now,FirstName="David",SecondName="Lirio Domingo", Address=anAdress ,
-                            ImageURL="~/Images/Clubbers/dlirio.jpg", NImageURL ="~/Images/Clubbers/dlirio23.jpg", BlogURL="http://davidlirio.blogspot.com.es/"},
+                            ImageURL="../Images/Clubbers/dlirio.jpg", NImageURL ="../Images/Clubbers/dlirio23.jpg", BlogURL="http://davidlirio.blogspot.com.es/"},
                 new Member {UserName="lofer",State=true,Federated=true,Visible=true,RegDate=DateTime.Now,FirstName="Jesus",SecondName="López Fernández", Address=anAdress,
-                            ImageURL="~/Images/Clubbers/lofer.jpg", NImageURL ="~/Images/Clubbers/LoFer21.jpg", BlogURL="http://trilofer.blogspot.com.es/"},
+                            ImageURL="../Images/Clubbers/lofer.jpg", NImageURL ="../Images/Clubbers/LoFer21.jpg", BlogURL="http://trilofer.blogspot.com.es/"},
                 new Member {UserName="mmar",State=true,Federated=true,Visible=true,RegDate=DateTime.Now,FirstName="Maria del Mar",SecondName="Moral López", Address=anAdress,
-                            ImageURL="~/Images/Clubbers/mdm.jpg", NImageURL ="~/Images/Clubbers/Mmar69.jpg", BlogURL="https://www.facebook.com/mar.morallopez"},
+                            ImageURL="../Images/Clubbers/mdm.jpg", NImageURL ="../Images/Clubbers/Mmar69.jpg", BlogURL="https://www.facebook.com/mar.morallopez"},
                 new Member {UserName="ugeHidalgo",State=true,Federated=true,Visible=true,RegDate=DateTime.Now,FirstName="Eugenio",SecondName="Hidalgo Hernández", Address=anAdress,
-                            ImageURL="~/Images/Clubbers/eugenio.jpg", NImageURL ="~/Images/Clubbers/eugenio14.jpg", BlogURL="http://ugeblog.blogspot.com.es/"},
+                            ImageURL="../Images/Clubbers/eugenio.jpg", NImageURL ="../Images/Clubbers/eugenio14.jpg", BlogURL="http://ugeblog.blogspot.com.es/"},
                 new Member {UserName="juanan",State=true,Federated=true,Visible=true,RegDate=DateTime.Now,FirstName="Juan Antonio",SecondName="Vicaria", Address=anAdress,
-                            ImageURL="~/Images/Clubbers/javicaria.jpg", NImageURL ="~/Images/Clubbers/Javiaria7.jpg", BlogURL="http://runxfun.blogspot.com.es/"},
+                            ImageURL="../Images/Clubbers/javicaria.jpg", NImageURL ="../Images/Clubbers/Javiaria7.jpg", BlogURL="http://runxfun.blogspot.com.es/"},
                 new Member {UserName="josete",State=true,Federated=true,Visible=true,RegDate=DateTime.Now,FirstName="Jose Miguel",SecondName="López", Address=anAdress,
-                            ImageURL="~/Images/Clubbers/josete.jpg", NImageURL ="~/Images/Clubbers/Josete00.jpg", BlogURL="http://226kms.blogspot.com.es/"},
+                            ImageURL="../Images/Clubbers/josete.jpg", NImageURL ="../Images/Clubbers/Josete00.jpg", BlogURL="http://226kms.blogspot.com.es/"},
                 new Member {UserName="jero",State=true,Federated=true,Visible=true,RegDate=DateTime.Now,FirstName="Jerónimo",SecondName="Jeronimo", Address=anAdress,
-                            ImageURL="~/Images/Clubbers/jero.jpg", NImageURL ="~/Images/Clubbers/Jero9.jpg", BlogURL="http://latabernadelmonaguillo.blogspot.com.es/"}
+                            ImageURL="../Images/Clubbers/jero.jpg", NImageURL ="../Images/Clubbers/Jero9.jpg", BlogURL="http://latabernadelmonaguillo.blogspot.com.es/"}
             };
             return aListOfMembers;
         }
@@ -130,15 +130,15 @@ namespace ClubSite.Migrations
         {
             var aListOfSponsors = new List<Sponsor> {
                 new Sponsor { SponsorId = 1, Nombre = "Humans Sapiens Runner", ContactPerson="Juan Sánchez", Activo=true, AportInicial=500, AportRecibida=350, RegDate=DateTime.Now,
-                              LogoURL="~/Images/Sponsors/human sapiens.png", WebURL="http://sapiensrunner.es/", Latitud=37.159807, Longitud=-3.605489  },
+                              LogoURL="../Images/Sponsors/human sapiens.png", WebURL="http://sapiensrunner.es/", Latitud=37.159807, Longitud=-3.605489  },
                 new Sponsor { SponsorId = 2, Nombre = "Bike Point, Repuestos Andrés", ContactPerson="Andrés", Activo=true, AportInicial=600, AportRecibida=600, RegDate=DateTime.Now,
-                              LogoURL="~/Images/Sponsors/bike point.jpg", WebURL="http://www.motosandres.com/", Latitud=37.166717, Longitud=-3.603458 },
+                              LogoURL="../Images/Sponsors/bike point.jpg", WebURL="http://www.motosandres.com/", Latitud=37.166717, Longitud=-3.603458 },
                 new Sponsor { SponsorId = 3, Nombre = "Ópticas Manzano", ContactPerson="Sr Manzano", Activo=true, AportInicial=300, AportRecibida=300, RegDate=DateTime.Now,
-                              LogoURL="~/Images/Sponsors/Manzano.jpg", WebURL="http://www.opticasmanzano.es/"  },
+                              LogoURL="../Images/Sponsors/Manzano.jpg", WebURL="http://www.opticasmanzano.es/"  },
                 new Sponsor { SponsorId = 3, Nombre = "Dauro Sport Nutrición", ContactPerson="Tomás Fernández", Activo=true, AportInicial=300, AportRecibida=300, RegDate=DateTime.Now,
-                              LogoURL="~/Images/Sponsors/DSN.jpg", WebURL="http://www.dsnstore.com/"  },
+                              LogoURL="../Images/Sponsors/DSN.jpg", WebURL="http://www.dsnstore.com/"  },
                 new Sponsor { SponsorId = 3, Nombre = "Fisioterapia Juan Manuel Casares", ContactPerson="Juan Manuel Casares", Activo=true, AportInicial=300, AportRecibida=300, RegDate=DateTime.Now,
-                              LogoURL="~/Images/Sponsors/juanmanuelCasares.jpg", WebURL="https://www.facebook.com/fisioterapiajuanmanuel.casares"  }
+                              LogoURL="../Images/Sponsors/juanmanuelCasares.jpg", WebURL="https://www.facebook.com/fisioterapiajuanmanuel.casares"  }
             };
             return aListOfSponsors;
         }
