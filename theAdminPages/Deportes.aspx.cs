@@ -35,8 +35,8 @@ namespace ClubSite.theAdminPages
 
                     if (sportUsed == null)
                     {
-                        sportUsed = new Sport();
-                        Response.Write("<script>alert('No hay ningún deporte registrado en la Base de datos.')</script>");
+                        sportUsed = new Sport();                        
+                        X.Msg.Alert("Atención", "No hay ningún tipo de deporte registrado en la Base de datos.").Show();
                     }
                     oldSportUsed.CopySport(sportUsed);
                     LoadSportInForm(sportUsed);
@@ -58,7 +58,7 @@ namespace ClubSite.theAdminPages
 
                     if (sportUsed == null)
                     {
-                        Response.Write("<script>alert('No hay ningún deporte registrado en la Base de datos.')</script>");
+                        X.Msg.Alert("Atención", "No hay ningún tipo de deporte registrado en la Base de datos.").Show();
                     }
                     oldSportUsed.CopySport(sportUsed);
                     LoadSportInForm(sportUsed);
@@ -99,7 +99,7 @@ namespace ClubSite.theAdminPages
             Notification.Show(new NotificationConfig { Title = "Aviso", Icon = Icon.Information, Html = "Borrando el deporte en pantalla edición" });
             if (sportUsed.SportID == 0)
             { //No sport selected
-                Response.Write(@"<script>alert('No hay nada que borrar ya que no hay deportes registrados.')</script>");
+                X.Msg.Alert("Atención", "No hay nada que borrar ya que no hay deportes registrados en la base de datos.").Show();
             }
             else
             {                
@@ -112,59 +112,31 @@ namespace ClubSite.theAdminPages
                     {
                         // The item wasn't found
                         ModelState.AddModelError("", String.Format("Deporte con id : {0} no encontrado", sportUsed.SportID));
+                        X.Msg.Alert("Atención", "Deporte no encontrado. Borrado cancelado,").Show();
                         return;
                     }
                     db.Sports.Remove(item);
                     db.SaveChanges();
-                    Notification.Show(new NotificationConfig { Title = "Aviso", Icon = Icon.Information, Html = "¡¡¡ Deporte borrado !!!" });
-                    GridPanel1.DataBind();
-                    try
+                    this.Store1.DataBind();
+                    X.Msg.Alert("Atención", "Tipo de carrera borrada.").Show();
+
+                    //Load data for first race type
+                    sportUsed = (from sports in db.Sports
+                                 orderby sports.Name
+                                 select sports).FirstOrDefault();
+                    if (sportUsed == null)
                     {
-                        CellSelectionModel sm = this.GridPanel1.GetSelectionModel() as CellSelectionModel;
-                        sm.SelectedCell.RowIndex = sm.SelectedCell.RowIndex - 1;
-                        Int32 actualSportId = Convert.ToInt32(sm.SelectedCell.RecordID);
-                        sportUsed = (from sports in db.Sports
-                                     orderby sports.Name
-                                     where sports.SportID == actualSportId
-                                     select sports).FirstOrDefault();
-
-                        if (sportUsed == null)
-                        {
-                            sportUsed = new Sport();
-                            Response.Write("<script>alert('No queda ningún deporte registrado en la Base de datos.')</script>");
-
-                        }
-
-                    }
-                    catch (Exception)
-                    {                       
-                        //Last object was deleted, search for new object if it exists                        
-                        try
-                        {                                                        
-                            CellSelectionModel sm = this.GridPanel1.GetSelectionModel() as CellSelectionModel;             
-                            Int32 actualSportId = Convert.ToInt32(sm.SelectedCell.RecordID);                            
-                            sportUsed = (from sports in db.Sports
-                                         orderby sports.Name
-                                         where sports.SportID == actualSportId
-                                         select sports).FirstOrDefault();
-                            if (sportUsed == null) //data base empty
-                            {
-                                sportUsed = new Sport();
-                                Response.Write("<script>alert('No queda ningún deporte registrado en la Base de datos.')</script>");
-                            }
-                        }
-                        catch (Exception)
-                        {
-                            sportUsed = new Sport();
-                            Response.Write("<script>alert('No queda ningún deporte registrado en la Base de datos.')</script>");
-                        }
+                        //Last item was erased. No items in BD.
+                        sportUsed = new Sport();
+                        X.Msg.Alert("Atención", "No queda ningún deporte registrado en la Base de datos.").Show();
                     }
                     oldSportUsed.CopySport(sportUsed);
-                    LoadSportInForm(sportUsed);
-                    
+                    //Loads model object data into form
+                    LoadSportInForm(sportUsed);                    
                 }
             }
         }
+         
 
         [DirectMethod]
         public void AskSave()
@@ -193,13 +165,11 @@ namespace ClubSite.theAdminPages
 
         [DirectMethod]
         public void DoSave()
-        {
-            Notification.Show(new NotificationConfig { Title = "Aviso", Icon = Icon.Information, Html = "Grabando" });
-
+        {            
             //Verify conditions
             if (txfName.Text == "")
-            {
-                Response.Write("<script>alert('Falta el nombre del deporte')</script>");
+            {                
+                X.Msg.Alert("Atención", "Falta el nombre del deporte.").Show();
             }
             else
             {
@@ -223,6 +193,7 @@ namespace ClubSite.theAdminPages
                         {
                             // The item wasn't found
                             ModelState.AddModelError("", String.Format("Deporte con Id : {0} no encontrado", sportUsed.SportID));
+                            X.Msg.Alert("Atención", "Deporte no encontrado. Grabado cancelado.").Show();
                             return;
                         }
                         aSport.SportID = Convert.ToInt32(txfId.Text);
@@ -234,8 +205,7 @@ namespace ClubSite.theAdminPages
                     sportUsed = aSport;
                     oldSportUsed.CopySport(sportUsed);
                     GridPanel1.DataBind();
-                    Notification.Show(new NotificationConfig { Title = "Aviso", Icon = Icon.Information, Html = "¡¡ Datos Grabados !!" });
-                    Response.Write("<script>alert('Datos de deporte grabados')</script>");
+                    X.Msg.Alert("Atención", "Datos de deporte grabados.").Show();                    
                 }
                 btnBorrar.Enabled = true;
             }
@@ -262,7 +232,7 @@ namespace ClubSite.theAdminPages
          }
 
         [DirectMethod]
-        public void DoNocancel()
+        public void DoNoCancel()
          {
              Notification.Show(new NotificationConfig { Title = "Aviso", Icon = Icon.Information, Html = "Puede continuar la edicion." });
          }
@@ -276,19 +246,6 @@ namespace ClubSite.theAdminPages
              GridPanel1.DataBind();
              btnBorrar.Enabled = true;
          }
-
-                
-        //protected void AskNuevo(object sender, DirectEventArgs e)
-        //{
-        //    X.Msg.Show(new MessageBoxConfig
-        //    {
-        //        Title = "Atención",
-        //        Message = "Continuamos?",
-        //        Buttons = MessageBox.Button.YESNO,
-        //        Icon = MessageBox.Icon.QUESTION,                
-        //        Fn = new JFunction { Fn = "AskNuevo" }
-        //    });
-        //}
 
         [DirectMethod]
         public void AskNew()
@@ -323,9 +280,5 @@ namespace ClubSite.theAdminPages
             sportUsed.ClearSport();
             LoadSportInForm(sportUsed);
         }
-
-
-
-
     }
 }

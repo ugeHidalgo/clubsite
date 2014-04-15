@@ -1,116 +1,164 @@
 ﻿<%@ Page Title="Tipos de Pruebas" Language="C#" MasterPageFile="~/SiteAdmin.Master" AutoEventWireup="true" CodeBehind="RaceTypes.aspx.cs" Inherits="ClubSite.AdminPages.RaceTypes" %>
 
-<%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="asp" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cpMainContent" runat="server">
-     <table class="auto-style1">
-        <tr>
-            <td style="text-align: right">
-                <asp:Label ID="Label5" runat="server" Text="Id :" Font-Bold="True"></asp:Label>
-            </td>
-            <td>
-                <asp:TextBox ID="txbxId" runat="server" BorderStyle="None" Font-Bold="True"></asp:TextBox>
-            </td>
-        </tr>
-        <tr>
-            <td style="text-align: right">
-                <asp:Label ID="Label1" runat="server" Font-Bold="True" Text="Deporte :"></asp:Label>
-            </td>
-            <td>
-                <asp:TextBox ID="txbxSportID" runat="server" BorderStyle="None" Font-Bold="true" Width="20px" style="text-align: right"></asp:TextBox>
-                <asp:DropDownList ID="ddlDeportes" SelectMethod="ddlDeportes_GetData" runat="server" Width="150px"
-                    DataTextField="Name" DataValueField="SportID" AutoPostBack="true"
-                    OnSelectedIndexChanged="ddlDeportes_SelectedIndexChanged">
-                </asp:DropDownList>
-            </td>
-        </tr>
-        <tr>
-            <td style="text-align: right">
-                <asp:Label ID="Label3" runat="server" Font-Bold="True" Text="Nombre :"></asp:Label>
-            </td>
-            <td>
-                <asp:TextBox ID="txbxName" runat="server" Width="500px"></asp:TextBox>
-            </td>
-        </tr>
-        <tr>
-            <td style="text-align: right">
-                <asp:Label ID="Label2" runat="server" Font-Bold="True" Text="Puntos partic. :"></asp:Label>
-            </td>
-            <td>
-                <asp:TextBox ID="txbxPuntos" runat="server" Width="80px" TextMode="Number"></asp:TextBox>
-            </td>
-        </tr>
-        <tr>
-            <td style="text-align: right">
-                <asp:Label ID="Label4" runat="server" Text="Observaciones :" Font-Bold="True"></asp:Label>
-            </td>
-            <td>
-                <asp:TextBox ID="txbxMemo" runat="server" TextMode="MultiLine" Width="500px"></asp:TextBox>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">&nbsp;</td>
-        </tr>
-        <tr>
-            <td colspan="2" class="auto-style3" style="text-align: center">
-                <asp:Button ID="btnNuevo" runat="server" Text="Nuevo" Width="150px"
-                    OnClientClick="javascript:if(!confirm('Crear un nuevo tipo de carrera.¿Continuamos?'))return false"
-                    OnClick="btnNuevo_Click" />&nbsp;             
-                <asp:Button ID="btnGrabar" runat="server" Text="Grabar" Width="150px"
-                    OnClientClick="javascript:if(!confirm('Vas a grabar los datos del tipo de carrera en pantalla.¿Continuamos?'))return false"
-                    OnClick="btnGrabar_Click" />&nbsp;
-                <asp:Button ID="btnCancelar" runat="server" Text="Deshacer" Width="90px"
-                    OnClientClick="javascript:if(!confirm('Sin cancelas ahora se perderan los datos que hayas cambiado.¿Cancelamos?'))return false"
-                    OnClick="btnCancelar_Click" />&nbsp;
-                <asp:Button ID="btnBorrar" runat="server" Text="Borrar" Width="150px"
-                    OnClientClick="javascript:if(!confirm('¿Borramos el tipo de carrera actualmente en pantalla?'))return false"
-                    OnClick="btnBorrar_Click" />
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <div style="width: 950px; margin: auto;">                    
-                    <asp:GridView ID="gvRaceTypes" runat="server" AutoGenerateColumns="False" CellPadding="4" DataKeyNames="RaceTypeID" DataSourceID="SqlDataSource1" ForeColor="#333333" GridLines="None" AllowPaging="True" AllowSorting="True" OnSelectedIndexChanged="gvRaceTypes_SelectedIndexChanged">
-                        <AlternatingRowStyle BackColor="White" />
-                        <Columns>
-                            <asp:CommandField ButtonType="Button" ShowSelectButton="True" SelectText="Selec." />
-                            <asp:BoundField DataField="RaceTypeID" HeaderText="Id" InsertVisible="False" ReadOnly="True" SortExpression="RaceTypeID">
-                                <ItemStyle Width="50px" />
-                            </asp:BoundField>
-                            <asp:BoundField DataField="Expr1" HeaderText="Deporte" SortExpression="Expr1">
-                                <ItemStyle Width="150px" />
-                            </asp:BoundField>
-                            <asp:BoundField DataField="Name" HeaderText="Tipo de Carrera" SortExpression="Name">
-                                <ItemStyle Width="250px" />
-                            </asp:BoundField>
-                            <asp:BoundField DataField="Points" HeaderText="Pts" SortExpression="Points">
-                                <ItemStyle Width="50px" />
-                            </asp:BoundField>
-                            <asp:BoundField DataField="Memo" HeaderText="Memo" SortExpression="Memo">
-                                <ItemStyle Width="450px" />
-                            </asp:BoundField>
-                            <asp:BoundField DataField="SportID" HeaderText="SportID" SortExpression="SportID" Visible="False" />
-                        </Columns>
-                        <EditRowStyle BackColor="#2461BF" />
-                        <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-                        <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-                        <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
-                        <RowStyle BackColor="#EFF3FB" />
-                        <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
-                        <SortedAscendingCellStyle BackColor="#F5F7FB" />
-                        <SortedAscendingHeaderStyle BackColor="#6D95E1" />
-                        <SortedDescendingCellStyle BackColor="#E9EBEF" />
-                        <SortedDescendingHeaderStyle BackColor="#4870BE" />
-                    </asp:GridView>
-                    <br style="color: #333333" />
-                    <asp:SqlDataSource ID="SqlDataSource1" runat="server"
-                        ConnectionString="<%$ ConnectionStrings:ClubSiteConn %>"
-                        SelectCommand="SELECT RaceTypes.RaceTypeID, RaceTypes.Name, RaceTypes.Points, RaceTypes.Memo, RaceTypes.SportID, Sports.Name AS Expr1 FROM RaceTypes INNER JOIN Sports ON RaceTypes.SportID = Sports.SportID ORDER BY RaceTypes.Name"></asp:SqlDataSource>
-                </div>
-            </td>
-        </tr>
-    </table>
+    <ext:Panel
+        ID="Panel1"
+        runat="server"
+        Title="Tipos de Carrera"
+        Frame="true"
+        PaddingSummary="5px 5px 0"
+        Width="700"
+        ButtonAlign="Center">
+        <Items>
+            <ext:Container ID="Container5" runat="server" Layout="FormLayout" Padding="5">
+                <Items>
+                    <ext:TextField ID="txbxId" runat="server" FieldLabel="Código :" LabelAlign="Top" Width="50" Padding="5" ReadOnly="true" />
+                </Items>
+            </ext:Container>
+            <ext:Container ID="Container1" runat="server" Layout="HBoxLayout" Padding="5">
+                <Items>
+                    <%--<ext:TextField ID="txbxSportID" runat="server" FieldLabel="" LabelAlign="Top" Width="50" Padding="5" ReadOnly="true" />--%>
+                    <ext:ComboBox ID="cbxDeportes" runat="server" FieldLabel="Tipo de Carrera :" LabelAlign="Top" Padding="5"
+                        DisplayField="Name" ValueField="SportID" Width="200px" AllowBlank="true" EmptyText="Escoja deporte">
+                        <Store>
+                            <ext:Store ID="Store2" runat="server" OnReadData="Store2_ReadData">
+                                <%--DataSourceID="SqlDataSource3"--%>
+                                <Model>
+                                    <ext:Model ID="Model2" runat="server" IDProperty="RaceTypeID">
+                                        <Fields>
+                                            <ext:ModelField Name="SportID" />
+                                            <ext:ModelField Name="Name" />
+                                        </Fields>
+                                    </ext:Model>
+                                </Model>
+                            </ext:Store>
+                        </Store>
+                    </ext:ComboBox>
+                    <ext:TextField ID="txbxName" runat="server" FieldLabel="Nombre :" LabelAlign="Top" Width="300" Padding="5" />
+                    <ext:TextField ID="txbxPuntos" runat="server" FieldLabel="Puntos :" LabelAlign="Top" Width="50" Padding="5" />
+                </Items>
+            </ext:Container>
+            <ext:Container ID="Container6" runat="server" Layout="FormLayout" ColumnWidth=".5" Padding="5">
+                <Items>
+                    <ext:TextArea ID="txbxMemo" runat="server" FieldLabel="Descripción :" LabelAlign="Top" Width="650" Height="100" Padding="5" />
+                </Items>
+            </ext:Container>
 
+            <ext:Container ID="Container4" runat="server" Layout="FormLayout">
+                <Items>
+                    <ext:GridPanel ID="GridPanel1"
+                        runat="server"
+                        Title="Listado de Deportes"
+                        Frame="true"
+                        Height="350">
+                        <Store>
+                            <ext:Store ID="Store1" runat="server" DataSourceID="SqlDataSource2" PageSize="10">
+                                <Model>
+                                    <ext:Model ID="Model1" runat="server" IDProperty="RaceTypeID">
+                                        <Fields>
+                                            <ext:ModelField Name="RaceTypeID" />
+                                            <ext:ModelField Name="SportID" />
+                                            <ext:ModelField Name="Expr1" />
+                                            <ext:ModelField Name="Points" />
+                                            <ext:ModelField Name="Name" />
+                                            <ext:ModelField Name="Memo" />
+                                        </Fields>
+                                    </ext:Model>
+                                </Model>
+                            </ext:Store>
+                        </Store>
+                        <ColumnModel ID="ColumnModel1" runat="server">
+                            <Columns>
+                                <ext:Column ID="Column1" runat="server" DataIndex="RaceTypeID" Text="Código" Width="50" />
+                                <%--<ext:Column ID="Column2" runat="server" DataIndex="SportID" Text="Nombre" Width="150" />--%>
+                                <ext:Column ID="Column6" runat="server" DataIndex="Expr1" Text="Deporte" Width="100" />
+                                <ext:Column ID="Column3" runat="server" DataIndex="Name" Text="Nombre" Width="200" />
+                                <ext:Column ID="Column4" runat="server" DataIndex="Points" Text="Puntos" Width="50" />
+                                <ext:Column ID="Column5" runat="server" DataIndex="Memo" Text="Descripción" Width="300" />
+                            </Columns>
+                        </ColumnModel>
+                        <View>
+                            <ext:GridView ID="GridView2" runat="server" StripeRows="true">
+                                <GetRowClass Handler="return 'x-grid-row-expanded';" />
+                            </ext:GridView>
+                        </View>
+                        <SelectionModel>
+                            <ext:CellSelectionModel ID="CellSelectionModel1" runat="server">
+                                <DirectEvents>
+                                    <Select OnEvent="GridPanel1_Cell_Click" />
+                                </DirectEvents>
+                            </ext:CellSelectionModel>
+                        </SelectionModel>
+                        <BottomBar>
+                            <ext:PagingToolbar ID="PagingToolbar1" runat="server">
+                                <Items>
+                                    <ext:Label ID="Label1" runat="server" Text="Page size:" />
+                                    <ext:ToolbarSpacer ID="ToolbarSpacer1" runat="server" Width="10" />
+                                    <ext:ComboBox ID="ComboBox1" runat="server" Width="80">
+                                        <Items>
+                                            <ext:ListItem Text="1" />
+                                            <ext:ListItem Text="2" />
+                                            <ext:ListItem Text="10" />
+                                            <ext:ListItem Text="20" />
+                                        </Items>
+                                        <SelectedItems>
+                                            <ext:ListItem Value="10" />
+                                        </SelectedItems>
+                                        <Listeners>
+                                            <Select Handler="#{GridPanel1}.store.pageSize = parseInt(this.getValue(), 10); #{GridPanel1}.store.reload();" />
+                                        </Listeners>
+                                    </ext:ComboBox>
+                                </Items>
+                                <Plugins>
+                                    <ext:ProgressBarPager ID="ProgressBarPager1" runat="server" />
+                                </Plugins>
+                            </ext:PagingToolbar>
+                        </BottomBar>
+                        <TopBar>
+                            <ext:Toolbar ID="Toolbar1" runat="server">
+                                <Items>
+                                    <ext:Button ID="Button4" runat="server" Text="Imprimir" Icon="Printer" Handler="this.up('grid').print();" />
+                                    <ext:Button ID="Button5" runat="server" Text="Imprimir Página" Icon="Printer" Handler="this.up('grid').print({currentPageOnly : true});" />
+                                </Items>
+                            </ext:Toolbar>
+                        </TopBar>
+                    </ext:GridPanel>
+                </Items>
+            </ext:Container>
+        </Items>
+        <Buttons>
+            <ext:Button ID="Button1" runat="server" Text="Nuevo" Width="150">
+                <Listeners>
+                    <Click Handler="App.direct.AskNew();" />
+                </Listeners>
+            </ext:Button>
+            <ext:Button ID="Button2" runat="server" Text="Grabar" Width="150px">
+                <Listeners>
+                    <Click Handler="App.direct.AskSave();" />
+                </Listeners>
+            </ext:Button>
+            <ext:Button ID="Button3" runat="server" Text="Deshacer" Width="150px">
+                <Listeners>
+                    <Click Handler="App.direct.AskCancel();" />
+                </Listeners>
+            </ext:Button>
+            <ext:Button ID="btnBorrar" runat="server" Text="Borrar" Width="150px">
+                <Listeners>
+                    <Click Handler="App.direct.AskDel();" />
+                </Listeners>
+            </ext:Button>
+        </Buttons>
+    </ext:Panel>
+
+    <asp:SqlDataSource
+        ID="SqlDataSource2"
+        runat="server"
+        ConnectionString="<%$ ConnectionStrings:ClubSiteConn %>"
+        SelectCommand="SELECT RaceTypes.RaceTypeID, RaceTypes.Name, RaceTypes.Points, RaceTypes.Memo, RaceTypes.SportID, Sports.Name AS Expr1 
+                       FROM RaceTypes INNER JOIN Sports ON RaceTypes.SportID = Sports.SportID 
+                       ORDER BY RaceTypes.Name" />
 </asp:Content>

@@ -21,17 +21,19 @@ namespace ClubSite.Model
         public string Memo { get; set; }
 
         public Int32 SportID { get; set; }
+
         public virtual Sport Sport { get; set; }
+
         public virtual ICollection<Race> Races { get; set; }
 
         #endregion
 
         //Constructors
         #region
+
         public RaceType()
         {
         }
-
         public RaceType(Int32 anID, string aName, int aPoints, string aMemo, Int32 aSportID)
         {
             this.RaceTypeID = anID;
@@ -40,10 +42,13 @@ namespace ClubSite.Model
             this.Memo = aMemo;
             this.SportID = aSportID;
         }
+
         #endregion
+
 
         //Methods
         #region
+
         public void SetRaceType(int anID, string aName, int points, string aMemo, Int32 aSportID)
         {
             this.RaceTypeID = anID;
@@ -52,7 +57,6 @@ namespace ClubSite.Model
             this.Memo = aMemo;
             this.SportID = aSportID;
         }
-
         public void ClearRaceType()
         {
             this.RaceTypeID = 0;
@@ -61,7 +65,6 @@ namespace ClubSite.Model
             this.Memo = null;
             this.SportID = 0;
         }
-
         public void CopyRaceType(RaceType aRaceType)
         {
             this.RaceTypeID = aRaceType.RaceTypeID;
@@ -70,6 +73,7 @@ namespace ClubSite.Model
             this.Memo = aRaceType.Memo;
             this.SportID = aRaceType.SportID;
         }
+
         #endregion
 
 
