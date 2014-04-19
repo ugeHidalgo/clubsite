@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using ClubSite.Model;
+using Ext.Net;
+
 
 namespace ClubSite.AdminPages
 {
@@ -12,42 +14,34 @@ namespace ClubSite.AdminPages
     {
         static Race rUsed;
         static Race oldRUsed;
+        static string aMemberUserName = null;
+        static Int32 aRaceIdSelectedInCombo = 0;
 
-        public IQueryable<Race> ddlRaces_GetData()
-        {
-            var db = new ClubSiteContext();
-            IQueryable<Race> query = from races in db.Races
-                                     orderby races.RaceDate descending, races.Name
-                                     select races;
-            return query;
+        private Race LoadRaceFromForm()
+        {            
+            Int32 anId = Convert.ToInt32(txbxID.Text);
+            using (ClubSiteContext db = new ClubSiteContext())
+            {
+                Race aRace = (from r in db.Races where r.Id==anId select r).FirstOrDefault();
+                return aRace;
+            }                        
         }
-        public IQueryable ddlRaceTypes_GetData()
-        {
-            var db = new ClubSiteContext();
-            var query = from rt in db.RaceTypes
-                        join s in db.Sports on rt.SportID equals s.SportID
-                        orderby s.Name, rt.Name
-                        select new { rt.RaceTypeID, Name = (s.Name + " / " + rt.Name) };
-            return query;
-        }
-        public IQueryable dllMembers_GetData()
-        {
-            var db = new ClubSiteContext();
-            IQueryable query = from m in db.Members
-                               orderby m.SecondName
-                               select new { aMember = (m.SecondName + ", " + m.FirstName), m.UserName };
-            return query;
-        }
-
-
         private void LoadRaceInForm(Race aRace)
         {
             txbxID.Text = Convert.ToString(aRace.Id);
             txbxName.Text = aRace.Name;
             txbxDate.Text = aRace.RaceDate.ToShortDateString();
-            txbxRaceTypeID.Text = Convert.ToString(aRace.RaceTypeId);
-            ListItem aValue = ddlRaceTypes.Items.FindByValue(txbxRaceTypeID.Text);
-            ddlRaceTypes.SelectedIndex = ddlRaceTypes.Items.IndexOf(aValue);
+
+            //Load data for RaceType combo
+            if (aRace.RaceTypeId == 0)
+                cbRaceTypes.Value = "";
+            else
+            {
+                object aRaceTypeID = aRace.RaceTypeId;
+                cbRaceTypes.Select(aRaceTypeID);
+            }
+            //ListItem aValue = ddlRaceTypes.Items.FindByValue(txbxRaceTypeID.Text);
+            //ddlRaceTypes.SelectedIndex = ddlRaceTypes.Items.IndexOf(aValue);
 
             if (aRace.Address == null)
             {
@@ -67,42 +61,18 @@ namespace ClubSite.AdminPages
             }
             txbxMemo.Text = aRace.Memo;
 
+
+            //Load Members taken part in actual race   
+            LoadDataInGridForMembersInRace();
+
             //Select members taken part in race with ID aRace.Id, and populate lbClubbersTakenPart
-            loadClubbersTakenPart();
+            //loadClubbersTakenPart();
 
             //Search points asigned to race an put on txbxPoints
-            txbxPoints.Text = aRace.RaceType.Points.ToString();
-        }
-
-        private void loadClubbersTakenPart()
-        {
-            //Delete content
-            lbClubbersTakingPart.Items.Clear();
-
-            using (var db = new ClubSiteContext())
-            {
-                Race aRace = (from r in db.Races
-                              where r.Id == rUsed.Id
-                              select r).FirstOrDefault();
-                if (aRace != null)
-                {
-                    foreach (Member aMember in aRace.Members)
-                    {
-                        string fullName = aMember.SecondName + ", " + aMember.FirstName;
-                        ListItem memberToAdd = new ListItem { Value = aMember.UserName, Text = fullName };
-                        lbClubbersTakingPart.Items.Add(memberToAdd);
-                    }
-                }
-            }
-        }
-        private Race LoadRaceFromForm()
-        {            
-            Int32 anId = Convert.ToInt32(txbxID.Text);
-            using (ClubSiteContext db = new ClubSiteContext())
-            {
-                Race aRace = (from r in db.Races where r.Id==anId select r).FirstOrDefault();
-                return aRace;
-            }                        
+            if (aRace.RaceTypeId == 0)
+                txbxPoints.Text = "0";
+            else if (aRace.RaceType != null)
+                txbxPoints.Text = aRace.RaceType.Points.ToString();
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -120,45 +90,407 @@ namespace ClubSite.AdminPages
                     if (rUsed == null)
                     {
                         rUsed = new Race();
-                        Response.Write("<script>alert('No hay ningúna carrera registrada en la Base de datos.')</script>");
+                        X.Msg.Alert("Atención", "No hay ningúna competición registrada en la Base de datos.").Show();
                     }
+
+                    //Load data for racetypes combobox
+                    LoadDataInGridForRaceTypes();
+
+                    //Load data for clubbers combobox
+                    LoadDataInGridForClubbers();
+
+                    //Load data for Members in Race
+                    LoadDataInGridForMembersInRace();
+
                     oldRUsed.CopyRace(rUsed);
                     LoadRaceInForm(rUsed);
                 }
             }
         }
-
-        protected void btnNuevo_Click(object sender, EventArgs e)
+        protected void LoadDataInGridForRaceTypes()
         {
+            using (var db = new ClubSiteContext())
+            {
+                Store storeRaceTypes = this.cbRaceTypes.GetStore();
+                storeRaceTypes.DataSource = from rt in db.RaceTypes
+                                            join s in db.Sports on rt.SportID equals s.SportID
+                                            orderby s.Name, rt.Name
+                                            select new { rt.RaceTypeID, Name = (s.Name + " / " + rt.Name) };
+                storeRaceTypes.DataBind();
+            }
+        }
+        protected void LoadDataInGridForClubbers()
+        {
+            using (var db = new ClubSiteContext())
+            {
+                //Load data for clubbers combobox
+                Store storeClubbers = this.cbClubbers.GetStore();
+                storeClubbers.DataSource = from m in db.Members
+                                           where m.State == true
+                                           orderby m.SecondName, m.FirstName
+                                           select new { m.UserName, Name = (m.SecondName + ", " + m.FirstName) };
+                storeClubbers.DataBind();
+            }
+        }
+        protected void LoadDataInGridForMembersInRace()
+        {
+            using (var db = new ClubSiteContext())
+            {
+                //Load data for Members in Race
+
+                Store storeMembersInRace = this.GPClubbersEnComp.GetStore();
+                if (rUsed.Id != 0)
+                {
+                    var aRace = (from r in db.Races
+                                 where r.Id == rUsed.Id
+                                 select r).FirstOrDefault();
+                    storeMembersInRace.DataSource = aRace.Members;
+                }
+                else
+                {                    
+                    storeMembersInRace.DataSource = new List<Member>();
+                }
+                storeMembersInRace.DataBind();
+            }
+        }
+
+        //protected void btnDelClubber_Click(object sender, EventArgs e)
+        //{
+        //    //string messageError = "";
+        //    //String memberUserName = lbClubbersTakingPart.Text;
+        //    //ListItem memberToDelete = lbClubbersTakingPart.Items.FindByValue(memberUserName);
+        //    //if (memberToDelete == null)
+        //    //{
+        //    //    messageError = "<script>alert('No hay Clubbers para borrar de la carrera')</script>";
+        //    //}
+        //    //else
+        //    //{
+        //    //    //Delete clubber/race from BD
+        //    //    DeleteClubberTakingPartInRace(memberUserName);
+
+        //    //    //Delete clubber from List Box
+        //    //    lbClubbersTakingPart.Items.Remove(memberToDelete);
+        //    //    messageError = "<script>alert('Clubbers borrado de la carrera')</script>";
+        //    //}
+        //    //Response.Write(messageError);
+        //}
+
+        ////private void DeleteClubberTakingPartInRace(string memberUserName)
+        ////{
+        ////    using (var db = new ClubSiteContext())
+        ////    {
+        ////        Race aRace = (from r in db.Races
+        ////                      where r.Id == rUsed.Id
+        ////                      select r).FirstOrDefault();
+
+        ////        Member aMember = (from m in db.Members
+        ////                          where m.UserName == memberUserName
+        ////                          select m).FirstOrDefault();
+        ////        aRace.Members.Remove(aMember);
+        ////        db.SaveChanges();
+        ////    }
+        ////}
+
+        protected void cbRaceTypesChangeValue(object sender, DirectEventArgs e)
+        {
+            //Search points for RaceType Selected
+            string points = "";
+            try
+            {
+                Int32 aRaceTypeId = Convert.ToInt32(cbRaceTypes.SelectedItem.Value);
+                using (var db = new ClubSiteContext())
+                {
+                    RaceType aRT = (from rt in db.RaceTypes
+                                    where rt.RaceTypeID == aRaceTypeId
+                                    select rt).FirstOrDefault();
+                    if (aRT != null)
+                        points = Convert.ToString(aRT.Points);
+
+                }
+                txbxPoints.Text = points;
+            }
+            catch (Exception)
+            {
+                txbxPoints.Text = "";
+            }
+        }
+
+        private bool VerifyIfClubberExist(string aName)
+        {
+            bool exist = false;
+            using (var deb = new ClubSiteContext())
+            {
+                var item = (from m in deb.Members where m.UserName == aName && m.State == true select m).FirstOrDefault();
+                if (item != null) exist = true;
+            }
+            return exist;
+        }
+
+        protected void GPRaces_Cell_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                CellSelectionModel sm = this.GPRaces.GetSelectionModel() as CellSelectionModel;
+                Int32 actualRId = Convert.ToInt32(sm.SelectedCell.RecordID);
+                using (var db = new ClubSiteContext())
+                {
+                    rUsed = (from races in db.Races
+                             where races.Id == actualRId
+                             select races).FirstOrDefault();
+
+                    if (rUsed == null)
+                        X.Msg.Alert("Atención", "No hay ninguna carrera registrada en la Base de datos.").Show();
+                    oldRUsed.CopyRace(rUsed);
+
+                    //Loads model object data into form
+                    LoadRaceInForm(rUsed);
+                }
+            }
+            catch (Exception) { }
+            btnBorrar.Enabled = true;
+        }
+        protected void StoreCbRaceTypes_ReadData(object sender, Ext.Net.StoreReadDataEventArgs e)
+        {
+            using (var db = new ClubSiteContext())
+            {
+                Store store = this.cbRaceTypes.GetStore();
+                store.DataSource = from rt in db.RaceTypes
+                                   join s in db.Sports on rt.SportID equals s.SportID
+                                   orderby s.Name, rt.Name
+                                   select new { rt.RaceTypeID, Name = (s.Name + " / " + rt.Name) };
+                store.DataBind();
+            }
+        }
+        protected void StoreCbClubbers_ReadData(object sender, StoreReadDataEventArgs e)
+        {
+            using (var db = new ClubSiteContext())
+            {
+                Store store = this.cbClubbers.GetStore();
+                store.DataSource = from m in db.Members
+                                   where m.State == true
+                                   orderby m.SecondName, m.FirstName                                   
+                                   select new { m.UserName, Name = (m.SecondName + ", " + m.FirstName) };
+                store.DataBind();
+            }
+        }
+        protected void StoreGPClubbersEnComp_ReadData(object sender, StoreReadDataEventArgs e)
+        {
+            using (var db = new ClubSiteContext())
+            {
+                Store store = this.GPClubbersEnComp.GetStore();
+                var aRace = (from r in db.Races
+                             where r.Id == rUsed.Id
+                             select r).FirstOrDefault();
+                store.DataSource = aRace.Members;
+                store.DataBind();
+            }
+
+        }
+
+        [DirectMethod]
+        public void AskNew()
+        {
+            X.Msg.Confirm("Atención", "¿Desea crear una nueva competición?", new MessageBoxButtonsConfig
+            {
+                Yes = new MessageBoxButtonConfig
+                {
+                    Handler = "App.direct.DoNew()",
+                    Text = "Si"
+                }
+                ,
+                No = new MessageBoxButtonConfig
+                {
+                    Handler = "App.direct.DoNotNew()",
+                    Text = "No"
+                }
+            }).Show();
+        }
+
+        [DirectMethod]
+        public void DoNotNew()
+        {
+            Notification.Show(new NotificationConfig { Title = "Aviso", Icon = Icon.Information, Html = "Cancelada la creación de nueva competición" });
+        }
+
+        [DirectMethod]
+        public void DoNew()
+        {
+            Notification.Show(new NotificationConfig { Title = "Aviso", Icon = Icon.Information, Html = "Ficha para nueva competición" });
             oldRUsed.CopyRace(rUsed);
             rUsed.ClearRace();
             LoadRaceInForm(rUsed);
         }
 
-        protected void btnGrabar_Click(object sender, EventArgs e)
+        [DirectMethod]
+        public void AskCancel()
+        {
+            X.Msg.Confirm("Atención", "¿Desea cancelar la edición de la competición actual?", new MessageBoxButtonsConfig
+            {
+                Yes = new MessageBoxButtonConfig
+                {
+                    Handler = "App.direct.DoCancel()",
+                    Text = "Si"
+                }
+                ,
+                No = new MessageBoxButtonConfig
+                {
+                    Handler = "App.direct.DoNotCancel()",
+                    Text = "No"
+                }
+            }).Show();
+        }
+
+        [DirectMethod]
+        public void DoNotCancel()
+        {
+            Notification.Show(new NotificationConfig { Title = "Aviso", Icon = Icon.Information, Html = "Puede continuar la edicion." });
+        }
+
+        [DirectMethod]
+        public void DoCancel()
+        {
+            Notification.Show(new NotificationConfig { Title = "Aviso", Icon = Icon.Information, Html = "Cancelada la edición" });
+            rUsed.CopyRace(oldRUsed);
+            LoadRaceInForm(rUsed);
+        }
+
+        [DirectMethod]
+        public void AskDel()
+        {
+            X.Msg.Confirm("Atención", "¿Desea borrar la competición mostrada en la ficha?", new MessageBoxButtonsConfig
+            {
+                Yes = new MessageBoxButtonConfig
+                {
+                    Handler = "App.direct.DoDel()",
+                    Text = "Si"
+                }
+                ,
+                No = new MessageBoxButtonConfig
+                {
+                    Handler = "App.direct.DoNotDel()",
+                    Text = "No"
+                }
+            }).Show();
+        }
+
+        [DirectMethod]
+        public void DoNotDel()
+        {
+            Notification.Show(new NotificationConfig { Title = "Aviso", Icon = Icon.Information, Html = "Se ha cancelado el borrado." });
+        }
+
+        [DirectMethod]
+        public void DoDel()
+        {
+            Notification.Show(new NotificationConfig { Title = "Aviso", Icon = Icon.Information, Html = "Borrando la competición en pantalla." });
+            if (rUsed.Id == 0)
+            { //No Race selected
+                X.Msg.Alert("Atención", "No hay nada que borrar ya que no hay competiciones registradas.").Show();
+            }
+            else
+            {
+                //Del race
+                using (var db = new ClubSiteContext())
+                {
+                    Race item = (from races in db.Races
+                                     where races.Id == rUsed.Id
+                                     select races).FirstOrDefault();
+                    if (item == null)
+                    {
+                        // The item wasn't found
+                        ModelState.AddModelError("", String.Format("Competición con id : {0} no encontrada", rUsed.Id));
+                        X.Msg.Alert("Atención", "Competición no encontrada. Borrado cancelado,").Show();
+                        return;
+                    }
+                    db.Races.Remove(item);
+                    db.SaveChanges();
+                    this.StoreGPRaces.DataBind();
+                    X.Msg.Alert("Atención", "Competición borrada.").Show();
+
+                    //Load data for first race type
+                    rUsed = (from races in db.Races
+                             orderby races.RaceDate descending, races.Name
+                             select races).FirstOrDefault();
+                    if (rUsed == null)
+                    {
+                        //Last item was erased. No items in BD.
+                        rUsed = new Race();
+                        X.Msg.Alert("Atención", "No queda ninguna competición registrada en la Base de datos.").Show();
+                    }
+                    oldRUsed.CopyRace(rUsed);
+                    //Loads model object data into form
+                    LoadRaceInForm(rUsed);
+                }
+            }
+        }
+
+        [DirectMethod]
+        public void AskSave()
         {
             bool sigue = true;
-            int aRaceIDSelected = 0;
             string messageError = null;
 
             //Verify name exists
             if (txbxName.Text == "")
             {
                 sigue = false;
-                messageError = "<script>alert('Falta el nombre de la carrera')</script>";
+                messageError = "Falta el nombre de la competición.";
             }
 
             //Verify is a RaceTypeID was choosed.
             if (sigue)
             {
-                aRaceIDSelected = Convert.ToInt32(txbxRaceTypeID.Text);
-                if (aRaceIDSelected == 0)
-                {
+                try
+                {   //If no race type choosed from combo box
+                    aRaceIdSelectedInCombo = Convert.ToInt32(cbRaceTypes.SelectedItem.Value);
+                    if (aRaceIdSelectedInCombo == 0)
+                    {
+                        sigue = false;
+                        messageError = "Escoje un tipo de competicion de la lista desplegable.";
+                    }
+                }
+                catch (Exception)
+                {   //If something wrong written in combobox
                     sigue = false;
-                    messageError = "<script>alert('Escoje un tipo de carrera.')</script>";
+                    messageError = "El tipo de competición que has introducido es desconocido.<br /><br />Escoje uno de la lista desplegable.";
                 }
             }
 
+            if (sigue)
+            {
+                X.Msg.Confirm("Atención", "¿Grabamos los datos en pantalla?", new MessageBoxButtonsConfig
+                {
+                    Yes = new MessageBoxButtonConfig
+                    {
+                        Handler = "App.direct.DoSave()",
+                        Text = "Si"
+                    }
+                    ,
+                    No = new MessageBoxButtonConfig
+                    {
+                        Handler = "App.direct.DoNotSave()",
+                        Text = "No"
+                    }
+                }).Show();
+            }
+            else
+            {
+                X.Msg.Alert("Atención", messageError).Show();
+            }
+        }
+
+        [DirectMethod]
+        public void DoNotSave()
+        {
+            Notification.Show(new NotificationConfig { Title = "Aviso", Icon = Icon.Information, Html = "Grabación Cancelada" });
+        }
+
+        [DirectMethod]
+        public void DoSave()
+        {
+            bool sigue = true;
+            string messageError = null;
+           
             //Save if conditions are ok.
             if (sigue)
             {
@@ -171,12 +503,12 @@ namespace ClubSite.AdminPages
                         aRace.Name = txbxName.Text;
                         aRace.Name = txbxName.Text;
                         aRace.RaceDate = Convert.ToDateTime(txbxDate.Text);
-                        aRace.RaceTypeId = Convert.ToInt32(txbxRaceTypeID.Text);
+                        aRace.RaceTypeId = aRaceIdSelectedInCombo;
                         Address anAddres = new Address(txbxStreet.Text, txbxNumber.Text, txbxCity.Text, txbxCountry.Text, txbxPostalCode.Text);
                         aRace.Address = anAddres;
                         aRace.Memo = txbxMemo.Text;
                         db.Races.Add(aRace);
-                        messageError = "<script>alert('Nueva carrera grabada')</script>";
+                        messageError = "Nueva competición grabada";
                     }
                     else
                     { //Update actual Race
@@ -186,275 +518,280 @@ namespace ClubSite.AdminPages
                         if (aRace == null)
                         {
                             // The item wasn't found
-                            ModelState.AddModelError("", String.Format("Carrera con Id : {0} no encontrada", rUsed.Id));
+                            ModelState.AddModelError("", String.Format("Competición con Id : {0} no encontrada", rUsed.Id));
+                            X.Msg.Alert("Atención","Competición no encontrada. Grabación de datos cancelada.").Show();
                             return;
                         }
                         aRace.Name = txbxName.Text;
                         aRace.RaceDate = Convert.ToDateTime(txbxDate.Text);
-                        aRace.RaceTypeId = Convert.ToInt32(txbxRaceTypeID.Text);
+                        aRace.RaceTypeId = aRaceIdSelectedInCombo;
                         Address anAddres = new Address(txbxStreet.Text, txbxNumber.Text, txbxCity.Text, txbxCountry.Text, txbxPostalCode.Text);
                         aRace.Address = anAddres;
                         aRace.Memo = txbxMemo.Text;
-                        messageError = "<script>alert('Datos de carrera actualizados')</script>";
+                        messageError = "Datos de competición actualizados";
                     }
                     db.SaveChanges();
                     LoadRaceInForm(aRace);  //To update the ID (identity file)                                  
                     rUsed.CopyRace(aRace);
                     oldRUsed.CopyRace(rUsed);
-                    gvRaces.DataBind();
-                    Response.Write(messageError);
+                    StoreGPRaces.DataBind();
+                    X.Msg.Alert("Atención", messageError).Show();
                 }
                 btnBorrar.Enabled = true;
             }
             else
             {
-                Response.Write(messageError);
+                X.Msg.Alert("Atención", messageError).Show();
             }
         }
 
-        protected void btnCancelar_Click(object sender, EventArgs e)
-        {
-            rUsed.CopyRace(oldRUsed);
-            LoadRaceInForm(rUsed);
-        }
-
-        protected void btnBorrar_Click(object sender, EventArgs e)
-        {
-            if (rUsed.Id == 0)
-            { //No Race Type selected
-                Response.Write(@"<script>alert('No hay nada que borrar ya que no hay carreras registradas.')</script>");
-            }
-            else
-            {
-                using (var db = new ClubSiteContext())
-                {
-                    Race item = (from race in db.Races
-                                 where race.Id == rUsed.Id
-                                 select race).FirstOrDefault();
-                    if (item == null)
-                    {
-                        // The item wasn't found
-                        ModelState.AddModelError("", String.Format("Carrera con id : {0} no encontrada", rUsed.Id));
-                        return;
-                    }
-                    db.Races.Remove(item);
-                    db.SaveChanges();
-                    gvRaces.DataBind();
-
-                    try
-                    {
-                        //Select the id for the race.            
-                        Int32 actualRId = Convert.ToInt32(gvRaces.SelectedRow.Cells[1].Text);
-
-                        //Search for the Race and load into model object.
-                        rUsed = (from races in db.Races
-                                 orderby races.RaceDate descending, races.Name
-                                 select races).FirstOrDefault();
-
-                        if (rUsed == null)
-                        {
-                            rUsed = new Race();
-                            Response.Write("<script>alert('No queda ninguna carrera registrada en la Base de datos.')</script>");
-                        }
-                    }
-                    catch (Exception)
-                    {
-                        //Last object was deleted, search for new object if it exists
-                        try
-                        {
-                            //Select the id for the race type.            
-                            gvRaces.SelectedIndex = gvRaces.Rows.Count - 1;
-                            Int32 actualRtId = Convert.ToInt32(gvRaces.SelectedRow.Cells[1].Text);
-
-                            //Search for the RaceType and load into model object.
-                            rUsed = (from races in db.Races
-                                     orderby races.RaceDate descending, races.Name
-                                     select races).FirstOrDefault();
-
-                            if (rUsed == null)
-                            {
-                                rUsed = new Race();
-                                Response.Write("<script>alert('No queda ninguna carrera registrada en la Base de datos.')</script>");
-                            }
-                        }
-                        catch (Exception)
-                        {
-                            rUsed = new Race();
-                            Response.Write("<script>alert('No queda ninguna carrera registrada en la Base de datos.')</script>");
-                        }
-                    }
-                    oldRUsed.CopyRace(rUsed);
-                    //Loads model object data into form
-                    LoadRaceInForm(rUsed);
-                }
-            }
-        }
-
-        protected void gvRaces_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                //Select the id for the race.            
-                Int32 actualRId = Convert.ToInt32(gvRaces.SelectedRow.Cells[1].Text);
-
-                //Search for the Race and load into model object.
-                using (var db = new ClubSiteContext())
-                {
-                    rUsed = (from races in db.Races
-                             orderby races.RaceDate descending, races.Name
-                             where races.Id == actualRId
-                             select races).FirstOrDefault();
-
-                    if (rUsed == null)
-                        Response.Write("<script>alert('No hay ningúna carrera registrada en la Base de datos.')</script>");
-                    oldRUsed.CopyRace(rUsed);
-
-                    //Loads model object data into form
-                    LoadRaceInForm(rUsed);
-                }
-            }
-            catch (Exception) { }
-            btnBorrar.Enabled = true;
-        }
-
-        protected void ddlRaces_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                //Select the id for the race.            
-                Int32 actualRId = Convert.ToInt32(ddlRaces.SelectedValue);
-
-                //Search for the Race and load into model object.
-                using (var db = new ClubSiteContext())
-                {
-                    rUsed = (from races in db.Races
-                             orderby races.RaceDate descending, races.Name
-                             where races.Id == actualRId
-                             select races).FirstOrDefault();
-
-                    if (rUsed == null)
-                        Response.Write("<script>alert('No hay ningúna carrera registrada en la Base de datos.')</script>");
-                    oldRUsed.CopyRace(rUsed);
-
-                    //Loads model object data into form
-                    LoadRaceInForm(rUsed);
-                }
-            }
-            catch (Exception) { }
-            btnBorrar.Enabled = true;
-        }
-
-        protected void ddlRaceTypes_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            // Put the RaceTypeId on text field
-            Int32 rtID =Convert.ToInt32(ddlRaceTypes.SelectedValue);
-            txbxRaceTypeID.Text = ddlRaceTypes.SelectedValue;
-
-            //Search for points asigned to RaceType.
-            using (ClubSiteContext db = new ClubSiteContext())
-            {
-                RaceType anRT = (from rt in db.RaceTypes where rt.RaceTypeID==rtID select rt).FirstOrDefault();
-                txbxPoints.Text = anRT.Points.ToString();
-            }
-        }
-
-        protected void ddlRaceTypes_DataBound(object sender, EventArgs e)
-        {
-            //Loads data for the combo box for the firts load.
-            ListItem aValue = ddlRaceTypes.Items.FindByValue(txbxRaceTypeID.Text);
-            ddlRaceTypes.SelectedIndex = ddlRaceTypes.Items.IndexOf(aValue);
-        }
-
-        protected void btnAddClubber_Click(object sender, EventArgs e)
+        [DirectMethod]
+        public void AskAddClubber()
         {
             bool sigue = true;
-            string messageError = "";
+            string messageError = "";            
 
             //Verify reace exists           
             if (txbxID.Text == "0")
             {
                 sigue = false;
-                messageError = "<script>alert('Graba primero los datos de la carrera')</script>";
+                messageError = "Grabe primero los datos de la carrera antes de añadir clubbers.";
             }
 
             if (sigue)
             {
-                //Search for cluber in list box
-                String memberUserName = ddlMembers.SelectedValue;
-                ListItem memberToAdd = ddlMembers.SelectedItem; //Data showed in the Drop down list
-                if (lbClubbersTakingPart.Items.FindByValue(memberUserName) != null)
+                //Take clubber´s username 
+                aMemberUserName = cbClubbers.SelectedItem.Value;
+                if (aMemberUserName == null)
                 {
+                    messageError = "Seleccione ántes el clubber a añadir de la lista desplegable.";
                     sigue = false;
-                    messageError = "<script>alert('Ya esta inscrito ese clubber en la carrera')</script>";
+                }
+            }
+
+            if (sigue)
+            {
+                //Verify if clubber exist 
+                messageError = "El ususario introducido en el desplegable no es un clubber válido.";
+                sigue = VerifyIfClubberExist(aMemberUserName);
+            }
+
+            if (sigue)
+            {
+
+                X.Msg.Confirm("Atención", "¿Añadimos a " + aMemberUserName + " a la competición?", new MessageBoxButtonsConfig
+                {
+                    Yes = new MessageBoxButtonConfig
+                    {
+                        Handler = "App.direct.DoAddClubber()",
+                        Text = "Si"
+                    }
+                    ,
+                    No = new MessageBoxButtonConfig
+                    {
+                        Handler = "App.direct.DoNotAddClubber()",
+                        Text = "No"
+                    }
+                }).Show();
+            }
+            else
+            {
+                X.Msg.Alert("Atención", messageError).Show();
+            }
+        }
+
+        [DirectMethod]
+        public void DoNotAddClubber()
+        {
+            Notification.Show(new NotificationConfig { Title = "Aviso", Icon = Icon.Information, Html = "Cancelado el añadir clubber" });
+        }
+
+        [DirectMethod]
+        public void DoAddClubber()
+        {
+            bool sigue = true;
+            string messageError = "";                       
+                        
+            //Load data for username
+            using (var db = new ClubSiteContext())
+            {
+                Member aMember = new Member();
+                Race aRace = new Race();
+                aMember = (from m in db.Members where m.UserName == aMemberUserName select m).FirstOrDefault();
+                aRace = (from r in db.Races where r.Id == rUsed.Id select r).FirstOrDefault();
+
+                //verify if member is in members list for race
+                if (aRace.Members.Contains(aMember) == true)
+                {
+                    messageError = aMemberUserName + " ya está ese inscrito en la competición.";
+                    sigue = false;
                 }
                 else
                 {
-                    //Add Clubber to List Box               
-                    lbClubbersTakingPart.Items.Add(memberToAdd);
+                    try
+                    {
+                        aRace.Members.Add(aMember);
+                        db.SaveChanges();
+                        LoadDataInGridForMembersInRace();
+                        X.Msg.Alert("Atención", "Se ha inscrito a " + aMemberUserName + " en la competición.").Show();
+                    }
+                    catch (Exception)
+                    {
+                        X.Msg.Alert("Atención", "Hubo un problema al añadir a " + aMemberUserName +"a la lista de participantes en la competición.").Show();
+                    }
+                }
+            }
+            
 
-                    //Save data of clubber/race                     
-                    SaveClubberTakingPartInRace(memberUserName);
+            if (!sigue)
+            {
+                X.Msg.Alert("Atención", messageError).Show();
+            }
+        }
 
-                    lbClubbersTakingPart.SelectedIndex = lbClubbersTakingPart.Items.IndexOf(memberToAdd);
+        [DirectMethod]
+        public void AskDelClubber()
+        {
+            bool sigue = true;
+
+            //Take clubber´s username from GridView
+            CellSelectionModel sm = this.GPClubbersEnComp.GetSelectionModel() as CellSelectionModel;
+            aMemberUserName = sm.SelectedCell.RecordID;
+
+
+            X.Msg.Confirm("Atención", "¿Quitamos a " + aMemberUserName + " de la competición?", new MessageBoxButtonsConfig
+            {
+                Yes = new MessageBoxButtonConfig
+                {
+                    Handler = "App.direct.DoDelClubber()",
+                    Text = "Si"
+                }
+                ,
+                No = new MessageBoxButtonConfig
+                {
+                    Handler = "App.direct.DoNotDelClubber()",
+                    Text = "No"
+                }
+            }).Show();
+            
+        }        
+
+        [DirectMethod]
+        public void DoNotDelClubber()
+        {
+            Notification.Show(new NotificationConfig { Title = "Aviso", Icon = Icon.Information, Html = "Cancelado el quitar clubber" });
+        }
+
+        [DirectMethod]
+        public void DoDelClubber()
+        {
+            bool sigue = true;
+            string messageError = "";            
+
+            //Verify reace exists           
+            if (txbxID.Text == "0")
+            {
+                sigue = false;
+                messageError = "No hay clubbers que quitar.";
+            }
+
+            if (sigue)
+            {
+                if (aMemberUserName == null)
+                {
+                    messageError = "Seleccione un clubber de la tabla de participantes incluidos en la competición.";
+                    sigue = false;
+                }
+            }
+
+            if (sigue)
+            {
+                //Load data for username                
+                using (var db = new ClubSiteContext())
+                {
+                    Member aMember = new Member();
+                    Race aRace = new Race();
+                    aMember = (from m in db.Members where m.UserName == aMemberUserName select m).FirstOrDefault();
+                    aRace = (from r in db.Races where r.Id == rUsed.Id select r).FirstOrDefault();
+                    try
+                    {
+                        aRace.Members.Remove(aMember);
+                        db.SaveChanges();
+                        LoadDataInGridForMembersInRace();
+                        X.Msg.Alert("Atención", aMemberUserName + " quitad@ de la competición.").Show();
+                    }
+                    catch (Exception)
+                    {
+                        X.Msg.Alert("Atención", "Hubo un problema al quitar a " + aMemberUserName + " de la lista de participantes en la competición.").Show();
+                    }
+                    
                 }
             }
 
             if (!sigue)
             {
-                Response.Write(messageError);
+                X.Msg.Alert("Atención", messageError).Show();
             }
         }
 
-        protected void btnDelClubber_Click(object sender, EventArgs e)
+        [DirectMethod]
+        public void AskDelAllClubbers()
         {
-            string messageError = "";
-            String memberUserName = lbClubbersTakingPart.Text;
-            ListItem memberToDelete = lbClubbersTakingPart.Items.FindByValue(memberUserName);
-            if (memberToDelete == null)
-            {
-                messageError = "<script>alert('No hay Clubbers para borrar de la carrera')</script>";
-            }
-            else
-            {
-                //Delete clubber/race from BD
-                DeleteClubberTakingPartInRace(memberUserName);
+            bool sigue = true;
 
-                //Delete clubber from List Box
-                lbClubbersTakingPart.Items.Remove(memberToDelete);
-                messageError = "<script>alert('Clubbers borrado de la carrera')</script>";
+            if (rUsed.Id == 0)
+            { //No Race selected
+                X.Msg.Alert("Atención", "No hay nada que borrar ya que no hay competiciones registradas.").Show();
+                sigue = false;
             }
-            Response.Write(messageError);
+
+            if (sigue)
+            {
+                X.Msg.Confirm("Atención", "¿Desea borrar todos los clubbers inscritos en la competición?", new MessageBoxButtonsConfig
+                {
+                    Yes = new MessageBoxButtonConfig
+                    {
+                        Handler = "App.direct.DoDelAllClubbers()",
+                        Text = "Si"
+                    }
+                    ,
+                    No = new MessageBoxButtonConfig
+                    {
+                        Handler = "App.direct.DoNotDelAllClubbers()",
+                        Text = "No"
+                    }
+                }).Show();
+            }
         }
 
-        private void SaveClubberTakingPartInRace(string memberUserName)
+        [DirectMethod]
+        public void DoNotDelAllClubbers()
         {
+            Notification.Show(new NotificationConfig { Title = "Aviso", Icon = Icon.Information, Html = "Se ha cancelado el borrado." });
+        }
+
+        [DirectMethod]
+        public void DoDelAllClubbers()
+        {                       
+            //Del all races
             using (var db = new ClubSiteContext())
             {
-                Race aRace = (from r in db.Races
-                              where r.Id == rUsed.Id
-                              select r).FirstOrDefault();
-
-                Member aMember = (from m in db.Members
-                                  where m.UserName == memberUserName
-                                  select m).FirstOrDefault();
-                aRace.Members.Add(aMember);
+                Race aRace = (from races in db.Races
+                             where races.Id == rUsed.Id
+                             select races).FirstOrDefault();
+                if (aRace == null)
+                {
+                    // The item wasn't found
+                    ModelState.AddModelError("", String.Format("Competición con id : {0} no encontrada", rUsed.Id));
+                    X.Msg.Alert("Atención", "Competición no encontrada. Borrado cancelado,").Show();
+                    return;
+                }
+                aRace.Members.Clear();              
                 db.SaveChanges();
+                LoadDataInGridForMembersInRace();
+                X.Msg.Alert("Atención", "Clubbers inscritos en la carrera borrados.").Show();                
             }
-        }
-        private void DeleteClubberTakingPartInRace(string memberUserName)
-        {
-            using (var db = new ClubSiteContext())
-            {
-                Race aRace = (from r in db.Races
-                              where r.Id == rUsed.Id
-                              select r).FirstOrDefault();
-
-                Member aMember = (from m in db.Members
-                                  where m.UserName == memberUserName
-                                  select m).FirstOrDefault();
-                aRace.Members.Remove(aMember);
-                db.SaveChanges();
-            }
-        }
+            
+        }        
     }
 }

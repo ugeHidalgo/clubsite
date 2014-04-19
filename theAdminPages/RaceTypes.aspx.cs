@@ -51,7 +51,7 @@ namespace ClubSite.AdminPages
                     if (rtUsed == null)
                     {
                         rtUsed = new RaceType();
-                        X.Msg.Alert("Atención", "No hay ningún tipo de carrera registrada en la Base de datos.").Show();
+                        X.Msg.Alert("Atención", "No hay ningún tipo de competición registrada en la Base de datos.").Show();
                     }
                     oldRtUsed.CopyRaceType(rtUsed);
                     LoadRaceTypeInForm(rtUsed);
@@ -77,7 +77,7 @@ namespace ClubSite.AdminPages
                               select raceTypes).FirstOrDefault();
 
                     if (rtUsed == null)
-                        X.Msg.Alert("Atención", "No hay ningún tipo de carrera registrada en la Base de datos.").Show();
+                        X.Msg.Alert("Atención", "No hay ningún tipo de competición registrada en la Base de datos.").Show();
                     oldRtUsed.CopyRaceType(rtUsed);
 
                     //Loads model object data into form
@@ -185,10 +185,10 @@ namespace ClubSite.AdminPages
         [DirectMethod]
         public void DoDel()
         {
-            Notification.Show(new NotificationConfig { Title = "Aviso", Icon = Icon.Information, Html = "Borrando el tipo de carrera en pantalla edición" });
+            Notification.Show(new NotificationConfig { Title = "Aviso", Icon = Icon.Information, Html = "Borrando el tipo de competición en pantalla." });
             if (rtUsed.RaceTypeID == 0)
             { //No Race Type selected
-                X.Msg.Alert("Atención", "No hay nada que borrar ya que no hay tipos de carrera registradas.").Show();
+                X.Msg.Alert("Atención", "No hay nada que borrar ya que no hay tipos de competición registrados.").Show();
             }
             else
             {
@@ -201,14 +201,14 @@ namespace ClubSite.AdminPages
                     if (item == null)
                     {
                         // The item wasn't found
-                        ModelState.AddModelError("", String.Format("Tipo de carrera con id : {0} no encontrado", rtUsed.RaceTypeID));
-                        X.Msg.Alert("Atención", "Tipo de carrera no encontrada. Borrado cancelado,").Show();
+                        ModelState.AddModelError("", String.Format("Tipo de competición con id : {0} no encontrada", rtUsed.RaceTypeID));
+                        X.Msg.Alert("Atención", "Tipo de competición no encontrada. Borrado cancelado,").Show();
                         return;
                     }
                     db.RaceTypes.Remove(item);
                     db.SaveChanges();
                     this.Store1.DataBind();
-                    X.Msg.Alert("Atención", "Tipo de carrera borrada.").Show();
+                    X.Msg.Alert("Atención", "Tipo de competición borrada.").Show();
 
                     //Load data for first race type
                     rtUsed = (from raceTypes in db.RaceTypes
@@ -218,7 +218,7 @@ namespace ClubSite.AdminPages
                     {
                         //Last item was erased. No items in BD.
                         rtUsed = new RaceType();
-                        X.Msg.Alert("Atención", "No queda ningún tipo de carrera registrada en la Base de datos.").Show();
+                        X.Msg.Alert("Atención", "No queda ningún tipo de competición registrada en la Base de datos.").Show();
                     }                    
                     oldRtUsed.CopyRaceType(rtUsed); 
                     //Loads model object data into form
@@ -264,7 +264,7 @@ namespace ClubSite.AdminPages
             if (txbxName.Text == "")
             {
                 sigue = false;
-                messageError = "Falta el nombre del tipo de carrera.";
+                messageError = "Falta el nombre del tipo de competición.";
             }
 
             //Verify points exists and are between 0 and 10.000
@@ -294,14 +294,14 @@ namespace ClubSite.AdminPages
                     aSportIDSelected = Convert.ToInt32(cbxDeportes.SelectedItem.Value);//Convert.ToInt32(txbxSportID.Text);
                     if (aSportIDSelected <= 0)
                     {
-                        sigue = false;                       
-                       messageError="Escoje el tipo de deporte al que pertenece la carrera.";
+                        sigue = false;
+                        messageError = "Escoje el tipo de deporte al que pertenece la competición.";
                     }
                 }
                 catch (Exception)
                 {
                     sigue = false;
-                   messageError="Escoje el tipo de deporte al que pertenece la carrera.";
+                    messageError = "Escoje el tipo de deporte al que pertenece la competición.";
                 }
             }
 
@@ -328,7 +328,8 @@ namespace ClubSite.AdminPages
                         if (aRacetype == null)
                         {
                             // The item wasn't found
-                            ModelState.AddModelError("", String.Format("Tipo de carrera con Id : {0} no encontrada", rtUsed.RaceTypeID));
+                            ModelState.AddModelError("", String.Format("Tipo de competición con Id : {0} no encontrada", rtUsed.RaceTypeID));
+                            X.Msg.Alert("Atención","Tipo de competición no encontrada").Show();
                             return;
                         }
                         aRacetype.Name = txbxName.Text;
@@ -341,7 +342,7 @@ namespace ClubSite.AdminPages
                     rtUsed.CopyRaceType(aRacetype);
                     oldRtUsed.CopyRaceType(rtUsed);
                     this.Store1.DataBind();
-                    X.Msg.Alert("Atención", "Nuevo tipo de carrera grabada.").Show();
+                    X.Msg.Alert("Atención", "Nuevo tipo de competición grabada.").Show();
                 }
                 btnBorrar.Enabled = true;
             }

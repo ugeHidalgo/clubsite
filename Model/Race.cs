@@ -84,5 +84,10 @@ namespace ClubSite.Model
         }
 
         #endregion
+
+        public void AddMemberToRace(string anUserName)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

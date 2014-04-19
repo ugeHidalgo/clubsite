@@ -19,7 +19,7 @@
         <Items>
             <ext:Container ID="Container5" runat="server" Layout="FormLayout" Padding="5">
                 <Items>
-                    <ext:TextField ID="txfId" runat="server" FieldLabel="Código :" LabelAlign="Top" Width="100" Padding="5" ReadOnly="true" />
+                    <ext:TextField ID="txfId" runat="server" FieldLabel="Código :" LabelAlign="Top" Width="50" Padding="5" ReadOnly="true" Cls="ReadOnly" />
                 </Items>
             </ext:Container>
 

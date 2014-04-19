@@ -13,58 +13,31 @@ namespace ClubSite.AdminPages {
     public partial class Sponsors {
         
         /// <summary>
-        /// ddlSponsors control.
+        /// TabPanel1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSponsors;
+        protected global::Ext.Net.TabPanel TabPanel1;
         
         /// <summary>
-        /// imgLogoURL control.
+        /// PaDatosPrincipales control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image imgLogoURL;
+        protected global::Ext.Net.Panel PaDatosPrincipales;
         
         /// <summary>
-        /// btnBorraLogo control.
+        /// Container1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnBorraLogo;
-        
-        /// <summary>
-        /// btnSubeLogo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSubeLogo;
-        
-        /// <summary>
-        /// FileUploadLogo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload FileUploadLogo;
-        
-        /// <summary>
-        /// Label1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::Ext.Net.Container Container1;
         
         /// <summary>
         /// txbxId control.
@@ -73,52 +46,7 @@ namespace ClubSite.AdminPages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txbxId;
-        
-        /// <summary>
-        /// Label2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label2;
-        
-        /// <summary>
-        /// txbxNombre control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txbxNombre;
-        
-        /// <summary>
-        /// Label3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label3;
-        
-        /// <summary>
-        /// txbxContacto control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txbxContacto;
-        
-        /// <summary>
-        /// Label4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label4;
+        protected global::Ext.Net.TextField txbxId;
         
         /// <summary>
         /// txbxRegDate control.
@@ -127,16 +55,7 @@ namespace ClubSite.AdminPages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txbxRegDate;
-        
-        /// <summary>
-        /// Label9 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label9;
+        protected global::Ext.Net.TextField txbxRegDate;
         
         /// <summary>
         /// chbcActivo control.
@@ -145,277 +64,295 @@ namespace ClubSite.AdminPages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chbcActivo;
+        protected global::Ext.Net.Checkbox chbcActivo;
         
         /// <summary>
-        /// Label5 control.
+        /// txbxNombre control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label5;
+        protected global::Ext.Net.TextField txbxNombre;
         
         /// <summary>
-        /// txbxAportInicial control.
+        /// Container2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txbxAportInicial;
+        protected global::Ext.Net.Container Container2;
         
         /// <summary>
-        /// imgImageURL control.
+        /// FormLogoPanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image imgImageURL;
+        protected global::Ext.Net.FormPanel FormLogoPanel;
         
         /// <summary>
-        /// btnBorraImage control.
+        /// imgLogo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnBorraImage;
+        protected global::Ext.Net.Image imgLogo;
         
         /// <summary>
-        /// btnSubirImage control.
+        /// FileULogo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSubirImage;
+        protected global::Ext.Net.FileUploadField FileULogo;
         
         /// <summary>
-        /// FileUploadImage control.
+        /// btnCargarLogo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload FileUploadImage;
+        protected global::Ext.Net.Button btnCargarLogo;
         
         /// <summary>
-        /// Label10 control.
+        /// btnBorrarLogo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label10;
+        protected global::Ext.Net.Button btnBorrarLogo;
         
         /// <summary>
-        /// txbxAportRecibida control.
+        /// FormImgPanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txbxAportRecibida;
+        protected global::Ext.Net.FormPanel FormImgPanel;
         
         /// <summary>
-        /// Label6 control.
+        /// imgImage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label6;
+        protected global::Ext.Net.Image imgImage;
         
         /// <summary>
-        /// txbxCondOfertadas control.
+        /// FileUImg control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txbxCondOfertadas;
+        protected global::Ext.Net.FileUploadField FileUImg;
         
         /// <summary>
-        /// Label11 control.
+        /// btnCargarImg control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label11;
+        protected global::Ext.Net.Button btnCargarImg;
         
         /// <summary>
-        /// txbxBlogURL control.
+        /// btnBorrarImg control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txbxBlogURL;
+        protected global::Ext.Net.Button btnBorrarImg;
         
         /// <summary>
-        /// LaMovil control.
+        /// Container3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LaMovil;
+        protected global::Ext.Net.Container Container3;
         
         /// <summary>
-        /// txbxMobile control.
+        /// GPSponsors control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txbxMobile;
+        protected global::Ext.Net.GridPanel GPSponsors;
         
         /// <summary>
-        /// LaEMail control.
+        /// StoreGPSponsors control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LaEMail;
+        protected global::Ext.Net.Store StoreGPSponsors;
         
         /// <summary>
-        /// txbxEMail control.
+        /// Model1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txbxEMail;
+        protected global::Ext.Net.Model Model1;
         
         /// <summary>
-        /// LaTlf control.
+        /// Column1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LaTlf;
+        protected global::Ext.Net.Column Column1;
         
         /// <summary>
-        /// txbxTlf control.
+        /// Column2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txbxTlf;
+        protected global::Ext.Net.CheckColumn Column2;
         
         /// <summary>
-        /// LaCalle control.
+        /// Column3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LaCalle;
+        protected global::Ext.Net.DateColumn Column3;
         
         /// <summary>
-        /// txbxStreet control.
+        /// Column4 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txbxStreet;
+        protected global::Ext.Net.Column Column4;
         
         /// <summary>
-        /// LaNumero control.
+        /// Column5 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LaNumero;
+        protected global::Ext.Net.Column Column5;
         
         /// <summary>
-        /// txbxNumber control.
+        /// Column6 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txbxNumber;
+        protected global::Ext.Net.Column Column6;
         
         /// <summary>
-        /// LaPoblacion control.
+        /// GVSponsors1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LaPoblacion;
+        protected global::Ext.Net.GridView GVSponsors1;
         
         /// <summary>
-        /// txbxCity control.
+        /// CellSelectionModel1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txbxCity;
+        protected global::Ext.Net.CellSelectionModel CellSelectionModel1;
         
         /// <summary>
-        /// LaPais control.
+        /// PagingToolbar1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LaPais;
+        protected global::Ext.Net.PagingToolbar PagingToolbar1;
         
         /// <summary>
-        /// txbxCountry control.
+        /// Label7 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txbxCountry;
+        protected global::Ext.Net.Label Label7;
         
         /// <summary>
-        /// LaCPostal control.
+        /// ToolbarSpacer1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LaCPostal;
+        protected global::Ext.Net.ToolbarSpacer ToolbarSpacer1;
         
         /// <summary>
-        /// txbxPostalCode control.
+        /// ComboBox1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txbxPostalCode;
+        protected global::Ext.Net.ComboBox ComboBox1;
         
         /// <summary>
-        /// Label8 control.
+        /// ProgressBarPager1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label8;
+        protected global::Ext.Net.ProgressBarPager ProgressBarPager1;
         
         /// <summary>
-        /// txbxMemo control.
+        /// Toolbar1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txbxMemo;
+        protected global::Ext.Net.Toolbar Toolbar1;
+        
+        /// <summary>
+        /// Button4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button Button4;
+        
+        /// <summary>
+        /// Button5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button Button5;
         
         /// <summary>
         /// btnNuevo control.
@@ -424,7 +361,7 @@ namespace ClubSite.AdminPages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnNuevo;
+        protected global::Ext.Net.Button btnNuevo;
         
         /// <summary>
         /// btnGrabar control.
@@ -433,16 +370,16 @@ namespace ClubSite.AdminPages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnGrabar;
+        protected global::Ext.Net.Button btnGrabar;
         
         /// <summary>
-        /// btnCancelar control.
+        /// btnCancel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCancelar;
+        protected global::Ext.Net.Button btnCancel;
         
         /// <summary>
         /// btnBorrar control.
@@ -451,24 +388,276 @@ namespace ClubSite.AdminPages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnBorrar;
+        protected global::Ext.Net.Button btnBorrar;
         
         /// <summary>
-        /// gvSponsors control.
+        /// PaOtrosDatos control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvSponsors;
+        protected global::Ext.Net.Panel PaOtrosDatos;
         
         /// <summary>
-        /// SqlDataSource1 control.
+        /// Container5 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource1;
+        protected global::Ext.Net.Container Container5;
+        
+        /// <summary>
+        /// txbxContacto control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField txbxContacto;
+        
+        /// <summary>
+        /// txbxBlogURL control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField txbxBlogURL;
+        
+        /// <summary>
+        /// txbxEMail control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField txbxEMail;
+        
+        /// <summary>
+        /// Container6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Container Container6;
+        
+        /// <summary>
+        /// txbxTlf control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField txbxTlf;
+        
+        /// <summary>
+        /// txbxMobile control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField txbxMobile;
+        
+        /// <summary>
+        /// Container7 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Container Container7;
+        
+        /// <summary>
+        /// txbxStreet control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField txbxStreet;
+        
+        /// <summary>
+        /// txbxNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField txbxNumber;
+        
+        /// <summary>
+        /// Container8 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Container Container8;
+        
+        /// <summary>
+        /// txbxCity control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField txbxCity;
+        
+        /// <summary>
+        /// txbxPostalCode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField txbxPostalCode;
+        
+        /// <summary>
+        /// txbxCountry control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField txbxCountry;
+        
+        /// <summary>
+        /// Container9 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Container Container9;
+        
+        /// <summary>
+        /// txbxMemo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextArea txbxMemo;
+        
+        /// <summary>
+        /// PaCondiciones control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Panel PaCondiciones;
+        
+        /// <summary>
+        /// Container10 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Container Container10;
+        
+        /// <summary>
+        /// txbxAportInicial control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField txbxAportInicial;
+        
+        /// <summary>
+        /// txbxAportRecibida control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField txbxAportRecibida;
+        
+        /// <summary>
+        /// Container11 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Container Container11;
+        
+        /// <summary>
+        /// txbxCondOfertadas control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextArea txbxCondOfertadas;
+        
+        /// <summary>
+        /// PaLocGeo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Panel PaLocGeo;
+        
+        /// <summary>
+        /// Container12 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Container Container12;
+        
+        /// <summary>
+        /// txbxLongitud control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField txbxLongitud;
+        
+        /// <summary>
+        /// txbxLatitud control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField txbxLatitud;
+        
+        /// <summary>
+        /// Container13 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Container Container13;
+        
+        /// <summary>
+        /// TextArea1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextArea TextArea1;
+        
+        /// <summary>
+        /// SqlDSGPSponsors control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlDSGPSponsors;
     }
 }

@@ -16,7 +16,7 @@
         <Items>
             <ext:Container ID="Container5" runat="server" Layout="FormLayout" Padding="5">
                 <Items>
-                    <ext:TextField ID="txbxId" runat="server" FieldLabel="Código :" LabelAlign="Top" Width="50" Padding="5" ReadOnly="true" />
+                    <ext:TextField ID="txbxId" runat="server" FieldLabel="Código :" LabelAlign="Top" Width="50" Padding="5" ReadOnly="true" Cls="ReadOnly" />
                 </Items>
             </ext:Container>
             <ext:Container ID="Container1" runat="server" Layout="HBoxLayout" Padding="5">
@@ -25,8 +25,7 @@
                     <ext:ComboBox ID="cbxDeportes" runat="server" FieldLabel="Tipo de Carrera :" LabelAlign="Top" Padding="5"
                         DisplayField="Name" ValueField="SportID" Width="200px" AllowBlank="true" EmptyText="Escoja deporte">
                         <Store>
-                            <ext:Store ID="Store2" runat="server" OnReadData="Store2_ReadData">
-                                <%--DataSourceID="SqlDataSource3"--%>
+                            <ext:Store ID="Store2" runat="server" OnReadData="Store2_ReadData">                                
                                 <Model>
                                     <ext:Model ID="Model2" runat="server" IDProperty="RaceTypeID">
                                         <Fields>

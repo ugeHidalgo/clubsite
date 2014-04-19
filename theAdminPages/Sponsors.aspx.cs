@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using ClubSite.Model;
+using Ext.Net;
 
 namespace ClubSite.AdminPages
 {
@@ -26,24 +27,26 @@ namespace ClubSite.AdminPages
         //    return query;
         //}
 
-        public IQueryable<Sponsor> ddlSponsors_GetData()
-        {
+        //public IQueryable<Sponsor> ddlSponsors_GetData()
+        //{
 
-            var db = new ClubSiteContext();
-            IQueryable<Sponsor> query = from sponsors in db.Sponsors
-                                      orderby sponsors.Nombre
-                                      select sponsors;
-            return query;
-        }
+        //    var db = new ClubSiteContext();
+        //    IQueryable<Sponsor> query = from sponsors in db.Sponsors
+        //                              orderby sponsors.Nombre
+        //                              select sponsors;
+        //    return query;
+        //}
 
 
         private void LoadSponsorInForm(Sponsor aSponsor)
         {
             sponsorUsedId = aSponsor.SponsorId;
-            imgLogoURL.ImageUrl = aSponsor.LogoURL;
-            imgLogoURL.AlternateText = "(Sin Logo)";
-            imgImageURL.ImageUrl = aSponsor.ImageURL;
-            imgImageURL.AlternateText = "(Sin imagen)";
+            imgLogo.ImageUrl = aSponsor.LogoURL;
+            imgLogo.AlternateText = "(Sin Logo)";
+            FileULogo.Text = "";
+            imgImage.ImageUrl = aSponsor.ImageURL;
+            imgImage.AlternateText = "(Sin imagen)";
+            FileUImg.Text = "";
             txbxId.Text = sponsorUsedId.ToString();
             txbxNombre.Text = aSponsor.Nombre;
             txbxContacto.Text = aSponsor.ContactPerson;
@@ -87,13 +90,15 @@ namespace ClubSite.AdminPages
                 txbxCountry.Text = aSponsor.Address.Country;
                 txbxPostalCode.Text = aSponsor.Address.PostalCode;
             }
+            txbxLatitud.Text = Convert.ToString(aSponsor.Latitud);
+            txbxLongitud.Text = Convert.ToString(aSponsor.Longitud);
         }
         private Sponsor LoadSponsorFromForm()
         {
             Sponsor aSponsor = new Sponsor();
             aSponsor.SponsorId = Convert.ToInt16(txbxId.Text);
-            aSponsor.LogoURL = imgLogoURL.ImageUrl;
-            aSponsor.ImageURL = imgImageURL.ImageUrl;            
+            aSponsor.LogoURL = sponsorUsed.LogoURL;
+            aSponsor.ImageURL = sponsorUsed.ImageURL;            
             aSponsor.Nombre=txbxNombre.Text;
             aSponsor.ContactPerson=txbxContacto.Text;
             aSponsor.RegDate=Convert.ToDateTime(txbxRegDate.Text);
@@ -151,46 +156,72 @@ namespace ClubSite.AdminPages
                 }
             }
         }
-
-        protected void ddlSponsors_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Int16 actualSpId = Convert.ToInt16(ddlSponsors.SelectedValue);
+        //protected void ddlSponsors_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    Int16 actualSpId = Convert.ToInt16(ddlSponsors.SelectedValue);
              
-            //Search for the Sponsor and load into model object.
-            using (var db = new ClubSiteContext())
-            {
-                sponsorUsed = (from sponsors in db.Sponsors
-                               orderby sponsors.Nombre
-                               where sponsors.SponsorId == actualSpId
-                               select sponsors).FirstOrDefault();
+        //    //Search for the Sponsor and load into model object.
+        //    using (var db = new ClubSiteContext())
+        //    {
+        //        sponsorUsed = (from sponsors in db.Sponsors
+        //                       orderby sponsors.Nombre
+        //                       where sponsors.SponsorId == actualSpId
+        //                       select sponsors).FirstOrDefault();
 
-                if (sponsorUsed == null)
-                    Response.Write("<script>alert('No hay ningún Sponsor registrado en la Base de datos.')</script>");
-                oldSponsorUsed.CopySponsor(sponsorUsed);
+        //        if (sponsorUsed == null)
+        //            Response.Write("<script>alert('No hay ningún Sponsor registrado en la Base de datos.')</script>");
+        //        oldSponsorUsed.CopySponsor(sponsorUsed);
 
-                //Loads model object data into form
-                LoadSponsorInForm(sponsorUsed);
-            }
-            btnBorrar.Enabled = true;
-        }
+        //        //Loads model object data into form
+        //        LoadSponsorInForm(sponsorUsed);
+        //    }
+        //    btnBorrar.Enabled = true;
+        //}
 
-        protected void gvSponsors_SelectedIndexChanged(object sender, EventArgs e)
-        {
+        //protected void gvSponsors_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        //Select the id for the race type.            
+        //        Int32 actualSpId = Convert.ToInt32(gvSponsors.SelectedRow.Cells[1].Text);
+
+        //        //Search for the RaceType and load into model object.
+        //        using (var db = new ClubSiteContext())
+        //        {
+        //            sponsorUsed = (from sponsors in db.Sponsors
+        //                           orderby sponsors.Nombre
+        //                           where sponsors.SponsorId == actualSpId
+        //                           select sponsors).FirstOrDefault();
+
+        //            if (sponsorUsed == null)
+        //                Response.Write("<script>alert('No hay ningún Sponsor registrado en la Base de datos.')</script>");
+        //            oldSponsorUsed.CopySponsor(sponsorUsed);
+
+        //            //Loads model object data into form
+        //            LoadSponsorInForm(sponsorUsed);
+        //        }
+        //    }
+        //    catch (Exception) { }
+        //    btnBorrar.Enabled = true;
+        //}
+
+        protected void GPSponsors_CellClick(object sender, EventArgs e)
+        {   //Click a Sponsor in grid and show data in edit boxes
             try
             {
-                //Select the id for the race type.            
-                Int32 actualSpId = Convert.ToInt32(gvSponsors.SelectedRow.Cells[1].Text);
+                CellSelectionModel sm = this.GPSponsors.GetSelectionModel() as CellSelectionModel;
+                Int32 actualSId = Convert.ToInt32(sm.SelectedCell.RecordID);
 
-                //Search for the RaceType and load into model object.
+                //Search the Sponsor and load into model object.
                 using (var db = new ClubSiteContext())
                 {
                     sponsorUsed = (from sponsors in db.Sponsors
                                    orderby sponsors.Nombre
-                                   where sponsors.SponsorId == actualSpId
+                                   where sponsors.SponsorId == actualSId
                                    select sponsors).FirstOrDefault();
 
                     if (sponsorUsed == null)
-                        Response.Write("<script>alert('No hay ningún Sponsor registrado en la Base de datos.')</script>");
+                        X.Msg.Alert("Atención", "No hay ningún sponsor registrado en la Base de datos.").Show();
                     oldSponsorUsed.CopySponsor(sponsorUsed);
 
                     //Loads model object data into form
@@ -201,16 +232,262 @@ namespace ClubSite.AdminPages
             btnBorrar.Enabled = true;
         }
 
-        protected void btnNuevo_Click(object sender, EventArgs e)
+        protected void UploadLogoClick(object sender, DirectEventArgs e)
+        {
+            string tpl = "Subida la imagen: {0}<br/>Size: {1} bytes";
+
+            if (this.FileULogo.HasFile)
+            {
+                string virtualFolder = "../Images/Sponsors/";
+                string physicalFolder = Server.MapPath(virtualFolder);
+                string fileName = FileULogo.FileName; // Guid.NewGuid().ToString();
+                //string extension = System.IO.Path.GetExtension(FileULogo.FileName);
+                FileULogo.PostedFile.SaveAs(System.IO.Path.Combine(physicalFolder, fileName /*+ extension*/));
+                imgLogo.ImageUrl = virtualFolder + fileName /*+ extension*/;
+                newLogo = true;
+                sponsorUsed.LogoURL = imgLogo.ImageUrl;
+                
+                X.Msg.Show(new MessageBoxConfig
+                {
+                    Buttons = MessageBox.Button.OK,
+                    Icon = MessageBox.Icon.INFO,
+                    Title = "Terminado",
+                    Message = string.Format(tpl, this.FileULogo.PostedFile.FileName, this.FileULogo.PostedFile.ContentLength)
+                });
+            }
+            else
+            {
+                X.Msg.Show(new MessageBoxConfig
+                {
+                    Buttons = MessageBox.Button.OK,
+                    Icon = MessageBox.Icon.ERROR,
+                    Title = "Error",
+                    Message = "No se ha subido ninguna imagen"
+                });
+            }
+            this.FileULogo.Reset();
+        }
+        [DirectMethod]
+        public void BorrarLogoClick()
+        {
+            X.Msg.Confirm("Atención", @"Va a quitar la imagen selecionada.<br/>
+                                        <br/>
+                                        ¿Desea borrar el fichero tambien del servidor?<br/>
+                                        Tenga en cuenta que la imagen no esté usada por otro sponsor.", new MessageBoxButtonsConfig
+            {
+                Yes = new MessageBoxButtonConfig
+                {
+                    Handler = "App.direct.BorradoCompleto()",
+                    Text = "Si"
+                }
+                ,
+                No = new MessageBoxButtonConfig
+                {
+                    Handler = "App.direct.BorradoNormal()",
+                    Text = "No"
+                }
+            }).Show();
+        }
+        [DirectMethod]
+        public void BorradoCompleto()
+        {
+            System.IO.File.Delete(Server.MapPath(sponsorUsed.LogoURL));
+            imgLogo.ImageUrl = null;
+            sponsorUsed.LogoURL = null;
+            this.FileULogo.Reset();
+        }
+        [DirectMethod]
+        public void BorradoNormal()
+        {
+            imgLogo.ImageUrl = null;
+            sponsorUsed.LogoURL = null;
+            this.FileULogo.Reset();
+        }
+        protected void UploadImgClick(object sender, DirectEventArgs e)
+        {
+            string tpl = "Subida la imagen: {0}<br/>Size: {1} bytes";
+
+            if (this.FileUImg.HasFile)
+            {
+                string virtualFolder = "../Images/Sponsors/";
+                string physicalFolder = Server.MapPath(virtualFolder);
+                string fileName = FileUImg.FileName; //Guid.NewGuid().ToString();
+                //string extension = System.IO.Path.GetExtension(FileUImg.FileName);
+                FileUImg.PostedFile.SaveAs(System.IO.Path.Combine(physicalFolder, fileName /*+ extension*/));                
+                imgImage.ImageUrl = virtualFolder + fileName /*+ extension*/;
+                newImage = true;
+                sponsorUsed.ImageURL = imgImage.ImageUrl;
+                FileUImg.Clear();
+                X.Msg.Show(new MessageBoxConfig
+                {
+                    Buttons = MessageBox.Button.OK,
+                    Icon = MessageBox.Icon.INFO,
+                    Title = "Terminado",
+                    Message = string.Format(tpl, this.FileUImg.PostedFile.FileName, this.FileUImg.PostedFile.ContentLength)
+                });                
+            }
+            else
+            {
+                X.Msg.Show(new MessageBoxConfig
+                {
+                    Buttons = MessageBox.Button.OK,
+                    Icon = MessageBox.Icon.ERROR,
+                    Title = "Error",
+                    Message = "No se ha subido ninguna imagen"
+                });
+            }
+            this.FileUImg.Reset();
+        }
+        protected void BorrarImgClick(object sender, DirectEventArgs e)
+        {
+            System.IO.File.Delete(Server.MapPath(sponsorUsed.ImageURL));
+            imgImage.ImageUrl = null;
+            sponsorUsed.ImageURL = null;
+            this.FileUImg.Reset();
+        }
+
+        [DirectMethod]
+        public void AskNew()
+        {
+            X.Msg.Confirm("Atención", "¿Desea crear una nuevo sponsor?", new MessageBoxButtonsConfig
+            {
+                Yes = new MessageBoxButtonConfig
+                {
+                    Handler = "App.direct.DoNew()",
+                    Text = "Si"
+                }
+                ,
+                No = new MessageBoxButtonConfig
+                {
+                    Handler = "App.direct.DoNotNew()",
+                    Text = "No"
+                }
+            }).Show();
+        }
+
+        [DirectMethod]
+        public void DoNotNew()
+        {
+            Notification.Show(new NotificationConfig { Title = "Aviso", Icon = Icon.Information, Html = "Cancelada la creación de nuevo sponsor" });
+        }
+
+        [DirectMethod]
+        public void DoNew()
         {
             btnBorrar.Enabled = false;
             oldSponsorUsed.CopySponsor(sponsorUsed);
             sponsorUsed.ClearSponsor();
             LoadSponsorInForm(sponsorUsed);
+            Notification.Show(new NotificationConfig { Title = "Aviso", Icon = Icon.Information, Html = "Introduzca datos del nuevo sponsor" });
         }
 
-        protected void btnGrabar_Click(object sender, EventArgs e)
-        {           
+        [DirectMethod]
+        public void AskCancel()
+        {
+            X.Msg.Confirm("Atención", "¿Desea cancelar la edición del sponsor actual?", new MessageBoxButtonsConfig
+            {
+                Yes = new MessageBoxButtonConfig
+                {
+                    Handler = "App.direct.DoCancel()",
+                    Text = "Si"
+                }
+                ,
+                No = new MessageBoxButtonConfig
+                {
+                    Handler = "App.direct.DoNotCancel()",
+                    Text = "No"
+                }
+            }).Show();
+        }
+
+        [DirectMethod]
+        public void DoNotCancel()
+        {
+            Notification.Show(new NotificationConfig { Title = "Aviso", Icon = Icon.Information, Html = "Puede continuar la edicion." });
+        }
+
+        [DirectMethod]
+        public void DoCancel()
+        {
+            btnBorrar.Enabled = true;
+            sponsorUsed.CopySponsor(oldSponsorUsed);
+            LoadSponsorInForm(sponsorUsed);
+            Notification.Show(new NotificationConfig { Title = "Aviso", Icon = Icon.Information, Html = "Cancelada la edición" });
+        }
+
+        [DirectMethod]
+        public void AskDel()
+        {
+            X.Msg.Confirm("Atención", "¿Desea borrar el sponsor mostrado en la ficha?", new MessageBoxButtonsConfig
+            {
+                Yes = new MessageBoxButtonConfig
+                {
+                    Handler = "App.direct.DoDel()",
+                    Text = "Si"
+                }
+                ,
+                No = new MessageBoxButtonConfig
+                {
+                    Handler = "App.direct.DoNotDel()",
+                    Text = "No"
+                }
+            }).Show();
+        }
+
+        [DirectMethod]
+        public void DoNotDel()
+        {
+            Notification.Show(new NotificationConfig { Title = "Aviso", Icon = Icon.Information, Html = "Se ha cancelado el borrado." });
+        }
+
+        [DirectMethod]
+        public void DoDel()
+        {            
+            if (sponsorUsed.SponsorId == 0)
+            { //No Race Type selected
+                X.Msg.Alert("Atención", "No hay nada que borrar ya que no hay sponsors registrados.").Show();
+            }
+            else
+            {
+                using (var db = new ClubSiteContext())
+                {
+                    Sponsor item = (from sponsors in db.Sponsors
+                                    where sponsors.SponsorId == sponsorUsed.SponsorId
+                                    select sponsors).FirstOrDefault();
+                    if (item == null)
+                    {
+                        // The item wasn't found
+                        ModelState.AddModelError("", String.Format("Sponsor con id : {0} no encontrado", sponsorUsed.SponsorId));
+                        X.Msg.Alert("Atención", "Sponsor no encontrado").Show();
+                        return;
+                    }
+                    db.Sponsors.Remove(item);
+                    db.SaveChanges();
+                    this.StoreGPSponsors.DataBind();
+                    X.Msg.Alert("Atención", "Sponsor borrado.").Show();
+
+                    //Load data for first race type
+                    sponsorUsed = (from sponsors in db.Sponsors
+                                   orderby sponsors.Nombre                                  
+                                   select sponsors).FirstOrDefault();
+
+                    if (sponsorUsed == null)
+                    {
+                        //Last item was erased. No items in BD.
+                        sponsorUsed = new Sponsor();
+                        X.Msg.Alert("Atención", "No queda ningún sponsor registrado en la Base de datos.").Show();
+                    }
+                   
+                    oldSponsorUsed.CopySponsor(sponsorUsed);
+                    //Loads model object data into form
+                    LoadSponsorInForm(sponsorUsed);
+                }
+            }
+        }
+
+        [DirectMethod]
+        public void AskSave()
+        {
             bool sigue = true;
             decimal aportInicial = 0;
             decimal aportRecibida = 0;
@@ -220,7 +497,7 @@ namespace ClubSite.AdminPages
             if (txbxNombre.Text == "")
             {
                 sigue = false;
-                messageError = "<script>alert('Falta el nombre del Sponsor')</script>";
+                messageError = "Falta el nombre del Sponsor.";
             }
 
             //Verify AportInicial exists and is a number between 0 and 100.000
@@ -232,13 +509,13 @@ namespace ClubSite.AdminPages
                     if (aportInicial < 0 || aportInicial > 100000)
                     {
                         sigue = false;
-                        messageError = "<script>alert('La aportación inicial debe estar entre 0 y 100.000')</script>";
+                        messageError = "La aportación inicial debe estar entre 0 y 100.000";
                     }
                 }
                 catch (Exception)
                 {
                     sigue = false;
-                    messageError = "<script>alert('la aportación inicial revibida debe ser un número.')</script>";
+                    messageError = "La aportación inicial revibida debe ser un número.";
                 }
             }
 
@@ -252,16 +529,54 @@ namespace ClubSite.AdminPages
                     if (aportRecibida < 0 || aportRecibida > 100000)
                     {
                         sigue = false;
-                        messageError = "<script>alert('La aportación recibida debe estar entre 0 y 100.000')</script>";
+                        messageError = "La aportación recibida debe estar entre 0 y 100.000";
                     }
                 }
                 catch (Exception)
                 {
                     sigue = false;
-                    messageError = "<script>alert('La aportación recibida debe ser un número.')</script>";
+                    messageError = "La aportación recibida debe ser un número.";
                 }
             }
 
+            
+
+            if (sigue)
+            {
+                X.Msg.Confirm("Atención", "¿Grabamos los datos en pantalla?", new MessageBoxButtonsConfig
+                {
+                    Yes = new MessageBoxButtonConfig
+                    {
+                        Handler = "App.direct.DoSave()",
+                        Text = "Si"
+                    }
+                    ,
+                    No = new MessageBoxButtonConfig
+                    {
+                        Handler = "App.direct.DoNotSave()",
+                        Text = "No"
+                    }
+                }).Show();
+            }
+            else
+            {
+                X.Msg.Alert("Atención", messageError).Show();
+            }
+        }
+
+        [DirectMethod]
+        public void DoNotSave()
+        {
+            Notification.Show(new NotificationConfig { Title = "Aviso", Icon = Icon.Information, Html = "Grabación Cancelada" });
+        }
+
+        [DirectMethod]
+        public void DoSave()
+        {
+            bool sigue = true;            
+            string messageError = null;
+
+            
             //Save if conditions are ok.
             if (sigue)
             {
@@ -272,22 +587,23 @@ namespace ClubSite.AdminPages
                     if (sponsorUsed.SponsorId == 0)
                     { //New Race Type
                         //aSponsor = new Sponsor();
-                        aSponsor = LoadSponsorFromForm();                        
+                        aSponsor = LoadSponsorFromForm();
                         db.Sponsors.Add(aSponsor);
                     }
                     else
                     { //Update actual Race Type
                         aSponsor = (from sponsors in db.Sponsors
-                                     where sponsors.SponsorId == sponsorUsed.SponsorId
-                                     select sponsors).FirstOrDefault();
+                                    where sponsors.SponsorId == sponsorUsed.SponsorId
+                                    select sponsors).FirstOrDefault();
                         if (aSponsor == null)
                         {
                             // The item wasn't found
                             ModelState.AddModelError("", String.Format("Sponsor con Id : {0} no encontrada", sponsorUsed.SponsorId));
+                            X.Msg.Alert("Atención", "Sponsor no encontrado, grabación cancelada").Show();
                             return;
                         }
-                        aSponsor.LogoURL = imgLogoURL.ImageUrl;
-                        aSponsor.ImageURL = imgImageURL.ImageUrl;
+                        aSponsor.LogoURL = sponsorUsed.LogoURL;
+                        aSponsor.ImageURL = sponsorUsed.ImageURL;
                         aSponsor.Nombre = txbxNombre.Text;
                         aSponsor.ContactPerson = txbxContacto.Text;
                         aSponsor.RegDate = Convert.ToDateTime(txbxRegDate.Text);
@@ -324,146 +640,15 @@ namespace ClubSite.AdminPages
                     LoadSponsorInForm(aSponsor);  //To update the ID (identity file)                                  
                     sponsorUsed.CopySponsor(aSponsor);
                     oldSponsorUsed.CopySponsor(sponsorUsed);
-                    gvSponsors.DataBind();
-                    Response.Write("<script>alert('Datos de Sponsor grabados')</script>");
+                    this.StoreGPSponsors.DataBind();
+                    X.Msg.Alert("Atención", "Datos de sponsor grabados.").Show();
                 }
                 btnBorrar.Enabled = true;
             }
             else
             {
-                Response.Write(messageError);
-            }
-
-        }
-
-        protected void btnCancelar_Click(object sender, EventArgs e)
-        {
-            btnBorrar.Enabled = true;
-            sponsorUsed.CopySponsor(oldSponsorUsed);
-            LoadSponsorInForm(sponsorUsed);
-        }
-
-        protected void btnBorrar_Click(object sender, EventArgs e)
-        {
-            if (sponsorUsed.SponsorId == 0)
-            { //No Race Type selected
-                Response.Write(@"<script>alert('No hay nada que borrar ya que no hay Sponsors registrados en la base de datos.')</script>");
-            }
-            else
-            {
-                using (var db = new ClubSiteContext())
-                {
-                    Sponsor item = (from sponsors in db.Sponsors
-                                     where sponsors.SponsorId == sponsorUsed.SponsorId
-                                     select sponsors).FirstOrDefault();
-                    if (item == null)
-                    {
-                        // The item wasn't found
-                        ModelState.AddModelError("", String.Format("Sponsor con id : {0} no encontrado", sponsorUsed.SponsorId));
-                        return;
-                    }
-                    db.Sponsors.Remove(item);
-                    db.SaveChanges();
-                    gvSponsors.DataBind();
-                   
-
-                    try
-                    {
-                        //Select the id for the sponsor           
-                        Int32 actualSpId = Convert.ToInt32(gvSponsors.SelectedRow.Cells[1].Text);
-
-                        //Search for the RaceType and load into model object.
-                        sponsorUsed = (from sponsors in db.Sponsors
-                                       orderby sponsors.Nombre
-                                       where sponsors.SponsorId == actualSpId
-                                       select sponsors).FirstOrDefault();
-
-                        if (sponsorUsed == null)
-                        {
-                            sponsorUsed = new Sponsor();
-                            Response.Write("<script>alert('No queda ningún Sponsor registrado en la Base de datos.')</script>");
-                        }
-                    }
-                    catch (Exception)
-                    {
-                        //Last object was deleted, search for new object if it exists
-                        try
-                        {
-                            //Select the id for the race type.            
-                            gvSponsors.SelectedIndex = gvSponsors.Rows.Count - 1;
-                            Int32 actualSpId = Convert.ToInt32(gvSponsors.SelectedRow.Cells[1].Text);
-
-                            //Search for Sponsor and load into model object.
-                            sponsorUsed = (from sponsors in db.Sponsors
-                                           orderby sponsors.Nombre
-                                           where sponsors.SponsorId == actualSpId
-                                           select sponsors).FirstOrDefault();
-
-                            if (sponsorUsed == null)
-                            {
-                                sponsorUsed = new Sponsor();
-                                Response.Write("<script>alert('No queda ningún Sponsor registrado en la Base de datos.')</script>");
-                            }
-                        }
-                        catch (Exception)
-                        {
-                            sponsorUsed = new Sponsor();
-                            Response.Write("<script>alert('No queda ningún Sponsor registrado en la Base de datos.')</script>");
-                        }
-                    }
-                    oldSponsorUsed.CopySponsor(sponsorUsed);
-                    //Loads model object data into form
-                    LoadSponsorInForm(sponsorUsed);
-                }
+                X.Msg.Alert("Atención", messageError).Show();
             }
         }
-
-        protected void btnBorraImage_Click(object sender, EventArgs e)
-        {
-            System.IO.File.Delete(Server.MapPath(imgImageURL.ImageUrl));
-            imgImageURL.ImageUrl = null;
-            sponsorUsed.ImageURL = null;
-        }
-
-        protected void btnSubirImage_Click(object sender, EventArgs e)
-        {
-            if (FileUploadImage.HasFile)
-            {
-                string virtualFolder = "../Images/Sponsors/";
-                string physicalFolder = Server.MapPath(virtualFolder);
-                string fileName = FileUploadImage.FileName; //Guid.NewGuid().ToString();
-                string extension = System.IO.Path.GetExtension(FileUploadImage.FileName);
-                FileUploadImage.SaveAs(System.IO.Path.Combine(physicalFolder, fileName /*+ extension*/));
-                imgImageURL.ImageUrl = virtualFolder + fileName /*+ extension*/;
-                newImage = true;
-                sponsorUsed.ImageURL = imgImageURL.ImageUrl;
-            }
-        }
-
-        protected void btnBorraLogo_Click(object sender, EventArgs e)
-        {
-            System.IO.File.Delete(Server.MapPath(imgLogoURL.ImageUrl));
-            imgLogoURL.ImageUrl = null;
-            sponsorUsed.LogoURL = null;
-        }
-
-        protected void btnSubeLogo_Click(object sender, EventArgs e)
-        {
-            if (FileUploadLogo.HasFile)
-            {
-                string virtualFolder = "../Images/Sponsors/";
-                string physicalFolder = Server.MapPath(virtualFolder);
-                string fileName = FileUploadLogo.FileName; // Guid.NewGuid().ToString();
-                string extension = System.IO.Path.GetExtension(FileUploadLogo.FileName);
-                FileUploadLogo.SaveAs(System.IO.Path.Combine(physicalFolder, fileName /*+ extension*/));
-                imgLogoURL.ImageUrl = virtualFolder + fileName /*+ extension*/;
-                newLogo = true;
-                sponsorUsed.LogoURL = imgLogoURL.ImageUrl;
-            }
-        }
-
-
-
-        
     }
 }

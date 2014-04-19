@@ -191,5 +191,37 @@ namespace ModelClasssesTests
             Assert.AreEqual("12/02/2014 0:00:00", aListOfRaces[0].RaceDate.ToString());
             Assert.AreEqual(12, aListOfRaces[0].RaceTypeId);
         }
+
+        [TestMethod]
+        public void addMembeToRaceMembersList()
+        {
+            //Create a few Races
+            Address anAdress = new Address();
+            var aListOfRaces = new List<Race> {
+                new Race { Id=1, Name="Media Maratón de Almería", Address =anAdress, RaceDate=Convert.ToDateTime("12/02/2014 00:00:00"), RaceTypeId=12 },
+                new Race { Id=2, Name="Triatlón de Elche Arenales", Address =anAdress, RaceDate=Convert.ToDateTime("20/04/2014 00:00:00"), RaceTypeId=4 },
+                new Race { Id=3, Name="Triatlón Cross Tarifa XChallenge", Address =anAdress, RaceDate=Convert.ToDateTime("12/06/2014 00:00:00"), RaceTypeId=3 },
+                new Race { Id=4, Name="Ironman Lanzarote", Address =anAdress, RaceDate=Convert.ToDateTime("12/05/2014 00:00:00"), RaceTypeId=5 } };
+
+
+            //Create a few Members
+            var aListOfMembers = new List<Member> { 
+                new Member { UserName="User1", FirstName="Pepe", SecondName="López", Address=anAdress },
+                new Member { UserName="User2", FirstName="Pepe", SecondName="López", Address=anAdress },
+                new Member { UserName="User3", FirstName="Pepe", SecondName="López", Address=anAdress },
+                new Member { UserName="User4", FirstName="Pepe", SecondName="López", Address=anAdress },
+            };
+            
+            //Add Member to race
+            aListOfRaces[0].AddMemberToRace("User1");
+
+            //Verify if aMember is in Members for Race
+            Assert.AreEqual(aListOfRaces[0].Members.Contains(aListOfMembers[0]), true);
+        }
+
+        [TestMethod]
+        public void delMembeFromRaceMembersList()
+        {
+        }
     }
 }
