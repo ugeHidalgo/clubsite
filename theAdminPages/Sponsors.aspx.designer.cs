@@ -643,13 +643,13 @@ namespace ClubSite.AdminPages {
         protected global::Ext.Net.Container Container13;
         
         /// <summary>
-        /// TextArea1 control.
+        /// map_canvas control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.TextArea TextArea1;
+        protected global::Ext.Net.Panel map_canvas;
         
         /// <summary>
         /// SqlDSGPSponsors control.

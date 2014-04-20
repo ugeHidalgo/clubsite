@@ -17,27 +17,6 @@ namespace ClubSite.AdminPages
         static bool newLogo = false;
         static bool newImage = false;
 
-        //public IQueryable<Sponsor> GridView1_GetData()
-        //{
-        //    var db = new ClubSiteContext();
-
-        //    IQueryable<Sponsor> query = from sponsors in db.Sponsors
-        //                                orderby sponsors.Nombre
-        //                                select sponsors;
-        //    return query;
-        //}
-
-        //public IQueryable<Sponsor> ddlSponsors_GetData()
-        //{
-
-        //    var db = new ClubSiteContext();
-        //    IQueryable<Sponsor> query = from sponsors in db.Sponsors
-        //                              orderby sponsors.Nombre
-        //                              select sponsors;
-        //    return query;
-        //}
-
-
         private void LoadSponsorInForm(Sponsor aSponsor)
         {
             sponsorUsedId = aSponsor.SponsorId;
@@ -58,7 +37,7 @@ namespace ClubSite.AdminPages
             }
             catch (Exception)
             {
-                txbxAportInicial.Text="";
+                txbxAportInicial.Text = "";
             }
             try
             {
@@ -90,48 +69,65 @@ namespace ClubSite.AdminPages
                 txbxCountry.Text = aSponsor.Address.Country;
                 txbxPostalCode.Text = aSponsor.Address.PostalCode;
             }
-            txbxLatitud.Text = Convert.ToString(aSponsor.Latitud);
-            txbxLongitud.Text = Convert.ToString(aSponsor.Longitud);
+            ////To avoid problems with the , and . in decimal numbers
+            System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("en-US");
+            txbxLatitud.Text = Convert.ToString(aSponsor.Latitud, culture );
+            txbxLongitud.Text = Convert.ToString(aSponsor.Longitud, culture);            
         }
         private Sponsor LoadSponsorFromForm()
         {
             Sponsor aSponsor = new Sponsor();
             aSponsor.SponsorId = Convert.ToInt16(txbxId.Text);
             aSponsor.LogoURL = sponsorUsed.LogoURL;
-            aSponsor.ImageURL = sponsorUsed.ImageURL;            
-            aSponsor.Nombre=txbxNombre.Text;
-            aSponsor.ContactPerson=txbxContacto.Text;
-            aSponsor.RegDate=Convert.ToDateTime(txbxRegDate.Text);
-            aSponsor.Activo=chbcActivo.Checked;
+            aSponsor.ImageURL = sponsorUsed.ImageURL;
+            aSponsor.Nombre = txbxNombre.Text;
+            aSponsor.ContactPerson = txbxContacto.Text;
+            aSponsor.RegDate = Convert.ToDateTime(txbxRegDate.Text);
+            aSponsor.Activo = chbcActivo.Checked;
             try
             {
-                aSponsor.AportInicial=Convert.ToDecimal(txbxAportInicial.Text);
+                aSponsor.AportInicial = Convert.ToDecimal(txbxAportInicial.Text);
             }
             catch (Exception)
             {
-                aSponsor.AportInicial=0;
+                aSponsor.AportInicial = 0;
             }
             try
             {
-                aSponsor.AportRecibida=Convert.ToDecimal(txbxAportRecibida.Text);
+                aSponsor.AportRecibida = Convert.ToDecimal(txbxAportRecibida.Text);
             }
             catch (Exception)
             {
-                aSponsor.AportRecibida= 0;
+                aSponsor.AportRecibida = 0;
             }
-            aSponsor.CondOfertadas=txbxCondOfertadas.Text;
-            aSponsor.WebURL= txbxBlogURL.Text;
-            aSponsor.EMail=txbxEMail.Text;
-            aSponsor.Mobile=txbxMobile.Text;
-            aSponsor.Tlf=txbxTlf.Text;
-            aSponsor.Memo=txbxMemo.Text;            
-            aSponsor.Address.Street=txbxStreet.Text;
-            aSponsor.Address.City=txbxCity.Text;
-            aSponsor.Address.Number=txbxNumber.Text;
-            aSponsor.Address.Country=txbxCountry.Text;
-            aSponsor.Address.PostalCode=txbxPostalCode.Text;            
+            aSponsor.CondOfertadas = txbxCondOfertadas.Text;
+            aSponsor.WebURL = txbxBlogURL.Text;
+            aSponsor.EMail = txbxEMail.Text;
+            aSponsor.Mobile = txbxMobile.Text;
+            aSponsor.Tlf = txbxTlf.Text;
+            aSponsor.Memo = txbxMemo.Text;
+            aSponsor.Address.Street = txbxStreet.Text;
+            aSponsor.Address.City = txbxCity.Text;
+            aSponsor.Address.Number = txbxNumber.Text;
+            aSponsor.Address.Country = txbxCountry.Text;
+            aSponsor.Address.PostalCode = txbxPostalCode.Text;
+            try
+            {
+                aSponsor.Latitud = Convert.ToDouble(txbxLatitud.Text);
+            }
+            catch (Exception)
+            {
+                aSponsor.Latitud = 0;
+            }
+            try
+            {
+                aSponsor.Longitud = Convert.ToDouble(txbxLongitud.Text);
+            }
+            catch (Exception)
+            {
+                aSponsor.Longitud = 0;
+            }
             return aSponsor;
-
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -143,12 +139,12 @@ namespace ClubSite.AdminPages
                 using (var db = new ClubSiteContext())
                 {
                     sponsorUsed = (from sponsors in db.Sponsors
-                                    orderby sponsors.Nombre
-                                    select sponsors).FirstOrDefault();
+                                   orderby sponsors.Nombre
+                                   select sponsors).FirstOrDefault();
 
                     if (sponsorUsed == null)
-                    {                     
-                        sponsorUsed = new Sponsor();                        
+                    {
+                        sponsorUsed = new Sponsor();
                         Response.Write("<script>alert('No hay ningún Sponsor registrado en la Base de datos.')</script>");
                     }
                     oldSponsorUsed.CopySponsor(sponsorUsed);
@@ -156,54 +152,6 @@ namespace ClubSite.AdminPages
                 }
             }
         }
-        //protected void ddlSponsors_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    Int16 actualSpId = Convert.ToInt16(ddlSponsors.SelectedValue);
-             
-        //    //Search for the Sponsor and load into model object.
-        //    using (var db = new ClubSiteContext())
-        //    {
-        //        sponsorUsed = (from sponsors in db.Sponsors
-        //                       orderby sponsors.Nombre
-        //                       where sponsors.SponsorId == actualSpId
-        //                       select sponsors).FirstOrDefault();
-
-        //        if (sponsorUsed == null)
-        //            Response.Write("<script>alert('No hay ningún Sponsor registrado en la Base de datos.')</script>");
-        //        oldSponsorUsed.CopySponsor(sponsorUsed);
-
-        //        //Loads model object data into form
-        //        LoadSponsorInForm(sponsorUsed);
-        //    }
-        //    btnBorrar.Enabled = true;
-        //}
-
-        //protected void gvSponsors_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    try
-        //    {
-        //        //Select the id for the race type.            
-        //        Int32 actualSpId = Convert.ToInt32(gvSponsors.SelectedRow.Cells[1].Text);
-
-        //        //Search for the RaceType and load into model object.
-        //        using (var db = new ClubSiteContext())
-        //        {
-        //            sponsorUsed = (from sponsors in db.Sponsors
-        //                           orderby sponsors.Nombre
-        //                           where sponsors.SponsorId == actualSpId
-        //                           select sponsors).FirstOrDefault();
-
-        //            if (sponsorUsed == null)
-        //                Response.Write("<script>alert('No hay ningún Sponsor registrado en la Base de datos.')</script>");
-        //            oldSponsorUsed.CopySponsor(sponsorUsed);
-
-        //            //Loads model object data into form
-        //            LoadSponsorInForm(sponsorUsed);
-        //        }
-        //    }
-        //    catch (Exception) { }
-        //    btnBorrar.Enabled = true;
-        //}
 
         protected void GPSponsors_CellClick(object sender, EventArgs e)
         {   //Click a Sponsor in grid and show data in edit boxes
@@ -246,7 +194,7 @@ namespace ClubSite.AdminPages
                 imgLogo.ImageUrl = virtualFolder + fileName /*+ extension*/;
                 newLogo = true;
                 sponsorUsed.LogoURL = imgLogo.ImageUrl;
-                
+
                 X.Msg.Show(new MessageBoxConfig
                 {
                     Buttons = MessageBox.Button.OK,
@@ -313,7 +261,7 @@ namespace ClubSite.AdminPages
                 string physicalFolder = Server.MapPath(virtualFolder);
                 string fileName = FileUImg.FileName; //Guid.NewGuid().ToString();
                 //string extension = System.IO.Path.GetExtension(FileUImg.FileName);
-                FileUImg.PostedFile.SaveAs(System.IO.Path.Combine(physicalFolder, fileName /*+ extension*/));                
+                FileUImg.PostedFile.SaveAs(System.IO.Path.Combine(physicalFolder, fileName /*+ extension*/));
                 imgImage.ImageUrl = virtualFolder + fileName /*+ extension*/;
                 newImage = true;
                 sponsorUsed.ImageURL = imgImage.ImageUrl;
@@ -324,7 +272,7 @@ namespace ClubSite.AdminPages
                     Icon = MessageBox.Icon.INFO,
                     Title = "Terminado",
                     Message = string.Format(tpl, this.FileUImg.PostedFile.FileName, this.FileUImg.PostedFile.ContentLength)
-                });                
+                });
             }
             else
             {
@@ -442,7 +390,7 @@ namespace ClubSite.AdminPages
 
         [DirectMethod]
         public void DoDel()
-        {            
+        {
             if (sponsorUsed.SponsorId == 0)
             { //No Race Type selected
                 X.Msg.Alert("Atención", "No hay nada que borrar ya que no hay sponsors registrados.").Show();
@@ -468,7 +416,7 @@ namespace ClubSite.AdminPages
 
                     //Load data for first race type
                     sponsorUsed = (from sponsors in db.Sponsors
-                                   orderby sponsors.Nombre                                  
+                                   orderby sponsors.Nombre
                                    select sponsors).FirstOrDefault();
 
                     if (sponsorUsed == null)
@@ -477,7 +425,7 @@ namespace ClubSite.AdminPages
                         sponsorUsed = new Sponsor();
                         X.Msg.Alert("Atención", "No queda ningún sponsor registrado en la Base de datos.").Show();
                     }
-                   
+
                     oldSponsorUsed.CopySponsor(sponsorUsed);
                     //Loads model object data into form
                     LoadSponsorInForm(sponsorUsed);
@@ -539,7 +487,7 @@ namespace ClubSite.AdminPages
                 }
             }
 
-            
+
 
             if (sigue)
             {
@@ -573,10 +521,10 @@ namespace ClubSite.AdminPages
         [DirectMethod]
         public void DoSave()
         {
-            bool sigue = true;            
+            bool sigue = true;
             string messageError = null;
 
-            
+
             //Save if conditions are ok.
             if (sigue)
             {
@@ -634,7 +582,23 @@ namespace ClubSite.AdminPages
                         aSponsor.Address.City = txbxCity.Text;
                         aSponsor.Address.Number = txbxNumber.Text;
                         aSponsor.Address.Country = txbxCountry.Text;
-                        aSponsor.Address.PostalCode = txbxPostalCode.Text;
+                        aSponsor.Address.PostalCode = txbxPostalCode.Text;                        
+                        
+                        string aux = ReformatNumber(txbxLatitud.Text);
+                        if (aux == null)
+                            aSponsor.Latitud = 0;
+                        else
+                        {
+                            aSponsor.Latitud = Convert.ToDouble(aux);
+                        }
+
+                        aux = ReformatNumber(txbxLongitud.Text);
+                        if (aux == null)
+                            aSponsor.Longitud = 0;
+                        else
+                        {
+                            aSponsor.Longitud= Convert.ToDouble(aux);
+                        }
                     }
                     db.SaveChanges();
                     LoadSponsorInForm(aSponsor);  //To update the ID (identity file)                                  
@@ -649,6 +613,19 @@ namespace ClubSite.AdminPages
             {
                 X.Msg.Alert("Atención", messageError).Show();
             }
+        }
+
+        public string ReformatNumber(string aString)
+        {
+            string result=null;            
+            int pointPos = aString.IndexOf('.');
+            if (pointPos != -1)                
+            {
+                System.Text.StringBuilder strBuild = new System.Text.StringBuilder(aString);
+                strBuild[pointPos] = ',';
+                result = strBuild.ToString();
+            }
+            return  result;
         }
     }
 }

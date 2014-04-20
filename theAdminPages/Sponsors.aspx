@@ -4,12 +4,60 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cpMainContent" runat="server">
 
+    <script type="text/javascript"
+        src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDS7Syd76e3allIrLsYVfIcJ43kZ0NnHiI&sensor=false">
+    </script>
+
+    <script type="text/javascript">
+        var map;
+        var marker;
+        function initializeMap(StrLatitud,StrLongitud,Nombre) {            
+            var Latitud = parseFloat(StrLatitud);
+            var Longitud = parseFloat(StrLongitud);            
+            var mapOptions = {
+                zoom: 13,
+                center: new google.maps.LatLng(Latitud, Longitud)
+            };
+            map = new google.maps.Map(document.getElementById('cpMainContent_map_canvas-body'),
+                mapOptions);
+
+            marker = new google.maps.Marker({
+                position: new google.maps.LatLng(Latitud, Longitud),
+                map: map,
+                title: Nombre
+            });
+
+
+            // Set the position for the marker.
+            function setMarkerPosition(location) {
+                //Set new position for marker
+                marker.setPosition(location);
+                
+                //Puts new position data into form
+                document.getElementsByName("cpMainContent_txbxLatitud")[0].value = location.lat().toFixed(6);
+                document.getElementsByName("cpMainContent_txbxLongitud")[0].value = location.lng().toFixed(6);
+            }
+
+            //Zoom over marker when click over it.
+            google.maps.event.addListener(marker, 'click', function () {
+                map.setZoom(18);
+                map.setCenter(marker.getPosition());                
+            });
+
+            //Set new position for marker when click over map
+            google.maps.event.addListener(map, 'click', function(event) {
+                setMarkerPosition(event.latLng);
+            });
+
+        }
+    </script>
+
     <ext:TabPanel ID="TabPanel1"
         Title="Patrocinadores/Colaboradores"
         runat="server"
         Width="750"
-        Height="735"
-        DeferredRender="false">
+        Height="735">
+
         <Items>
             <ext:Panel
                 ID="PaDatosPrincipales"
@@ -75,7 +123,7 @@
                                             </Click>
                                         </DirectEvents>
                                     </ext:Button>
-                                    <ext:Button ID="btnBorrarLogo" runat="server" Text="Borrar">                                        
+                                    <ext:Button ID="btnBorrarLogo" runat="server" Text="Borrar">
                                         <Listeners>
                                             <Click Handler="App.direct.BorrarLogoClick();" />
                                         </Listeners>
@@ -245,7 +293,6 @@
                     </ext:Button>
                 </Buttons>
             </ext:Panel>
-
             <ext:Panel
                 ID="PaOtrosDatos"
                 runat="server"
@@ -289,7 +336,6 @@
                 </Items>
 
             </ext:Panel>
-
             <ext:Panel
                 ID="PaCondiciones"
                 runat="server"
@@ -313,7 +359,6 @@
                 </Items>
 
             </ext:Panel>
-
             <ext:Panel
                 ID="PaLocGeo"
                 runat="server"
@@ -323,316 +368,29 @@
                 Width="700"
                 ButtonAlign="Center">
                 <Items>
-                    <ext:Container ID="Container12" runat="server" Layout="HBoxLayout" Padding="5">
-                        <Items>
-                            <ext:TextField ID="txbxLongitud" runat="server" FieldLabel="Longitud :" LabelAlign="Top" Width="100" Padding="5" ReadOnly="true" Cls="ReadOnly" />
-                            <ext:TextField ID="txbxLatitud" runat="server" FieldLabel="Latitud :" LabelAlign="Top" Width="100" Padding="5" ReadOnly="true" Cls="ReadOnly" />
+                    <ext:Container ID="Container12" runat="server" Layout="ColumnLayout" Padding="5">
+                        <Items>                            
+                            <ext:TextField ID="txbxLongitud" runat="server" FieldLabel="Longitud :" LabelAlign="Right" Width="200" 
+                                 PaddingSpec="0 0 0 5" ReadOnly="true" Cls="ReadOnly" />
+                            <ext:TextField ID="txbxLatitud" runat="server" FieldLabel="Latitud :" LabelAlign="Right"  Width="200" 
+                                PaddingSpec="0 0 0 5" ReadOnly="true" Cls="ReadOnly" />                            
                         </Items>
                     </ext:Container>
                     <ext:Container ID="Container13" runat="server" Layout="FormLayout" ColumnWidth=".5" Padding="5">
                         <Items>
-                            <ext:TextArea ID="TextArea1" runat="server" FieldLabel="Mapa de google para coger coordenadas :" LabelAlign="Top" Width="710" Height="100" Padding="5" />
+                            <ext:Panel runat="server" ID="map_canvas" Layout="FitLayout" Height="500">
+                            </ext:Panel>
                         </Items>
                     </ext:Container>
                 </Items>
-
+                <Listeners>
+                    <Show Handler="initializeMap(#{txbxLatitud}.getValue(),#{txbxLongitud}.getValue(),#{txbxNombre}.getValue())" />
+                </Listeners>
             </ext:Panel>
         </Items>
+
     </ext:TabPanel>
 
     <asp:SqlDataSource ID="SqlDSGPSponsors" runat="server" ConnectionString="<%$ ConnectionStrings:ClubSiteConn %>"
         SelectCommand="SELECT * FROM Sponsors ORDER BY Sponsors.Nombre"></asp:SqlDataSource>
-
-    <%--<asp:SqlDataSource ID="SqlDSGPRaces" runat="server" ConnectionString="<%$ ConnectionStrings:ClubSiteConn %>"
-        SelectCommand="SELECT Races.Id, Races.Name, Races.RaceDate, Races.RaceTypeId, Races.Address_City, 
-                                       Races.Address_Country, RaceTypes.Name AS Expr1
-                                       FROM Races INNER JOIN RaceTypes ON RaceTypes.RaceTypeID = Races.RaceTypeId 
-                                       ORDER BY Races.RaceDate DESC, Races.Name"></asp:SqlDataSource>--%>
-
-
-
-
-    <%--    <style type="text/css">
-        .auto-style1 {
-            text-align: center;
-            width: 280px;
-        }
-
-        .auto-style2 {
-            text-align: right;
-        }
-
-        .auto-style3 {
-            text-align: right;
-        }
-
-        .auto-style4 {
-            width: 304px;
-            text-align: left;
-        }
-
-        .auto-style5 {
-            width: 206px;
-        }
-
-        .auto-style6 {
-            text-align: right;
-        }
-
-        .auto-style7 {
-            width: 186px;
-        }
-
-        .auto-style8 {
-            text-align: right;
-            width: 253px;
-        }
-    </style>
-    &nbsp;<asp:DropDownList ID="ddlSponsors" runat="server" AutoPostBack="true" DataTextField="Nombre" DataValueField="SponsorID"
-        SelectMethod="ddlSponsors_GetData" Width="300px" OnSelectedIndexChanged="ddlSponsors_SelectedIndexChanged">
-    </asp:DropDownList>
-    <table style="width: 800px; margin: 5px auto 5px 5px; border: thin;">
-        <tr>
-            <td rowspan="5" class="auto-style1">
-                <asp:Image ID="imgLogoURL1" runat="server" Style="height: 120px; width: 100px; border: solid" AlternateText="Logo Sponsor" />
-                <br />
-                <asp:Button Text="Borrar" runat="server" ID="btnBorraLogo" OnClick="btnBorraLogo_Click" />
-                <asp:Button Text="Subir" runat="server" ID="btnSubeLogo" OnClick="btnSubeLogo_Click" />
-                <asp:FileUpload ID="FileUploadLogo" runat="server" /><br />
-            </td>
-            <td class="auto-style8">
-                <asp:Label ID="Label1" runat="server" Text="Id :" Font-Bold="True"></asp:Label>
-            </td>
-            <td colspan="3">
-                <asp:TextBox ID="txbxId1" runat="server" Width="50px" ReadOnly="true" BorderStyle="None" Font-Bold="True"></asp:TextBox>
-            </td>
-        </tr>
-        <tr>
-            <td class="auto-style8">
-                <asp:Label ID="Label2" runat="server" Text="Nombre :" Font-Bold="True"></asp:Label>
-            </td>
-            <td colspan="3">
-                <asp:TextBox ID="txbxNombre1" runat="server" Width="300px"></asp:TextBox>
-                <br />
-            </td>
-        </tr>
-        <tr>
-            <td class="auto-style8">
-                <asp:Label ID="Label3" runat="server" Text="Contacto :" Font-Bold="True"></asp:Label>
-            </td>
-            <td colspan="3">
-                <asp:TextBox ID="txbxContacto1" runat="server" Width="300px"></asp:TextBox>
-            </td>
-        </tr>
-        <tr>
-            <td class="auto-style8">
-                <asp:Label ID="Label4" runat="server" Text="Fecha Alta :" Font-Bold="True"></asp:Label>
-            </td>
-            <td>
-                <asp:TextBox ID="txbxRegDate1" runat="server" ReadOnly="true" BorderStyle="None"></asp:TextBox>
-            </td>
-            <td class="auto-style6">
-                <asp:Label ID="Label9" runat="server" Text="Activo :" Font-Bold="True"></asp:Label>
-            </td>
-            <td class="auto-style5">
-                <asp:CheckBox ID="chbcActivo1" runat="server" />
-            </td>
-        </tr>
-        <tr>
-            <td class="auto-style2" colspan="2">
-                <asp:Label ID="Label5" runat="server" Text="Aport. Pactada :" Font-Bold="True"></asp:Label>
-            </td>
-            <td class="auto-style7">
-                <asp:TextBox ID="txbxAportInicial1" runat="server" Width="80px"></asp:TextBox>
-            </td>
-            <td class="auto-style5">&nbsp;</td>
-        </tr>
-        <tr>
-            <td rowspan="2" class="auto-style1">
-                <asp:Image ID="imgImageURL1" runat="server" Style="height: 120px; width: 100px; border: solid" AlternateText="Imagen" />&nbsp;                
-                <br />
-                <asp:Button ID="btnBorraImage" Text="Borrar" runat="server" OnClick="btnBorraImage_Click" />
-                <asp:Button Text="Subir" runat="server" ID="btnSubirImage" OnClick="btnSubirImage_Click" />
-                <asp:FileUpload ID="FileUploadImage" runat="server" /><br />
-            </td>
-            <td class="auto-style2" colspan="2">
-                <asp:Label ID="Label10" runat="server" Text="Aport. Recibida :" Font-Bold="True"></asp:Label>
-            </td>
-            <td class="auto-style7">
-                <asp:TextBox ID="txbxAportRecibida1" runat="server" Width="80px"></asp:TextBox>
-            </td>
-            <td class="auto-style6">&nbsp;</td>
-        </tr>
-        <tr>
-            <td colspan="4">
-
-                <asp:Label ID="Label6" runat="server" Text="Condiciones Pactadas :" Font-Bold="True"></asp:Label>
-                <asp:TextBox ID="txbxCondOfertadas1" runat="server" Height="100px" TextMode="MultiLine" Width="522px"></asp:TextBox>
-
-            </td>
-        </tr>
-        <tr>
-            <td colspan="3"></td>
-            <td class="auto-style7">&nbsp;</td>
-            <td class="auto-style5">&nbsp;</td>
-        </tr>
-    </table>
-
-    <table style="width: 800px; margin: 5px auto 5px 5px; border: thin;">
-        <tr>
-            <td class="auto-style3">
-                <asp:Label ID="Label11" runat="server" Text="Web Site :" Font-Bold="True"></asp:Label>
-            </td>
-            <td class="auto-style4">
-                <asp:TextBox ID="txbxBlogURL1" runat="server" Width="310px"></asp:TextBox>
-            </td>
-            <td class="auto-style3">
-                <asp:Label ID="LaMovil" runat="server" Text="Móvil :" Font-Bold="True"></asp:Label>
-            </td>
-            <td class="auto-style4">
-                <asp:TextBox ID="txbxMobile1" runat="server" Width="100px"></asp:TextBox>
-            </td>
-        </tr>
-        <tr>
-            <td class="auto-style3">
-                <asp:Label ID="LaEMail" runat="server" Text="e-mail :" Font-Bold="True"></asp:Label>
-            </td>
-            <td class="auto-style4">
-                <asp:TextBox ID="txbxEMail1" runat="server" Width="310px"></asp:TextBox>
-            </td>
-            <td class="auto-style3">
-                <asp:Label ID="LaTlf" runat="server" Text="Tlf :" Font-Bold="True"></asp:Label>
-            </td>
-            <td class="auto-style4">
-                <asp:TextBox ID="txbxTlf1" runat="server" Width="100px"></asp:TextBox>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="4"></td>
-        </tr>
-        <tr>
-            <td class="auto-style3">
-                <asp:Label ID="LaCalle" runat="server" Text="Calle :" Font-Bold="True"></asp:Label>
-            </td>
-            <td class="auto-style4">
-                <asp:TextBox ID="txbxStreet1" runat="server" Width="310px"></asp:TextBox>
-            </td>
-            <td class="auto-style3">
-                <asp:Label ID="LaNumero" runat="server" Text="Número :" Font-Bold="True"></asp:Label>
-            </td>
-            <td class="auto-style4">
-                <asp:TextBox ID="txbxNumber1" runat="server" Width="50px"></asp:TextBox>
-            </td>
-        </tr>
-
-        <tr>
-            <td class="auto-style3">
-                <asp:Label ID="LaPoblacion" runat="server" Text="Población :" Font-Bold="True"></asp:Label>
-            </td>
-            <td class="auto-style4">
-                <asp:TextBox ID="txbxCity1" runat="server" Width="200px"></asp:TextBox>
-            </td>
-            <td class="auto-style3">
-                <asp:Label ID="LaPais" runat="server" Text="País :" Font-Bold="True"></asp:Label>
-            </td>
-            <td class="auto-style4">
-                <asp:TextBox ID="txbxCountry1" runat="server" Width="150px"></asp:TextBox>
-            </td>
-        </tr>
-
-        <tr>
-            <td class="auto-style3">
-                <asp:Label ID="LaCPostal" runat="server" Text="C.Postal :" Font-Bold="True"></asp:Label>
-            </td>
-            <td class="auto-style4">
-                <asp:TextBox ID="txbxPostalCode1" runat="server" Width="100px"></asp:TextBox>
-            </td>
-            <td class="auto-style3">&nbsp                
-            </td>
-            <td class="auto-style4">&nbsp           
-            </td>
-        </tr>
-        <tr>
-            <td colspan="4"></td>
-        </tr>
-        <tr>
-            <td class="auto-style3">
-                <asp:Label ID="Label8" runat="server" Text="Observaciones :" Font-Bold="True"></asp:Label>
-            </td>
-            <td class="auto-style4" colspan="2">&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td colspan="4">
-                <asp:TextBox ID="txbxMemo1" runat="server" TextMode="MultiLine" Width="100%"></asp:TextBox>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="4"></td>
-        </tr>
-
-
-        <tr>
-            <td colspan="4" style="text-align: center">
-                <asp:Button ID="btnNuevo" runat="server" Text="Nuevo" Width="150px"
-                    OnClientClick="javascript:if(!confirm('Crear un nuevo sponsor.¿Continuamos?'))return false"
-                    OnClick="btnNuevo_Click" />&nbsp;             
-                <asp:Button ID="btnGrabar" runat="server" Text="Grabar" Width="150px"
-                    OnClientClick="javascript:if(!confirm('Vas a grabar los datos del sponsor en pantalla.¿Continuamos?'))return false"
-                    OnClick="btnGrabar_Click" />&nbsp;
-                <asp:Button ID="btnCancelar" runat="server" Text="Deshacer" Width="90px"
-                    OnClientClick="javascript:if(!confirm('Sin cancelas ahora se perderan los datos que hayas cambiado.¿Cancelamos?'))return false"
-                    OnClick="btnCancelar_Click" />&nbsp;
-                <asp:Button ID="btnBorrar" runat="server" Text="Borrar" Width="150px"
-                    OnClientClick="javascript:if(!confirm('¿Borramos el sponsor actualmente en pantalla?'))return false"
-                    OnClick="btnBorrar_Click" />
-            </td>
-        </tr>
-        <tr>
-            <td colspan="4"></td>
-        </tr>
-        <tr>
-            <td colspan="4">
-                <div style="width: 950px; margin: auto;">
-                    <asp:GridView ID="gvSponsors" runat="server" AutoGenerateColumns="False" CellPadding="4" DataKeyNames="SponsorId" DataSourceID="SqlDataSource1" ForeColor="#333333" GridLines="None" AllowPaging="True" AllowSorting="True" OnSelectedIndexChanged="gvSponsors_SelectedIndexChanged">
-                        <AlternatingRowStyle BackColor="White" />
-                        <Columns>
-                            <asp:CommandField ButtonType="Button" ShowSelectButton="True" SelectText="Selec." />
-                            <asp:BoundField DataField="SponsorId" HeaderText="Id" SortExpression="SponsorId" InsertVisible="False" ReadOnly="True">
-                                <ItemStyle Width="50px" />
-                            </asp:BoundField>
-                            <asp:CheckBoxField DataField="Activo" HeaderText="Activo" SortExpression="Activo" />
-                            <asp:BoundField DataField="RegDate" HeaderText="Fecha de Alta" SortExpression="RegDate">
-                                <ItemStyle Width="50px" />
-                            </asp:BoundField>
-                            <asp:BoundField DataField="Nombre" HeaderText="Nombre" SortExpression="Nombre">
-                                <ItemStyle Width="200px" />
-                            </asp:BoundField>
-                            <asp:BoundField DataField="AportInicial" HeaderText="Aportacion" SortExpression="AportInicial">
-                                <ItemStyle Width="80px" />
-                            </asp:BoundField>
-                            <asp:BoundField DataField="AportRecibida" HeaderText="Recibido" SortExpression="AportRecibida">
-                                <ItemStyle Width="80px" />
-                            </asp:BoundField>
-                        </Columns>
-                        <EditRowStyle BackColor="#2461BF" />
-                        <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-                        <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-                        <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
-                        <RowStyle BackColor="#EFF3FB" />
-                        <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
-                        <SortedAscendingCellStyle BackColor="#F5F7FB" />
-                        <SortedAscendingHeaderStyle BackColor="#6D95E1" />
-                        <SortedDescendingCellStyle BackColor="#E9EBEF" />
-                        <SortedDescendingHeaderStyle BackColor="#4870BE" />
-                    </asp:GridView>
-                    <br style="color: #333333" />
-                    <asp:SqlDataSource ID="SqlDataSource1" runat="server"
-                        ConnectionString="<%$ ConnectionStrings:ClubSiteConn %>"
-                        SelectCommand="SELECT [SponsorId], [Nombre], [RegDate], [AportInicial], [AportRecibida], [Activo] FROM [Sponsors] ORDER BY [Nombre]"></asp:SqlDataSource>
-                </div>
-            </td>
-        </tr>
-
-    </table>--%>
 </asp:Content>
