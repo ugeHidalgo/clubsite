@@ -17,6 +17,9 @@ namespace ModelClasssesTests
             Address anAddress = null;
             Int32 aRaceTypeId = 0;
             string aMemo = null;
+            double aLatitud = 0;
+            double aLongitud = 0;
+            string aImgURL = null;
 
             Race aRace = new Race();
 
@@ -26,6 +29,9 @@ namespace ModelClasssesTests
             Assert.AreEqual(anAddress, aRace.Address);
             Assert.AreEqual(aRaceTypeId, aRace.RaceTypeId);
             Assert.AreEqual(aMemo, aRace.Memo);
+            Assert.AreEqual(aImgURL, aRace.ImageURL);
+            Assert.AreEqual(aLatitud, aRace.Latitud);
+            Assert.AreEqual(aLongitud, aRace.Longitud);
         }
 
         [TestMethod]
@@ -42,8 +48,11 @@ namespace ModelClasssesTests
             Address anAddress = new Address(aStreet, aNumber, aCity, aCountry, aPostalCode);
             Int32 aRaceTypeId = 20;
             string aMemo = "memo";
+            double aLatitud = 3;
+            double aLongitud = 36;
+            string aImgURL="imagen url";
 
-            Race aRace = new Race(anID,aName, aRaceDate, anAddress, aRaceTypeId,aMemo);
+            Race aRace = new Race(anID,aName, aRaceDate, anAddress, aRaceTypeId,aMemo,aImgURL, aLongitud, aLatitud );
 
             Assert.AreEqual(anID, aRace.Id);
             Assert.AreEqual(aName, aRace.Name);
@@ -55,6 +64,9 @@ namespace ModelClasssesTests
             Assert.AreEqual(aPostalCode, aRace.Address.PostalCode);
             Assert.AreEqual(aRaceTypeId, aRace.RaceTypeId);
             Assert.AreEqual(aMemo, aRace.Memo);
+            Assert.AreEqual(aImgURL, aRace.ImageURL);
+            Assert.AreEqual(aLatitud, aRace.Latitud);
+            Assert.AreEqual(aLongitud, aRace.Longitud);
         }
 
         [TestMethod]
@@ -71,9 +83,12 @@ namespace ModelClasssesTests
             Address anAddress = new Address(aStreet, aNumber, aCity, aCountry, aPostalCode);
             Int32 aRaceTypeId = 20;
             string aMemo = "memo";
+            double aLatitud = 3;
+            double aLongitud = 36;
+            string aImgURL = "imagen url";
 
             Race aRace = new Race();
-            aRace.SetRace(anID, aName, aRaceDate, anAddress, aRaceTypeId, aMemo);
+            aRace.SetRace(anID, aName, aRaceDate, anAddress, aRaceTypeId, aMemo, aImgURL, aLongitud, aLatitud);
 
             Assert.AreEqual(anID, aRace.Id);
             Assert.AreEqual(aName, aRace.Name);
@@ -85,6 +100,9 @@ namespace ModelClasssesTests
             Assert.AreEqual(aPostalCode, aRace.Address.PostalCode);
             Assert.AreEqual(aRaceTypeId, aRace.RaceTypeId);
             Assert.AreEqual(aMemo, aRace.Memo);
+            Assert.AreEqual(aImgURL, aRace.ImageURL);
+            Assert.AreEqual(aLatitud, aRace.Latitud);
+            Assert.AreEqual(aLongitud, aRace.Longitud);
         }
 
         [TestMethod]
@@ -101,8 +119,11 @@ namespace ModelClasssesTests
             Address anAddress = new Address(aStreet, aNumber, aCity, aCountry, aPostalCode);
             Int32 aRaceTypeId = 20;
             string aMemo = "memo";
+            double aLatitud = 3;
+            double aLongitud = 36;
+            string aImgURL = "imagen url";
 
-            Race aRace = new Race(anID, aName, aRaceDate, anAddress, aRaceTypeId, aMemo);
+            Race aRace = new Race(anID, aName, aRaceDate, anAddress, aRaceTypeId, aMemo, aImgURL, aLongitud, aLatitud);
             aRace.ClearRace();
 
             anID = 0;
@@ -111,6 +132,9 @@ namespace ModelClasssesTests
             anAddress = null;
             aRaceTypeId = 0;
             aMemo = null;
+            aLatitud = 0;
+            aLongitud = 0;
+            aImgURL = null;
 
             Assert.AreEqual(anID, aRace.Id);
             Assert.AreEqual(aName, aRace.Name);
@@ -118,6 +142,9 @@ namespace ModelClasssesTests
             Assert.AreEqual(null, aRace.Address);            
             Assert.AreEqual(aRaceTypeId, aRace.RaceTypeId);
             Assert.AreEqual(aMemo, aRace.Memo);
+            Assert.AreEqual(aImgURL, aRace.ImageURL);
+            Assert.AreEqual(aLatitud, aRace.Latitud);
+            Assert.AreEqual(aLongitud, aRace.Longitud);
         }
 
         [TestMethod]
@@ -134,8 +161,11 @@ namespace ModelClasssesTests
             Address anAddress = new Address(aStreet, aNumber, aCity, aCountry, aPostalCode);
             Int32 aRaceTypeId = 20;
             string aMemo = "memo";
+            double aLatitud = 3;
+            double aLongitud = 36;
+            string aImgURL = "imagen url";
 
-            Race aRace = new Race(anID, aName, aRaceDate, anAddress, aRaceTypeId, aMemo);
+            Race aRace = new Race(anID, aName, aRaceDate, anAddress, aRaceTypeId, aMemo, aImgURL, aLongitud, aLatitud);
             Race aRace2 = new Race();
 
             Assert.AreEqual(anID, aRace.Id);
@@ -155,6 +185,10 @@ namespace ModelClasssesTests
             Assert.AreEqual(null, aRace2.Address);
             Assert.AreEqual(0, aRace2.RaceTypeId);
             Assert.AreEqual(null, aRace2.Memo);
+             Assert.AreEqual(null, aRace.ImageURL);
+            Assert.AreEqual(0, aRace.Latitud);
+            Assert.AreEqual(0, aRace.Longitud);
+        
 
             aRace2.CopyRace(aRace);
             aRace.ClearRace();
@@ -169,6 +203,10 @@ namespace ModelClasssesTests
             Assert.AreEqual(aPostalCode, aRace2.Address.PostalCode);
             Assert.AreEqual(aRaceTypeId, aRace2.RaceTypeId);
             Assert.AreEqual(aMemo, aRace2.Memo);
+             Assert.AreEqual(aImgURL, aRace2.ImageURL);
+            Assert.AreEqual(aLatitud, aRace2.Latitud);
+            Assert.AreEqual(aLongitud, aRace2.Longitud);
+        
 
             Assert.AreEqual(0, aRace.Id);
             Assert.AreEqual(null, aRace.Name);
@@ -176,6 +214,10 @@ namespace ModelClasssesTests
             Assert.AreEqual(null, aRace.Address);
             Assert.AreEqual(0, aRace.RaceTypeId);
             Assert.AreEqual(null, aRace.Memo);
+             Assert.AreEqual(null, aRace.ImageURL);
+            Assert.AreEqual(0, aRace.Latitud);
+            Assert.AreEqual(0, aRace.Longitud);
+        
         }
 
         [TestMethod]
@@ -193,7 +235,7 @@ namespace ModelClasssesTests
         }
 
         [TestMethod]
-        public void addMembeToRaceMembersList()
+        public void addMemberToRaceMembersList()
         {
             //Create a few Races
             Address anAdress = new Address();

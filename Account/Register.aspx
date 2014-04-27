@@ -128,9 +128,18 @@
                             </tr>
                             <tr>
                                 <td class="auto-style2">
+                                    <asp:Label ID="Label14" runat="server" Text="Número Clubber :" Font-Bold="True"></asp:Label>
+                                </td>
+                                <td>                                    
+                                    <asp:TextBox ID="txbxClubNumber" runat="server" Width="50px"></asp:TextBox>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="auto-style2">
                                     <asp:Label ID="Label12" runat="server" Text="Federado :" Font-Bold="True"></asp:Label>
                                 </td>
-                                <td>
+                                <td>                                    
                                     <asp:CheckBox ID="chbxFederated" runat="server" />
                                 </td>
                             </tr>

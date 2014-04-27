@@ -1,13 +1,16 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="clubbers.aspx.cs" Inherits="ClubSite.theClubbers.clubbers" %>
+
+<%@ Register Assembly="Ext.Net" Namespace="Ext.Net" TagPrefix="ext" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-        <p>
+    <p>
         Estos son los miembros de nuestro club, sobre la imagen de cada uno puedes encontrar un enlace a su blog personal donde podrás encontrar información sobre cada uno de ellos.
     </p>
     <br />
     <br />
-    <div style="margin: auto; width: 80%;">
+    <%--<div style="margin: auto; width: 80%;">
         <asp:ListView ID="ListView1" runat="server" DataSourceID="LinqDataSource1" GroupItemCount="3">
 
             <EmptyDataTemplate>
@@ -33,15 +36,15 @@
                 <td id="Td2" runat="server" style="border: groove; border-color: black;">
                     <div style="border: thick; border-color: black; display: block; background-color: white; padding: 5px;">
                         <div>
-                            <a href='<%# Eval("BlogURL") %>' style="color:white">
-                                <asp:Image ID="Image1" ImageUrl='<%# Eval("NImageURL") %>' runat="server" Width="100px" Height="120px" ForeColor="white"/>
+                            <a href='<%# Eval("BlogURL") %>' style="color: white">
+                                <asp:Image ID="Image1" ImageUrl='<%# Eval("NImageURL") %>' runat="server" Width="100px" Height="120px" ForeColor="white" />
                             </a>
-                            <a href='<%# Eval("BlogURL") %>' style="color:white">
-                                <asp:Image ID="Image2" ImageUrl='<%# Eval("ImageURL") %>' runat="server" Width="100px" Height="120px" ForeColor="white"/>
+                            <a href='<%# Eval("BlogURL") %>' style="color: white">
+                                <asp:Image ID="Image2" ImageUrl='<%# Eval("ImageURL") %>' runat="server" Width="100px" Height="120px" ForeColor="white" />
                             </a>
                         </div>
                         <div style="text-align: center">
-                            <asp:Label ID="NameLabel" runat="server" Text='<%# Eval("UserName") %>'  CssClass="theClubLetter"  />
+                            <asp:Label ID="NameLabel" runat="server" Text='<%# Eval("UserName") %>' CssClass="theClubLetter" />
                         </div>
                     </div>
                 </td>
@@ -70,23 +73,84 @@
                     </tr>
                 </table>
             </LayoutTemplate>
+        </asp:ListView>        
 
+        <asp:LinqDataSource ID="LinqDataSource1" runat="server" ContextTypeName="ClubSite.Model.ClubSiteContext" EntityTypeName="" OrderBy="UserName desc" Select="new (UserName, ImageURL, NImageURL, BlogURL, State, Visible)" TableName="Members" Where="State==True && Visible==True">
+    </asp:LinqDataSource>
+    <asp:EntityDataSource ID="EntityDataSource1" runat="server">
+    </asp:EntityDataSource>
 
+    </div>--%>
 
-        </asp:ListView>
+    <ext:Store ID="Store1" runat="server">
+        <Model>
+            <ext:Model ID="Model2" runat="server" IDProperty="name">
+                <Fields>
+                    <ext:ModelField Name="UserName" />
+                    <ext:ModelField Name="ImageURL" />
+                    <ext:ModelField Name="NImageURL" />
+                    <ext:ModelField Name="BlogURL" />
+                    <ext:ModelField Name="SecondName" />
+                    <ext:ModelField Name="FirstName" />
+                </Fields>
+            </ext:Model>
+        </Model>
+    </ext:Store>
 
-        
-  
+    <ext:Panel ID="Panel1"
+        runat="server"
+        Title="Clubbers registrados"
+        Height="555"
+        Width="850"
+        Layout="FitLayout">
+        <TopBar>
+            <ext:Toolbar ID="Toolbar1" runat="server">
+                <Items>
+                    <ext:DisplayField ID="DisplayField1" runat="server" Text="Ordenar por:&nbsp;" />
+                    <ext:Button ID="btnOrderUsername" runat="server" Text="UserName">
+                        <DirectEvents>
+                            <Click OnEvent="btnOrderUsername_Click" />
+                        </DirectEvents>
+                    </ext:Button>
+                    <ext:Button ID="btnOrderSencond" runat="server" Text="Apellidos">
+                        <DirectEvents>
+                            <Click OnEvent="btnOrderSecond_Click" />
+                        </DirectEvents>
+                    </ext:Button>
+                </Items>
+            </ext:Toolbar>
+        </TopBar>
+        <Items>
+            <ext:DataView
+                ID="miembros"
+                runat="server"
+                DeferInitialRefresh="false"
+                ItemSelector="div.clubber"
+                OverItemCls="clubber-hover"
+                MultiSelect="false"
+                AutoScroll="true"
+                Cls="clubbers-view"
+                StoreID="Store1"
+                TrackOver="true"
+                EmptyText="No hay imágenes disponibles">
+                <Tpl ID="Tpl1" runat="server">
+                    <Html>
+                        <tpl for=".">
+                                <a href="{BlogURL}"><div class="clubber">
+                                    <div>
+                                        <img width="80" height="80" src="{ImageURL}" /> 
+                                        <img width="80" height="80" src="{NImageURL}" />  
+                                    </div>                                    
+                                    <div>(<strong>{UserName}</strong>) {SecondName}, {FirstName}</div> 
+                                </div></a>                                
+                            </tpl>
+                    </Html>
+                </Tpl>
+                <Plugins>
+                    <ext:DataViewAnimated ID="DataViewAnimated1" runat="server" Duration="550" IDProperty="UserName" />
+                </Plugins>
+            </ext:DataView>
+        </Items>
+    </ext:Panel>
 
-        
-        <asp:LinqDataSource ID="LinqDataSource1" runat="server" ContextTypeName="ClubSite.Model.ClubSiteContext" EntityTypeName="" OrderBy="UserName desc" Select="new (UserName, ImageURL, NImageURL, BlogURL, State, Visible)" TableName="Members" where="State==True && Visible==True" >
-        </asp:LinqDataSource>
-        <asp:EntityDataSource ID="EntityDataSource1" runat="server">
-        </asp:EntityDataSource>
-
-        
-  
-
-        
-    </div>
 </asp:Content>

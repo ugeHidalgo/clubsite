@@ -14,6 +14,8 @@ namespace ClubSite.Model
         [Key, StringLength(25)]
         public string UserName { get; set; }
 
+        public string Number { get; set; }
+
         [StringLength(15)]
         public string DNI { get; set; }
 
@@ -53,10 +55,11 @@ namespace ClubSite.Model
             this.Visible = false;
         }
 
-        public Member(string anUserName, string aFirstName, string aSecondName, string aDNI, Address anAddress, string aTlf, string aMobile, 
+        public Member(string anUserName,string aNumber, string aFirstName, string aSecondName, string aDNI, Address anAddress, string aTlf, string aMobile, 
                       string anEMail, bool aState, bool federated, bool visible, DateTime? aBirthDate, string aMemo, string anImageURL, string aNImageURL, string aBlogURL)
         {
             this.UserName = anUserName;
+            this.Number = aNumber;
             this.FirstName = aFirstName;
             this.SecondName = aSecondName;
             this.DNI = aDNI;
@@ -78,10 +81,11 @@ namespace ClubSite.Model
 
         //Methods
         #region
-        public void SetMember(string anUserName, string aFirstName, string aSecondName, string aDNI, Address anAddress, string aTlf, string aMobile,
+        public void SetMember(string anUserName, string aNumber, string aFirstName, string aSecondName, string aDNI, Address anAddress, string aTlf, string aMobile,
                               string anEMail, bool aState, bool federated, bool visible, DateTime? aBirthDate, string aMemo, string anImageURL, string aNImageURL, string aBlogURL)
         {
             this.UserName = anUserName;
+            this.Number = aNumber;
             this.FirstName = aFirstName;
             this.SecondName = aSecondName;
             this.DNI = aDNI;
@@ -102,6 +106,7 @@ namespace ClubSite.Model
         public void ClearMember()
         {
             this.UserName = null;
+            this.Number = null;
             this.FirstName = null;
             this.SecondName = null;
             this.DNI = null;

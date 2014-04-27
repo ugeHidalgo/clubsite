@@ -76,6 +76,7 @@ namespace ClubSite.AdminPages
             txbxTlf.Text = aMember.Tlf;
             txbxMobile.Text = aMember.Mobile;
             txbxEMail.Text = aMember.EMail;
+            txbxClubberNumber.Text = aMember.Number;
             if (aMember.Address == null)
             {
                 txbxStreet.Text = "";
@@ -212,6 +213,7 @@ namespace ClubSite.AdminPages
                         aMember.Address.City = txbxCity.Text;
                         aMember.Address.Country = txbxCountry.Text;
                         aMember.Address.PostalCode = txbxPostalCode.Text;
+                        aMember.Number = txbxClubberNumber.Text;
                         db.SaveChanges();
                         memberUsed = aMember;
                         oldMemberUsed = aMember;

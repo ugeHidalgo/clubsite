@@ -17,6 +17,8 @@
     <asp:ContentPlaceHolder runat="server" ID="HeadContent" />
 </head>
 <body>
+    <ext:ResourceManager ID="ResourceManager1" runat="server" Theme="Default" />
+
     <form runat="server">  
             <asp:ScriptManager runat="server">
             <Scripts>

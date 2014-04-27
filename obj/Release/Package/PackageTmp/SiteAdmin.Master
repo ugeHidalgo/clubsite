@@ -1,5 +1,7 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="SiteAdmin.master.cs" Inherits="ClubSite.SiteAdmin" %>
 
+<%@ Register Assembly="Ext.Net" Namespace="Ext.Net" TagPrefix="ext" %>
+
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -7,9 +9,11 @@
     <title></title>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
-    <link href="~/Content/SiteAdminStyle.css" rel="stylesheet" />
+    <link href="~/Content/SiteAdminStyle.css" rel="stylesheet" />    
 </head>
-<body>
+<body>    
+    <ext:ResourceManager ID="ResourceManager1" runat="server" Theme="Default" />
+
     <form id="form1" runat="server">
 
         <header>
@@ -43,9 +47,13 @@
                         <asp:MenuItem Selectable="False" Text="Competiciones" Value="Competiciones">
                             <asp:MenuItem NavigateUrl="~/theAdminPages/Deportes.aspx" Text="Deportes" Value="Deportes"></asp:MenuItem>
                             <asp:MenuItem NavigateUrl="~/theAdminPages/RaceTypes.aspx" Text="Tipos de Carrera" Value="Tipos de Carrera"></asp:MenuItem>
-                            <asp:MenuItem NavigateUrl="~/theAdminPages/Races.aspx" Text="Pruebas" Value="Pruebas"></asp:MenuItem>                                            
+                            <asp:MenuItem NavigateUrl="~/theAdminPages/Races.aspx" Text="Pruebas" Value="Pruebas"></asp:MenuItem>
                         </asp:MenuItem>
-                        <asp:MenuItem Text="Material" Value="Material"></asp:MenuItem>
+                        <asp:MenuItem Text="Material" Value="Material">
+                            <asp:MenuItem NavigateUrl="~/theAdminPages/Material.aspx" Text="Ficha de Material" Value="Ficha de Material"></asp:MenuItem>
+                            <asp:MenuItem NavigateUrl="~/theAdminPages/MaterialFamilies.aspx" Text="Familias" Value="Familias"></asp:MenuItem>
+                            <asp:MenuItem NavigateUrl="~/theAdminPages/MaterialList.aspx" Text="Todos los materiales" Value="Todos los materiales"></asp:MenuItem>
+                        </asp:MenuItem>
                         <asp:MenuItem Selectable="False" Text="Configuración" Value="Configuración">
                             <asp:MenuItem Text="Fotos Portada" Value="Fotos Portada"></asp:MenuItem>
                             <asp:MenuItem Text="Banners" Value="Banners"></asp:MenuItem>
@@ -58,27 +66,24 @@
             </nav>
 
             <div id="AdminContent">
-                <hgroup class="title">
-                    <h1><span class="theClub"><%: Page.Title %></span></h1>
-                </hgroup>
-
                 <asp:ContentPlaceHolder ID="cpMainContent" runat="server">
                 </asp:ContentPlaceHolder>
             </div>
         </div>
 
-    <footer>
+        <footer>
             <ul id="follow">
-                
+
                 <li>
                     <asp:ImageButton CssClass="FollowImageFooter" ID="ImageButton4" runat="server" ImageUrl="~/Images/Logos/blogger.jpg" PostBackUrl="http://www.sharptheclub.com/" />
                 </li>
                 <li>
                     <asp:ImageButton CssClass="FollowImageFooter" ID="ImageButton5" runat="server" ImageUrl="~/Images/Logos/facebook.png" PostBackUrl="https://www.facebook.com/sharptheclubthepage" />
+                </li>
                 <li>
                     <asp:ImageButton CssClass="FollowImageFooter" ID="ImageButton6" runat="server" ImageUrl="~/Images/Logos/twitter.png" PostBackUrl="http://twitter.com/sharptheclub" />
                 </li>
-                    <li>@Powered by #theClub <%: DateTime.Now.Year %></li>
+                <li>@Powered by #theClub <%: DateTime.Now.Year %></li>
             </ul>
             <table class="float-right">
                 <tr>

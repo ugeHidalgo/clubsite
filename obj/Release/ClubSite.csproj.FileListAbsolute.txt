@@ -123,3 +123,13 @@ C:\Sites\ClubSite\bin\ko\System.Spatial.resources.dll
 C:\Sites\ClubSite\bin\ru\System.Spatial.resources.dll
 C:\Sites\ClubSite\bin\zh-Hans\System.Spatial.resources.dll
 C:\Sites\ClubSite\bin\zh-Hant\System.Spatial.resources.dll
+C:\Sites\ClubSite\bin\Ext.Net.dll
+C:\Sites\ClubSite\bin\Ext.Net.Utilities.dll
+C:\Sites\ClubSite\bin\GMaps.dll
+C:\Sites\ClubSite\bin\Newtonsoft.Json.dll
+C:\Sites\ClubSite\bin\Transformer.NET.dll
+C:\Sites\ClubSite\bin\WebActivatorEx.dll
+C:\Sites\ClubSite\bin\Ext.Net.xml
+C:\Sites\ClubSite\bin\Ext.Net.Utilities.xml
+C:\Sites\ClubSite\bin\Newtonsoft.Json.xml
+C:\Sites\ClubSite\bin\Transformer.NET.xml

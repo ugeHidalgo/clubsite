@@ -22,17 +22,21 @@
         .auto-style4 {
             text-align: left;
         }
+
         .auto-style5 {
             text-align: right;
             width: 150px;
         }
+
         .auto-style6 {
             width: 200px;
         }
+
         .auto-style7 {
             text-align: left;
             width: 180px;
         }
+
         .auto-style8 {
             text-align: left;
             width: 300px;
@@ -49,9 +53,9 @@
                 <asp:FileUpload ID="FileUploadNumber" runat="server" /><br />
             </td>
             <td class="auto-style2">
-                <asp:TextBox ID="txbxUserName" runat="server" Width="117px" ReadOnly="true" BorderStyle="None" Font-Bold="True"/>
+                <asp:TextBox ID="txbxUserName" runat="server" Width="117px" ReadOnly="true" BorderStyle="None" Font-Bold="True" />
             </td>
-            <td>                
+            <td>
                 <asp:DropDownList ID="ddlMembers" runat="server" AutoPostBack="true" DataTextField="UserName" DataValueField="UserName"
                     SelectMethod="ddlMembers_GetData" Width="313px" OnSelectedIndexChanged="ddlMembers_SelectedIndexChanged">
                 </asp:DropDownList>
@@ -82,7 +86,7 @@
             </td>
         </tr>
         <tr>
-            <td rowspan="4" class="auto-style1">
+            <td rowspan="5" class="auto-style1">
                 <asp:Image ID="imgImageURL" runat="server" Style="height: 120px; width: 100px; border: solid" AlternateText="Imagen" />&nbsp;                
                 <br />
                 <asp:Button ID="btnBorraImage" Text="Borrar" runat="server" OnClick="btnBorraImage_Click" />
@@ -102,6 +106,14 @@
             </td>
             <td>
                 <asp:CheckBox ID="chBxActiveUser" runat="server" />
+            </td>
+        </tr>
+        <tr>
+            <td class="auto-style2">
+                <asp:Label ID="Label12" runat="server" Text="Número Clubber :" Font-Bold="True"></asp:Label>
+            </td>
+            <td>
+                <asp:TextBox ID="txbxClubberNumber" runat="server" Width="50px"></asp:TextBox>
             </td>
         </tr>
         <tr>
@@ -134,9 +146,9 @@
                 <asp:TextBox ID="txbxBlogURL" runat="server" Width="310px"></asp:TextBox>
             </td>
             <td class="auto-style6" colspan="2">
-                
+
                 <asp:Label ID="Label10" runat="server" Text="Carreras :" Font-Bold="True"></asp:Label>
-                
+
             </td>
         </tr>
         <tr>
@@ -179,7 +191,7 @@
                 <asp:TextBox ID="txbxNumber" runat="server" Width="50px"></asp:TextBox>
             </td>
             <td colspan="2">&nbsp                           
-                </td>
+            </td>
             <td rowspan="6" class="auto-style6">
                 <asp:ListBox ID="ListBox1" runat="server" Width="300px" Height="200px"></asp:ListBox>
             </td>
@@ -198,8 +210,7 @@
             <td class="auto-style7">
                 <asp:TextBox ID="txbxPostalCode" runat="server" Width="80px"></asp:TextBox>
             </td>
-            <td colspan="2">
-                &nbsp;</td>
+            <td colspan="2">&nbsp;</td>
         </tr>
 
         <tr>
@@ -230,8 +241,7 @@
         </tr>
 
         <tr>
-            <td class="auto-style3">                
-            </td>
+            <td class="auto-style3"></td>
             <td class="auto-style4" colspan="5">&nbsp;</td>
         </tr>
         <tr>
@@ -259,8 +269,7 @@
             </td>
         </tr>
         <tr>
-            <td colspan="7">
-                &nbsp;</td>
+            <td colspan="7">&nbsp;</td>
         </tr>
         <tr>
             <td colspan="7">

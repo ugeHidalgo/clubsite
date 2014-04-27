@@ -111,22 +111,21 @@ namespace ClubSite.AdminPages
             aSponsor.Address.Number = txbxNumber.Text;
             aSponsor.Address.Country = txbxCountry.Text;
             aSponsor.Address.PostalCode = txbxPostalCode.Text;
-            try
-            {
-                aSponsor.Latitud = Convert.ToDouble(txbxLatitud.Text);
-            }
-            catch (Exception)
-            {
+            string aux = ReformatNumber(txbxLatitud.Text);
+            if (aux == null)
                 aSponsor.Latitud = 0;
-            }
-            try
+            else
             {
-                aSponsor.Longitud = Convert.ToDouble(txbxLongitud.Text);
+                aSponsor.Latitud = Convert.ToDouble(aux);
             }
-            catch (Exception)
-            {
+
+            aux = ReformatNumber(txbxLongitud.Text);
+            if (aux == null)
                 aSponsor.Longitud = 0;
-            }
+            else
+            {
+                aSponsor.Longitud = Convert.ToDouble(aux);
+            }            
             return aSponsor;
         }
 

@@ -99,15 +99,16 @@
 
     <ext:Panel ID="Panel1"
         runat="server"
-        Title="Clubbers registrados"
+        Title=""
         Height="555"
         Width="850"
+        Border ="False"
         Layout="FitLayout">
         <TopBar>
             <ext:Toolbar ID="Toolbar1" runat="server">
                 <Items>
                     <ext:DisplayField ID="DisplayField1" runat="server" Text="Ordenar por:&nbsp;" />
-                    <ext:Button ID="btnOrderUsername" runat="server" Text="UserName">
+                    <ext:Button ID="btnOrderUsername" runat="server" Text="User Name">
                         <DirectEvents>
                             <Click OnEvent="btnOrderUsername_Click" />
                         </DirectEvents>
@@ -115,6 +116,11 @@
                     <ext:Button ID="btnOrderSencond" runat="server" Text="Apellidos">
                         <DirectEvents>
                             <Click OnEvent="btnOrderSecond_Click" />
+                        </DirectEvents>
+                    </ext:Button>
+                    <ext:Button ID="btnOrderNumber" runat="server" Text="Número">
+                        <DirectEvents>
+                            <Click OnEvent="btnOrderNumber_Click" />
                         </DirectEvents>
                     </ext:Button>
                 </Items>

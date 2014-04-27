@@ -181,10 +181,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Account\LoginNotActive.aspx" />
-    <Content Include="App_Data\clubsite.mdf" />
-    <Content Include="App_Data\clubsite_log.ldf">
-      <DependentUpon>clubsite.mdf</DependentUpon>
-    </Content>
     <Content Include="App_Readme\Ext.NET.Utilities\BREAKING_CHANGES.txt" />
     <Content Include="App_Readme\Ext.NET.Utilities\LICENSE.txt" />
     <Content Include="App_Readme\Ext.NET.Utilities\README.txt" />
@@ -224,8 +220,13 @@
     <Content Include="Images\PostIts\Post-it_Green.png" />
     <Content Include="Images\PostIts\Post-it_Yellow.png" />
     <Content Include="Images\calendarioClubBlanco.png" />
+    <Content Include="Images\Sponsors\bike point.jpg" />
+    <Content Include="Images\Sponsors\DSN.jpg" />
+    <Content Include="Images\Sponsors\human sapiens.png" />
+    <Content Include="Images\Sponsors\juanmanuelCasares.jpg" />
+    <Content Include="Images\Sponsors\Manzano.jpg" />
+    <Content Include="Images\Sponsors\repuestos andrés.jpg" />
     <Content Include="Images\Sponsors\sponsors.bmp" />
-    <Content Include="Images\Sponsors\sponsorsBN.png" />
     <Content Include="Scripts\jsSlider.js" />
     <Content Include="theAdminPages\DefaultAdmin.aspx" />
     <Content Include="theAdminPages\Deportes.aspx" />
@@ -328,6 +329,7 @@
     <Content Include="packages.config" />
     <Content Include="Model\ClassDiagram2.cd" />
     <Content Include="App_Readme\Ext.NET\Sample.Web.config" />
+    <None Include="Properties\PublishProfiles\Pub to WServer.pubxml" />
     <None Include="Properties\PublishProfiles\Publish to WServer.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
@@ -363,6 +365,8 @@
     <Content Include="theClub\historia1.jpg" />
     <Content Include="theClub\logoHistoria.jpg" />
     <Content Include="theRush\Calendario.aspx" />
+    <Content Include="theRush\Carreras.aspx" />
+    <Content Include="theRush\CarrerasDetalle.aspx" />
     <Content Include="theRush\Logros.aspx" />
     <Content Include="theRush\theFlag.aspx" />
     <Content Include="theRush\theRush.aspx" />
@@ -598,6 +602,20 @@
     <Compile Include="theRush\Calendario.aspx.designer.cs">
       <DependentUpon>Calendario.aspx</DependentUpon>
     </Compile>
+    <Compile Include="theRush\Carreras.aspx.cs">
+      <DependentUpon>Carreras.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="theRush\Carreras.aspx.designer.cs">
+      <DependentUpon>Carreras.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="theRush\CarrerasDetalle.aspx.cs">
+      <DependentUpon>CarrerasDetalle.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="theRush\CarrerasDetalle.aspx.designer.cs">
+      <DependentUpon>CarrerasDetalle.aspx</DependentUpon>
+    </Compile>
     <Compile Include="theRush\Logros.aspx.cs">
       <DependentUpon>Logros.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -649,8 +667,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="Images\Clubbers\" />
     <Folder Include="Images\Ofertas\" />
+    <Folder Include="Images\Races\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Account\Web.config" />

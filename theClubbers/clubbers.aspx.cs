@@ -56,5 +56,19 @@ namespace ClubSite.theClubbers
             }
         }
 
+        protected void btnOrderNumber_Click(object sender, DirectEventArgs e)
+        {
+            using (var db = new ClubSiteContext())
+            {
+                var data = from m in db.Members
+                           orderby m.Number
+                           where (m.State == true) && (m.Visible == true)
+                           select new { m.UserName, m.ImageURL, m.NImageURL, m.BlogURL, m.SecondName, m.FirstName };
+
+                this.Store1.DataSource = data;
+                this.Store1.DataBind();
+            }
+        }
+
     }
 }

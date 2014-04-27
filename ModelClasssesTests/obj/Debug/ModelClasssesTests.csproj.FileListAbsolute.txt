@@ -15,7 +15,6 @@ C:\Sites\ClubSite\ModelClasssesTests\bin\Debug\EntityFramework.dll
 C:\Sites\ClubSite\ModelClasssesTests\bin\Debug\Ext.Net.dll
 C:\Sites\ClubSite\ModelClasssesTests\bin\Debug\System.Web.Optimization.dll
 C:\Sites\ClubSite\ModelClasssesTests\bin\Debug\Microsoft.AspNet.Membership.OpenAuth.dll
-C:\Sites\ClubSite\ModelClasssesTests\bin\Debug\GMaps.dll
 C:\Sites\ClubSite\ModelClasssesTests\bin\Debug\DotNetOpenAuth.AspNet.dll
 C:\Sites\ClubSite\ModelClasssesTests\bin\Debug\Microsoft.AspNet.FriendlyUrls.dll
 C:\Sites\ClubSite\ModelClasssesTests\bin\Debug\Transformer.NET.dll

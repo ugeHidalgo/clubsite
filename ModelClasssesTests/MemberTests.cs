@@ -72,9 +72,10 @@ namespace ModelClasssesTests
             string aCity = "City";
             string aCountry = "Country";
             string aPostalCode = "18007";
+            string aClubNumber = "14";
 
             Address anAddress = new Address(aStreet, aNumber, aCity, aCountry, aPostalCode);
-            Member aMember = new Member(aUserName, aFirstName, aSecondName, aDNI, anAddress, aTlf, aMobile, anEMail, 
+            Member aMember = new Member(aUserName, aClubNumber, aFirstName, aSecondName, aDNI, anAddress, aTlf, aMobile, anEMail, 
                 aState, federated, visible, aBirthdate, aMemo, anImageURL, aNImageURL, aBlogURL);
 
             Assert.AreEqual(aUserName, aMember.UserName);
@@ -98,6 +99,7 @@ namespace ModelClasssesTests
             Assert.AreEqual(aTlf, aMember.Tlf);
             Assert.AreEqual(aMobile, aMember.Mobile);
             Assert.AreEqual(anEMail, aMember.EMail);
+            Assert.AreEqual(aClubNumber, aMember.Number);
         }
 
         [TestMethod]
@@ -124,10 +126,11 @@ namespace ModelClasssesTests
             string aCity = "City";
             string aCountry = "Country";
             string aPostalCode = "18007";
+            string aClubNumber = "14";
 
             Address anAddress = new Address(aStreet, aNumber, aCity, aCountry, aPostalCode);
             Member aMember = new Member();
-            aMember.SetMember(aUserName, aFirstName, aSecondName, aDNI, anAddress, aTlf, aMobile, anEMail, 
+            aMember.SetMember(aUserName, aClubNumber, aFirstName, aSecondName, aDNI, anAddress, aTlf, aMobile, anEMail, 
                 aState, federated, visible, aBirthdate, aMemo, anImageURL, aNImageURL, aBlogURL);
 
             Assert.AreEqual(aUserName, aMember.UserName);
@@ -151,6 +154,7 @@ namespace ModelClasssesTests
             Assert.AreEqual(aTlf, aMember.Tlf);
             Assert.AreEqual(aMobile, aMember.Mobile);
             Assert.AreEqual(anEMail, aMember.EMail);
+            Assert.AreEqual(aClubNumber, aMember.Number);
         }
 
         [TestMethod]
@@ -177,9 +181,10 @@ namespace ModelClasssesTests
             string aCity = "City";
             string aCountry = "Country";
             string aPostalCode = "18007";
+            string aClubNumber = "14";
 
-            Address anAddress = new Address(aStreet, aNumber, aCity, aCountry, aPostalCode);
-            Member aMember = new Member(aUserName, aFirstName, aSecondName, aDNI, anAddress, aTlf, aMobile, anEMail,
+            Address anAddress = new Address(aStreet,  aNumber, aCity, aCountry, aPostalCode);
+            Member aMember = new Member(aUserName, aClubNumber, aFirstName, aSecondName, aDNI, anAddress, aTlf, aMobile, anEMail,
                 aState, federated, visible, aBirthdate, aMemo, anImageURL, aNImageURL, aBlogURL);
 
             Assert.AreEqual(aUserName, aMember.UserName);
@@ -203,6 +208,7 @@ namespace ModelClasssesTests
             Assert.AreEqual(aTlf, aMember.Tlf);
             Assert.AreEqual(aMobile, aMember.Mobile);
             Assert.AreEqual(anEMail, aMember.EMail);
+            Assert.AreEqual(aClubNumber, aMember.Number);
 
             aMember.ClearMember();
 
@@ -223,6 +229,7 @@ namespace ModelClasssesTests
             Assert.AreEqual(null, aMember.Tlf);
             Assert.AreEqual(null, aMember.Mobile);
             Assert.AreEqual(null, aMember.EMail);
+            Assert.AreEqual(null, aMember.Number);
         }
     }
 }

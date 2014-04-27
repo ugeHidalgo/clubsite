@@ -51,13 +51,14 @@ namespace ClubSite.Account
                     string aTlf = ((TextBox)RegisterUser.CreateUserStep.ContentTemplateContainer.FindControl("txbxTlf")).Text;
                     string aMobile = ((TextBox)RegisterUser.CreateUserStep.ContentTemplateContainer.FindControl("txbxMobile")).Text;
                     string anEMail = ((TextBox)RegisterUser.CreateUserStep.ContentTemplateContainer.FindControl("Email")).Text;
+                    string aClubNumber = ((TextBox)RegisterUser.CreateUserStep.ContentTemplateContainer.FindControl("txbxClubNumber")).Text;
                     string aStreet = ((TextBox)RegisterUser.CreateUserStep.ContentTemplateContainer.FindControl("txbxStreet")).Text;
                     string aNumber = ((TextBox)RegisterUser.CreateUserStep.ContentTemplateContainer.FindControl("txbxNumber")).Text;
                     string aCity = ((TextBox)RegisterUser.CreateUserStep.ContentTemplateContainer.FindControl("txbxCity")).Text;
                     string aCountry = ((TextBox)RegisterUser.CreateUserStep.ContentTemplateContainer.FindControl("txbxCountry")).Text;
                     string aPostalCode = ((TextBox)RegisterUser.CreateUserStep.ContentTemplateContainer.FindControl("txbxPostalCode")).Text;
                     Address anAddress = new Address(aStreet, aNumber, aCity, aCountry, aPostalCode);
-                    Member aMember = new Member(aUserName, aFirstName, aSecondName, aDNI, anAddress, aTlf, aMobile, anEMail, 
+                    Member aMember = new Member(aUserName, aClubNumber, aFirstName, aSecondName, aDNI, anAddress, aTlf, aMobile, anEMail, 
                         aState, federated, visible, aBirthDate, aMemo, anImageURL, aNImageURL, aBlogURL);                    
                     bd.Members.Add(aMember);
                     bd.SaveChanges();

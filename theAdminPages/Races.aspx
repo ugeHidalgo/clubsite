@@ -3,64 +3,202 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cpMainContent" runat="server">
-    
+
+       <script type="text/javascript"
+        src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDS7Syd76e3allIrLsYVfIcJ43kZ0NnHiI&sensor=false">
+    </script>
+
+    <script type="text/javascript">
+        var map;
+        var marker;
+
+        function initializeMap(StrLatitud, StrLongitud, Nombre) {
+            //alert('Long:' + StrLongitud + ' Lat:' + StrLatitud + ' Nombre:' + Nombre);
+            if ((StrLatitud=='') || isNaN(StrLatitud))
+                StrLatitud = '37.176595';
+            if ((StrLongitud == '') || isNaN(StrLongitud))
+                StrLongitud = '-3.598537';
+            var Latitud = parseFloat(StrLatitud);
+            var Longitud = parseFloat(StrLongitud);
+            //alert('Long:'+Longitud+' Lat:'+Latitud+' Nombre:'+Nombre);
+            var mapOptions = {
+                zoom: 13,
+                center: new google.maps.LatLng(Latitud, Longitud)
+            };
+            map = new google.maps.Map(document.getElementById('cpMainContent_map_canvas-body'),
+                mapOptions);
+
+            marker = new google.maps.Marker({
+                position: new google.maps.LatLng(Latitud, Longitud),
+                map: map,
+                title: Nombre
+            });
+
+            //Zoom over marker when click over it.
+            google.maps.event.addListener(marker, 'click', function () {
+                map.setZoom(18);
+                map.setCenter(marker.getPosition());
+            });
+
+            //Set new position for marker when click over map
+            google.maps.event.addListener(map, 'click', function (event) {
+                setMarkerPosition(event.latLng);
+            });
+
+        }
+
+        function clearMapPosition() {
+            document.getElementsByName("cpMainContent_txbxLatitud")[0].value = 0;
+            document.getElementsByName("cpMainContent_txbxLongitud")[0].value = 0
+            initializeMap(0, 0, 'Anywhere');
+        }
+            
+
+            // Set the position for the marker.
+        function setMarkerPosition(location) {
+            //Set new position for marker
+            marker.setPosition(location);
+
+            //Puts new position data into form
+            document.getElementsByName("cpMainContent_txbxLatitud")[0].value = location.lat().toFixed(6);
+            document.getElementsByName("cpMainContent_txbxLongitud")[0].value = location.lng().toFixed(6);
+        }           
+    </script>
+
     <ext:TabPanel ID="TabPanel1"
         Title="Competiciones"
         runat="server"
         Width="750"
-        Height="600"
+        Height="650"
         DeferredRender="false">
         <Items>
             <ext:Panel
-                ID="Panel1"
+                ID="PaDatosPrincipales"
                 runat="server"
                 Title="Datos Principales"
-                Frame="true"               
-                Width="700"
+                Frame="true"
+                Width="70"
                 ButtonAlign="Center">
                 <Items>
-                    <ext:Container ID="Container1" runat="server" Layout="HBoxLayout" Padding="5">
+                    <ext:Container ID="ContDatosPrinc" runat="server" Layout="HBoxLayout" Padding="5">
                         <Items>
-                            <ext:TextField ID="txbxID" runat="server" FieldLabel="Código :" LabelAlign="Top" Width="50" Padding="5" ReadOnly="true" Cls="ReadOnly" />
-                            <ext:TextField ID="txbxDate" runat="server" FieldLabel="Fecha :" LabelAlign="Top" Width="100" Padding="5" ReadOnly="true" Cls="ReadOnly" />
+                            <ext:FormPanel
+                                ID="FPDatosPrinc"
+                                runat="server"
+                                Width="350"
+                                height="206"
+                                Frame="true"
+                                Title=""
+                                Margins="0 0 0 12"
+                                Border="false"
+                                PaddingSummary="0px 0px 0px 0px"
+                                LabelWidth="50">
+                                <Defaults>
+                                    <ext:Parameter Name="anchor" Value="95%" Mode="Value" />
+                                    <ext:Parameter Name="allowBlank" Value="false" Mode="Raw" />
+                                    <ext:Parameter Name="msgTarget" Value="side" Mode="Value" />
+                                </Defaults>
+                                <Items>
+                                    <ext:Container ID="Container11" runat="server" Layout="VBoxLayout" Padding="5">
+                                        <Items>
+                                            <ext:TextField ID="txbxID" runat="server" FieldLabel="Código :" LabelAlign="Top" Width="50" Padding="5" ReadOnly="true" Cls="ReadOnly" />
+                                            <ext:TextField ID="txbxDate" runat="server" FieldLabel="Fecha :" LabelAlign="Top" Width="100" Padding="5"/>
+                                        </Items>
+                                    </ext:Container>
+                                    <ext:Container ID="Container10" runat="server" Layout="HBoxLayout" Padding="5">
+                                        <Items>
+                                            <ext:ComboBox ID="cbRaceTypes" runat="server" FieldLabel="Tipo de Competición :" LabelAlign="Top" Padding="5"
+                                                DisplayField="Name" ValueField="RaceTypeID" Width="250px" AllowBlank="true" EmptyText="Escoja tipo de carrera">
+                                                <Store>
+                                                    <ext:Store ID="Store1" runat="server">
+                                                        <Model>
+                                                            <ext:Model ID="Model5" runat="server" IDProperty="RaceTypeID">
+                                                                <Fields>
+                                                                    <ext:ModelField Name="RaceTypeID" />
+                                                                    <ext:ModelField Name="Name" />
+                                                                </Fields>
+                                                            </ext:Model>
+                                                        </Model>
+                                                    </ext:Store>
+                                                </Store>
+                                                <DirectEvents>
+                                                    <Select OnEvent="cbRaceTypesChangeValue">
+                                                    </Select>
+                                                </DirectEvents>
+                                            </ext:ComboBox>
+                                            <ext:TextField ID="txbxPoints" runat="server" FieldLabel="Puntos :" LabelAlign="Top" Width="48" Padding="5" ReadOnly="true" Cls="ReadOnly" />
+                                        </Items>
+                                    </ext:Container>
+                                </Items>
+                            </ext:FormPanel>
+                            <ext:Component ID="Component1" runat="server" Flex="1" />
+                            <ext:FormPanel
+                                ID="FormImgPanel"
+                                runat="server"
+                                Width="350"
+                                Frame="true"
+                                Title=""
+                                Margins="0 0 0 12"
+                                Border="false"
+                                PaddingSummary="0px 0px 0px 0px"
+                                LabelWidth="50">
+                                <Defaults>
+                                    <ext:Parameter Name="anchor" Value="95%" Mode="Value" />
+                                    <ext:Parameter Name="allowBlank" Value="false" Mode="Raw" />
+                                    <ext:Parameter Name="msgTarget" Value="side" Mode="Value" />
+                                </Defaults>
+                                <Items>
+                                    <ext:Image ID="imgImage" runat="server" Height="140" Width="200" AlternateText="Imagen 2 Sponsor" Padding="5" Border="true" />
+                                    <ext:FileUploadField
+                                        ID="FileUImg"
+                                        runat="server"
+                                        EmptyText="Seleccione una imagen..."
+                                        FieldLabel="URL Imagen :"
+                                        ButtonText=""
+                                        Icon="ImageAdd" />
+                                </Items>
+                                <Listeners>
+                                    <ValidityChange Handler="#{btnCargarImg}.setDisabled(!valid);" />
+                                </Listeners>
+                                <Buttons>
+                                    <ext:Button ID="btnCargarImg" runat="server" Text="Cargar" Disabled="true">
+                                        <DirectEvents>
+                                            <Click
+                                                OnEvent="UploadImgClick"
+                                                Before="if (!#{FormImgPanel}.getForm().isValid()) { return false; } 
+                                Ext.Msg.wait('Uploading your photo...', 'Uploading');"
+                                                Failure="Ext.Msg.show({ 
+                                title   : 'Error', 
+                                msg     : 'Error during uploading', 
+                                minWidth: 200, 
+                                modal   : true, 
+                                icon    : Ext.Msg.ERROR, 
+                                buttons : Ext.Msg.OK 
+                            });">
+                                            </Click>
+                                        </DirectEvents>
+                                    </ext:Button>
+                                    <ext:Button ID="btnBorrarImg" runat="server" Text="Borrar">
+                                        <DirectEvents>
+                                            <Click OnEvent="BorrarImgClick" />
+                                        </DirectEvents>
+                                    </ext:Button>
+                                </Buttons>
+                            </ext:FormPanel>
                         </Items>
                     </ext:Container>
-                    <ext:Container ID="Container2" runat="server" Layout="FormLayout" Padding="5">
+                    <ext:Container ID="ContName" runat="server" Layout="FormLayout" Padding="5">
                         <Items>
                             <ext:TextField ID="txbxName" runat="server" FieldLabel="Nombre Competición :" LabelAlign="Top" Width="720" Padding="5" />
                         </Items>
-                    </ext:Container>
-                    <ext:Container ID="Container3" runat="server" Layout="HBoxLayout" Padding="5">
-                        <Items>
-                            <ext:ComboBox ID="cbRaceTypes" runat="server" FieldLabel="Tipo de Competición :" LabelAlign="Top" Padding="5"
-                                DisplayField="Name" ValueField="RaceTypeID" Width="550px" AllowBlank="true" EmptyText="Escoja tipo de carrera">
-                                <Store>
-                                    <ext:Store ID="StoreCbRaceTypes" runat="server">
-                                        <Model>
-                                            <ext:Model ID="Model2" runat="server" IDProperty="RaceTypeID">
-                                                <Fields>
-                                                    <ext:ModelField Name="RaceTypeID" />
-                                                    <ext:ModelField Name="Name" />
-                                                </Fields>
-                                            </ext:Model>
-                                        </Model>
-                                    </ext:Store>
-                                </Store>
-                                <DirectEvents>
-                                    <Select OnEvent="cbRaceTypesChangeValue">
-                                    </Select>
-                                </DirectEvents>
-                            </ext:ComboBox>
-                            <ext:TextField ID="txbxPoints" runat="server" FieldLabel="Puntos :" LabelAlign="Top" Width="100" Padding="5" ReadOnly="true" Cls="ReadOnly" />
-                        </Items>
-                    </ext:Container>
-                    <ext:Container ID="Container4" runat="server" Layout="FormLayout">
+                    </ext:Container>                   
+                    <ext:Container ID="ContListado" runat="server" Layout="FormLayout">
                         <Items>
                             <ext:GridPanel ID="GPRaces"
                                 runat="server"
-                                Title="Listado de Deportes"
+                                Title="Listado de Competiciones"
                                 Frame="true"
-                                Height="350">
+                                Height="280">
                                 <Store>
                                     <ext:Store ID="StoreGPRaces" runat="server" DataSourceID="SqlDSGPRaces" PageSize="10">
                                         <Model>
@@ -161,10 +299,10 @@
             </ext:Panel>
 
             <ext:Panel
-                ID="Panel2"
+                ID="PaUbicacion"
                 runat="server"
                 Title="Otros Datos"
-                Frame="true"                
+                Frame="true"
                 Width="700"
                 ButtonAlign="Center">
                 <Items>
@@ -181,26 +319,44 @@
                             <ext:TextField ID="txbxCountry" runat="server" FieldLabel="País :" LabelAlign="Top" Width="300" Padding="5" />
                         </Items>
                     </ext:Container>
-                    <ext:Container ID="Container7" runat="server" Layout="FormLayout" ColumnWidth=".5" Padding="5">
+                     <ext:Container ID="Container12" runat="server" Layout="HBoxLayout" Padding="5">
+                        <Items>                            
+                            <ext:Button ID="btnClearRacePosition" runat="server" Text="Borrar posición" OnClientClick="clearMapPosition()" />
+                            <ext:TextField ID="txbxLongitud" runat="server" FieldLabel="Longitud :" LabelAlign="Right" Width="200" 
+                                 PaddingSpec="0 0 0 5" ReadOnly="true" Cls="ReadOnly" />
+                            <ext:TextField ID="txbxLatitud" runat="server" FieldLabel="Latitud :" LabelAlign="Right"  Width="200" 
+                                PaddingSpec="0 0 0 5" ReadOnly="true" Cls="ReadOnly" />                                                                                
+                        </Items>
+                    </ext:Container>
+                    <ext:Container ID="Container13" runat="server" Layout="HBoxLayout" Padding="5">
+                        <Items>
+                            <ext:Panel runat="server" ID="map_canvas"  Width="720" Height="300" Padding="5">
+                            </ext:Panel>
+                        </Items>
+                    </ext:Container>
+                    <ext:Container ID="Container7" runat="server" Layout="HBoxLayout" Padding="5">
                         <Items>
                             <ext:TextArea ID="txbxMemo" runat="server" FieldLabel="Descripción :" LabelAlign="Top" Width="710" Height="100" Padding="5" />
                         </Items>
                     </ext:Container>
                 </Items>
-
+                <Listeners>
+                    <Show Handler="initializeMap(#{txbxLatitud}.getValue(),#{txbxLongitud}.getValue(),#{txbxName}.getValue())" />
+                </Listeners>
             </ext:Panel>
 
+
             <ext:Panel
-                ID="Panel3"
+                ID="PaParticipantes"
                 runat="server"
                 Title="Participantes"
-                Frame="true"               
+                Frame="true"
                 Width="700"
                 ButtonAlign="Center">
                 <Items>
                     <ext:Container ID="Container8" runat="server" Layout="FormLayout" Padding="5">
                         <Items>
-                            <ext:ComboBox ID="cbClubbers" runat="server" FieldLabel="Clubbers :" LabelAlign="Top" Padding="5" 
+                            <ext:ComboBox ID="cbClubbers" runat="server" FieldLabel="Clubbers :" LabelAlign="Top" Padding="5"
                                 DisplayField="Name" ValueField="UserName" Width="550px" AllowBlank="true" EmptyText="Escoja un clubber para añadir a la competición...">
                                 <Store>
                                     <ext:Store ID="StoreCbClubbers" runat="server" OnReadData="StoreCbClubbers_ReadData">
@@ -245,7 +401,7 @@
                                 Frame="true"
                                 Height="350">
                                 <Store>
-                                    <ext:Store ID="StoreGPClubbersEnComp" runat="server"  OnReadData="StoreGPClubbersEnComp_ReadData" PageSize="10">
+                                    <ext:Store ID="StoreGPClubbersEnComp" runat="server" OnReadData="StoreGPClubbersEnComp_ReadData" PageSize="10">
                                         <Model>
                                             <ext:Model ID="Model4" runat="server" IDProperty="UserName">
                                                 <Fields>

@@ -13,8 +13,9 @@
       <siteMapNode url="~/Account/Register.aspx" title="Registro nuevo Clubber" description="Nuevo Usuario" />
     </siteMapNode>
     <siteMapNode url="#3" title="Competiciones"  description="Competiciones en las que tomamos parte" >
-      <siteMapNode url="~/theRush/theRush.aspx" title="#theRush" description="La liga interna de #theClub" />
       <siteMapNode url="~/theRush/Calendario.aspx" title="Calendario" description="Calendario de competiciones" />
+      <siteMapNode url="~/theRush/Carreras.aspx" title="Carreras" description="Carreras en las que tomamos parte" />
+      <siteMapNode url="~/theRush/theRush.aspx" title="#theRush" description="La liga interna de #theClub" />      
       <siteMapNode url="~/theRush/theFlag.aspx" title="Donde estuvo #theFlag" description="Donde ha estado la bandera de #heClub" />
       <siteMapNode url="~/theRush/Logros.aspx" title="Logros anteriores" description="Competiciones donde han estado los clubbers" />
     </siteMapNode>

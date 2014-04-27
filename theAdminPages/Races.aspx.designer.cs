@@ -22,22 +22,40 @@ namespace ClubSite.AdminPages {
         protected global::Ext.Net.TabPanel TabPanel1;
         
         /// <summary>
-        /// Panel1 control.
+        /// PaDatosPrincipales control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Panel Panel1;
+        protected global::Ext.Net.Panel PaDatosPrincipales;
         
         /// <summary>
-        /// Container1 control.
+        /// ContDatosPrinc control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Container Container1;
+        protected global::Ext.Net.Container ContDatosPrinc;
+        
+        /// <summary>
+        /// FPDatosPrinc control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.FormPanel FPDatosPrinc;
+        
+        /// <summary>
+        /// Container11 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Container Container11;
         
         /// <summary>
         /// txbxID control.
@@ -58,31 +76,13 @@ namespace ClubSite.AdminPages {
         protected global::Ext.Net.TextField txbxDate;
         
         /// <summary>
-        /// Container2 control.
+        /// Container10 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Container Container2;
-        
-        /// <summary>
-        /// txbxName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.TextField txbxName;
-        
-        /// <summary>
-        /// Container3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Container Container3;
+        protected global::Ext.Net.Container Container10;
         
         /// <summary>
         /// cbRaceTypes control.
@@ -94,22 +94,22 @@ namespace ClubSite.AdminPages {
         protected global::Ext.Net.ComboBox cbRaceTypes;
         
         /// <summary>
-        /// StoreCbRaceTypes control.
+        /// Store1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Store StoreCbRaceTypes;
+        protected global::Ext.Net.Store Store1;
         
         /// <summary>
-        /// Model2 control.
+        /// Model5 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Model Model2;
+        protected global::Ext.Net.Model Model5;
         
         /// <summary>
         /// txbxPoints control.
@@ -121,13 +121,85 @@ namespace ClubSite.AdminPages {
         protected global::Ext.Net.TextField txbxPoints;
         
         /// <summary>
-        /// Container4 control.
+        /// Component1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Container Container4;
+        protected global::Ext.Net.Component Component1;
+        
+        /// <summary>
+        /// FormImgPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.FormPanel FormImgPanel;
+        
+        /// <summary>
+        /// imgImage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Image imgImage;
+        
+        /// <summary>
+        /// FileUImg control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.FileUploadField FileUImg;
+        
+        /// <summary>
+        /// btnCargarImg control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button btnCargarImg;
+        
+        /// <summary>
+        /// btnBorrarImg control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button btnBorrarImg;
+        
+        /// <summary>
+        /// ContName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Container ContName;
+        
+        /// <summary>
+        /// txbxName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField txbxName;
+        
+        /// <summary>
+        /// ContListado control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Container ContListado;
         
         /// <summary>
         /// GPRaces control.
@@ -337,13 +409,13 @@ namespace ClubSite.AdminPages {
         protected global::Ext.Net.Button btnBorrar;
         
         /// <summary>
-        /// Panel2 control.
+        /// PaUbicacion control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Panel Panel2;
+        protected global::Ext.Net.Panel PaUbicacion;
         
         /// <summary>
         /// Container5 control.
@@ -409,6 +481,60 @@ namespace ClubSite.AdminPages {
         protected global::Ext.Net.TextField txbxCountry;
         
         /// <summary>
+        /// Container12 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Container Container12;
+        
+        /// <summary>
+        /// btnClearRacePosition control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button btnClearRacePosition;
+        
+        /// <summary>
+        /// txbxLongitud control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField txbxLongitud;
+        
+        /// <summary>
+        /// txbxLatitud control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField txbxLatitud;
+        
+        /// <summary>
+        /// Container13 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Container Container13;
+        
+        /// <summary>
+        /// map_canvas control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Panel map_canvas;
+        
+        /// <summary>
         /// Container7 control.
         /// </summary>
         /// <remarks>
@@ -427,13 +553,13 @@ namespace ClubSite.AdminPages {
         protected global::Ext.Net.TextArea txbxMemo;
         
         /// <summary>
-        /// Panel3 control.
+        /// PaParticipantes control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Panel Panel3;
+        protected global::Ext.Net.Panel PaParticipantes;
         
         /// <summary>
         /// Container8 control.

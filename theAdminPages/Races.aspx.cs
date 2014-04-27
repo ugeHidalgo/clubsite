@@ -13,6 +13,7 @@ namespace ClubSite.AdminPages
     public partial class Races : System.Web.UI.Page
     {
         static Race rUsed;
+        static bool newImage;
         static Race oldRUsed;
         static string aMemberUserName = null;
         static Int32 aRaceIdSelectedInCombo = 0;
@@ -31,7 +32,9 @@ namespace ClubSite.AdminPages
             txbxID.Text = Convert.ToString(aRace.Id);
             txbxName.Text = aRace.Name;
             txbxDate.Text = aRace.RaceDate.ToShortDateString();
-
+            imgImage.ImageUrl = aRace.ImageURL;
+            imgImage.AlternateText = "(Sin imagen)";
+            FileUImg.Text = "";
             //Load data for RaceType combo
             if (aRace.RaceTypeId == 0)
                 cbRaceTypes.Value = "";
@@ -60,6 +63,10 @@ namespace ClubSite.AdminPages
                 txbxNumber.Text = aRace.Address.Number;
             }
             txbxMemo.Text = aRace.Memo;
+            ////To avoid problems with the , and . in decimal numbers
+            System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("en-US");
+            txbxLatitud.Text = Convert.ToString(aRace.Latitud, culture);
+            txbxLongitud.Text = Convert.ToString(aRace.Longitud, culture);    
 
 
             //Load Members taken part in actual race   
@@ -74,7 +81,6 @@ namespace ClubSite.AdminPages
             else if (aRace.RaceType != null)
                 txbxPoints.Text = aRace.RaceType.Points.ToString();
         }
-
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
@@ -286,6 +292,50 @@ namespace ClubSite.AdminPages
             }
 
         }
+
+        protected void UploadImgClick(object sender, DirectEventArgs e)
+        {
+            string tpl = "Subida la imagen: {0}<br/>Size: {1} bytes";
+
+            if (this.FileUImg.HasFile)
+            {
+                string virtualFolder = "../Images/Races/";
+                string physicalFolder = Server.MapPath(virtualFolder);
+                string fileName = FileUImg.FileName; //Guid.NewGuid().ToString();
+                //string extension = System.IO.Path.GetExtension(FileUImg.FileName);
+                FileUImg.PostedFile.SaveAs(System.IO.Path.Combine(physicalFolder, fileName /*+ extension*/));
+                imgImage.ImageUrl = virtualFolder + fileName /*+ extension*/;
+                newImage = true;
+                rUsed.ImageURL = imgImage.ImageUrl;
+                FileUImg.Clear();
+                X.Msg.Show(new MessageBoxConfig
+                {
+                    Buttons = MessageBox.Button.OK,
+                    Icon = MessageBox.Icon.INFO,
+                    Title = "Terminado",
+                    Message = string.Format(tpl, this.FileUImg.PostedFile.FileName, this.FileUImg.PostedFile.ContentLength)
+                });
+            }
+            else
+            {
+                X.Msg.Show(new MessageBoxConfig
+                {
+                    Buttons = MessageBox.Button.OK,
+                    Icon = MessageBox.Icon.ERROR,
+                    Title = "Error",
+                    Message = "No se ha subido ninguna imagen"
+                });
+            }
+            this.FileUImg.Reset();
+        }
+        protected void BorrarImgClick(object sender, DirectEventArgs e)
+        {
+            System.IO.File.Delete(Server.MapPath(rUsed.ImageURL));
+            imgImage.ImageUrl = null;
+            rUsed.ImageURL = null;
+            this.FileUImg.Reset();
+        }
+
 
         [DirectMethod]
         public void AskNew()
@@ -503,10 +553,27 @@ namespace ClubSite.AdminPages
                         aRace.Name = txbxName.Text;
                         aRace.Name = txbxName.Text;
                         aRace.RaceDate = Convert.ToDateTime(txbxDate.Text);
+                        aRace.ImageURL = rUsed.ImageURL;
                         aRace.RaceTypeId = aRaceIdSelectedInCombo;
                         Address anAddres = new Address(txbxStreet.Text, txbxNumber.Text, txbxCity.Text, txbxCountry.Text, txbxPostalCode.Text);
                         aRace.Address = anAddres;
                         aRace.Memo = txbxMemo.Text;
+                        string aux = ReformatNumber(txbxLatitud.Text);
+                        if (aux == null)
+                            aRace.Latitud = 0;
+                        else
+                        {
+                            aRace.Latitud = Convert.ToDouble(aux);
+                        }
+
+                        aux = ReformatNumber(txbxLongitud.Text);
+                        if (aux == null)
+                            aRace.Longitud = 0;
+                        else
+                        {
+                            aRace.Longitud = Convert.ToDouble(aux);
+                        }
+
                         db.Races.Add(aRace);
                         messageError = "Nueva competición grabada";
                     }
@@ -524,10 +591,26 @@ namespace ClubSite.AdminPages
                         }
                         aRace.Name = txbxName.Text;
                         aRace.RaceDate = Convert.ToDateTime(txbxDate.Text);
+                        aRace.ImageURL = rUsed.ImageURL;
                         aRace.RaceTypeId = aRaceIdSelectedInCombo;
                         Address anAddres = new Address(txbxStreet.Text, txbxNumber.Text, txbxCity.Text, txbxCountry.Text, txbxPostalCode.Text);
                         aRace.Address = anAddres;
                         aRace.Memo = txbxMemo.Text;
+                        string aux = ReformatNumber(txbxLatitud.Text);
+                        if (aux == null)
+                            aRace.Latitud = 0;
+                        else
+                        {
+                            aRace.Latitud = Convert.ToDouble(aux);
+                        }
+
+                        aux = ReformatNumber(txbxLongitud.Text);
+                        if (aux == null)
+                            aRace.Longitud = 0;
+                        else
+                        {
+                            aRace.Longitud = Convert.ToDouble(aux);
+                        }
                         messageError = "Datos de competición actualizados";
                     }
                     db.SaveChanges();
@@ -792,6 +875,19 @@ namespace ClubSite.AdminPages
                 X.Msg.Alert("Atención", "Clubbers inscritos en la carrera borrados.").Show();                
             }
             
-        }        
+        }
+
+        public string ReformatNumber(string aString)
+        {
+            string result = null;
+            int pointPos = aString.IndexOf('.');
+            if (pointPos != -1)
+            {
+                System.Text.StringBuilder strBuild = new System.Text.StringBuilder(aString);
+                strBuild[pointPos] = ',';
+                result = strBuild.ToString();
+            }
+            return result;
+        }
     }
 }

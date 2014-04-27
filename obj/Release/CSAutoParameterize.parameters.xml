@@ -1,9 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <parameters>
-  <parameter name="DefaultConnection-Web.config Connection String" description="DefaultConnection Connection String used in web.config by the application to access the database." defaultValue="Data Source=(LocalDb)\v11.0;AttachDBFilename=c:\sites\clubSite\BD\clubsiteLogin.mdf;Integrated Security=True" tags="SqlConnectionString">
+  <parameter name="DefaultConnection-Web.config Connection String" description="DefaultConnection Connection String used in web.config by the application to access the database." defaultValue="Data Source=(LocalDb)\v11.0;AttachDBFilename=c:\DataBases\ClubSite\clubsiteLogin.mdf;Integrated Security=True" tags="SqlConnectionString">
     <parameterEntry kind="XmlFile" scope="C:\\Sites\\ClubSite\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DefaultConnection']/@connectionString" />
   </parameter>
-  <parameter name="ClubSiteConn-Web.config Connection String" description="ClubSiteConn Connection String used in web.config by the application to access the database." defaultValue="Data Source=(LocalDb)\v11.0;AttachDBFilename=c:\sites\clubSite\BD\clubsite.mdf;Integrated Security=True;MultipleActiveResultSets=True;Application Name=EntityFramework;" tags="SqlConnectionString">
+  <parameter name="ClubSiteConn-Web.config Connection String" description="ClubSiteConn Connection String used in web.config by the application to access the database." defaultValue="Data Source=(LocalDb)\v11.0;AttachDBFilename=c:\DataBases\ClubSite\clubsite.mdf;Integrated Security=True;MultipleActiveResultSets=True;Application Name=EntityFramework;" tags="SqlConnectionString">
     <parameterEntry kind="XmlFile" scope="C:\\Sites\\ClubSite\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='ClubSiteConn']/@connectionString" />
+  </parameter>
+  <parameter name="ClubSiteConn_DatabasePublish-Web.config Connection String" description="ClubSiteConn_DatabasePublish Connection String used in web.config by the application to access the database." defaultValue="ClubSiteConn_DatabasePublish.ConnetionString" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Sites\\ClubSite\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='ClubSiteConn_DatabasePublish']/@connectionString" />
   </parameter>
 </parameters>

@@ -27,6 +27,12 @@ namespace ClubSite.Model
 
         public virtual RaceType RaceType { get; set; }
 
+        public string ImageURL { get; set; }
+
+        public double Longitud { get; set; }
+
+        public double Latitud { get; set; }
+
         public virtual ICollection<Member> Members { get; set; }
         #endregion
 
@@ -38,7 +44,8 @@ namespace ClubSite.Model
             this.RaceDate = DateTime.Now;
         }
 
-        public Race(int anID, string aName, DateTime aRaceDate, Model.Address anAddress, int aRaceTypeId, string aMemo)
+        public Race(int anID, string aName, DateTime aRaceDate, Model.Address anAddress, int aRaceTypeId, string aMemo, 
+                    string anImageURL, double aLongitud, double aLatitud)
         {
             this.Id = anID;
             this.Name = aName;
@@ -46,6 +53,9 @@ namespace ClubSite.Model
             this.Address = anAddress;
             this.RaceTypeId = aRaceTypeId;
             this.Memo = aMemo;
+            this.ImageURL = anImageURL;
+            this.Latitud = aLatitud;
+            this.Longitud = aLongitud;
         }
         
         #endregion
@@ -53,7 +63,8 @@ namespace ClubSite.Model
 
         //Methods
         #region   
-        public void SetRace(int anID, string aName, DateTime aRaceDate, Model.Address anAddress, int aRaceTypeId, string aMemo)
+        public void SetRace(int anID, string aName, DateTime aRaceDate, Model.Address anAddress, int aRaceTypeId, string aMemo, 
+                            string anImageURL, double aLongitud, double aLatitud)
         {
             this.Id = anID;
             this.Name = aName;
@@ -61,6 +72,9 @@ namespace ClubSite.Model
             this.Address = anAddress;
             this.RaceTypeId = aRaceTypeId;
             this.Memo = aMemo;
+            this.ImageURL = anImageURL;
+            this.Latitud = aLatitud;
+            this.Longitud = aLongitud;
         }
 
         public void ClearRace()
@@ -71,6 +85,9 @@ namespace ClubSite.Model
             this.Address = null;
             this.RaceTypeId = 0;
             this.Memo = null;
+            this.ImageURL = null;
+            this.Longitud = 0;
+            this.Latitud = 0;
         }
 
         public void CopyRace(Race aRace)
@@ -81,6 +98,9 @@ namespace ClubSite.Model
             this.Address = aRace.Address;
             this.RaceTypeId = aRace.RaceTypeId;
             this.Memo = aRace.Memo;
+            this.ImageURL = aRace.ImageURL;
+            this.Latitud = aRace.Latitud;
+            this.Longitud = aRace.Longitud;
         }
 
         #endregion

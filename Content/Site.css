@@ -86,6 +86,35 @@ h5, h6
         text-decoration: none;
     }
 
+.x-label.h1_transparent.x-box-item.x-label-default
+{
+    font-size: 2em;
+    background-color: transparent;
+}
+
+.x-label.h2_transparent.x-box-item.x-label-default
+{
+    font-size: 1.75em;
+    background-color: transparent;
+}
+
+.x-label.h3_transparent.x-box-item.x-label-default
+{
+    font-size: 1.2em;
+    background-color: transparent;
+}
+
+.x-label.h4_transparent.x-box-item.x-label-default
+{
+    font-size: 1.1em;
+    background-color: transparent;
+}
+
+.x-label.h5_transparent.x-box-item.x-label-default
+{
+    font-size: 1em;
+    background-color: transparent;
+}
 
 .FollowImage {
     Height: 30px;
@@ -128,6 +157,10 @@ span.theClub
     color: #000; /*#c8c8c8;*/
     font-family: 'SignPainter HouseCasual';
     font-size: 30px; /* Equivale a 16px en texto normal*/
+}
+
+.transparent.x-form-layout-table {
+    background-color:transparent;
 }
 
 
@@ -286,7 +319,7 @@ img.MainSliderImg
     display: block;
     margin: auto;
     width: 800px;
-    height: 250px;
+    height: 250px;    
 }
 /*#endregion*/
 
