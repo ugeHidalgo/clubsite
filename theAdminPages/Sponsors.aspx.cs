@@ -263,8 +263,7 @@ namespace ClubSite.AdminPages
                 FileUImg.PostedFile.SaveAs(System.IO.Path.Combine(physicalFolder, fileName /*+ extension*/));
                 imgImage.ImageUrl = virtualFolder + fileName /*+ extension*/;
                 newImage = true;
-                sponsorUsed.ImageURL = imgImage.ImageUrl;
-                FileUImg.Clear();
+                sponsorUsed.ImageURL = imgImage.ImageUrl;                
                 X.Msg.Show(new MessageBoxConfig
                 {
                     Buttons = MessageBox.Button.OK,
@@ -283,7 +282,7 @@ namespace ClubSite.AdminPages
                     Message = "No se ha subido ninguna imagen"
                 });
             }
-            this.FileUImg.Reset();
+            //this.FileUImg.Reset();
         }
         protected void BorrarImgClick(object sender, DirectEventArgs e)
         {

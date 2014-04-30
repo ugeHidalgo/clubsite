@@ -4,7 +4,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cpMainContent" runat="server">
 
-       <script type="text/javascript"
+    <script type="text/javascript"
         src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDS7Syd76e3allIrLsYVfIcJ43kZ0NnHiI&sensor=false">
     </script>
 
@@ -14,7 +14,7 @@
 
         function initializeMap(StrLatitud, StrLongitud, Nombre) {
             //alert('Long:' + StrLongitud + ' Lat:' + StrLatitud + ' Nombre:' + Nombre);
-            if ((StrLatitud=='') || isNaN(StrLatitud))
+            if ((StrLatitud == '') || isNaN(StrLatitud))
                 StrLatitud = '37.176595';
             if ((StrLongitud == '') || isNaN(StrLongitud))
                 StrLongitud = '-3.598537';
@@ -52,9 +52,9 @@
             document.getElementsByName("cpMainContent_txbxLongitud")[0].value = 0
             initializeMap(0, 0, 'Anywhere');
         }
-            
 
-            // Set the position for the marker.
+
+        // Set the position for the marker.
         function setMarkerPosition(location) {
             //Set new position for marker
             marker.setPosition(location);
@@ -62,7 +62,7 @@
             //Puts new position data into form
             document.getElementsByName("cpMainContent_txbxLatitud")[0].value = location.lat().toFixed(6);
             document.getElementsByName("cpMainContent_txbxLongitud")[0].value = location.lng().toFixed(6);
-        }           
+        }
     </script>
 
     <ext:TabPanel ID="TabPanel1"
@@ -86,13 +86,11 @@
                                 ID="FPDatosPrinc"
                                 runat="server"
                                 Width="350"
-                                height="206"
+                                Height="206"
                                 Frame="true"
                                 Title=""
                                 Margins="0 0 0 12"
-                                Border="false"
-                                PaddingSummary="0px 0px 0px 0px"
-                                LabelWidth="50">
+                                Border="false">
                                 <Defaults>
                                     <ext:Parameter Name="anchor" Value="95%" Mode="Value" />
                                     <ext:Parameter Name="allowBlank" Value="false" Mode="Raw" />
@@ -102,7 +100,7 @@
                                     <ext:Container ID="Container11" runat="server" Layout="VBoxLayout" Padding="5">
                                         <Items>
                                             <ext:TextField ID="txbxID" runat="server" FieldLabel="Código :" LabelAlign="Top" Width="50" Padding="5" ReadOnly="true" Cls="ReadOnly" />
-                                            <ext:TextField ID="txbxDate" runat="server" FieldLabel="Fecha :" LabelAlign="Top" Width="100" Padding="5"/>
+                                            <ext:TextField ID="txbxDate" runat="server" FieldLabel="Fecha :" LabelAlign="Top" Width="100" Padding="5" />
                                         </Items>
                                     </ext:Container>
                                     <ext:Container ID="Container10" runat="server" Layout="HBoxLayout" Padding="5">
@@ -139,9 +137,7 @@
                                 Frame="true"
                                 Title=""
                                 Margins="0 0 0 12"
-                                Border="false"
-                                PaddingSummary="0px 0px 0px 0px"
-                                LabelWidth="50">
+                                Border="false">
                                 <Defaults>
                                     <ext:Parameter Name="anchor" Value="95%" Mode="Value" />
                                     <ext:Parameter Name="allowBlank" Value="false" Mode="Raw" />
@@ -191,7 +187,7 @@
                         <Items>
                             <ext:TextField ID="txbxName" runat="server" FieldLabel="Nombre Competición :" LabelAlign="Top" Width="720" Padding="5" />
                         </Items>
-                    </ext:Container>                   
+                    </ext:Container>
                     <ext:Container ID="ContListado" runat="server" Layout="FormLayout">
                         <Items>
                             <ext:GridPanel ID="GPRaces"
@@ -319,18 +315,18 @@
                             <ext:TextField ID="txbxCountry" runat="server" FieldLabel="País :" LabelAlign="Top" Width="300" Padding="5" />
                         </Items>
                     </ext:Container>
-                     <ext:Container ID="Container12" runat="server" Layout="HBoxLayout" Padding="5">
-                        <Items>                            
+                    <ext:Container ID="Container12" runat="server" Layout="HBoxLayout" Padding="5">
+                        <Items>
                             <ext:Button ID="btnClearRacePosition" runat="server" Text="Borrar posición" OnClientClick="clearMapPosition()" />
-                            <ext:TextField ID="txbxLongitud" runat="server" FieldLabel="Longitud :" LabelAlign="Right" Width="200" 
-                                 PaddingSpec="0 0 0 5" ReadOnly="true" Cls="ReadOnly" />
-                            <ext:TextField ID="txbxLatitud" runat="server" FieldLabel="Latitud :" LabelAlign="Right"  Width="200" 
-                                PaddingSpec="0 0 0 5" ReadOnly="true" Cls="ReadOnly" />                                                                                
+                            <ext:TextField ID="txbxLongitud" runat="server" FieldLabel="Longitud :" LabelAlign="Right" Width="200"
+                                PaddingSpec="0 0 0 5" ReadOnly="true" Cls="ReadOnly" />
+                            <ext:TextField ID="txbxLatitud" runat="server" FieldLabel="Latitud :" LabelAlign="Right" Width="200"
+                                PaddingSpec="0 0 0 5" ReadOnly="true" Cls="ReadOnly" />
                         </Items>
                     </ext:Container>
                     <ext:Container ID="Container13" runat="server" Layout="HBoxLayout" Padding="5">
                         <Items>
-                            <ext:Panel runat="server" ID="map_canvas"  Width="720" Height="300" Padding="5">
+                            <ext:Panel runat="server" ID="map_canvas" Width="720" Height="300" Padding="5">
                             </ext:Panel>
                         </Items>
                     </ext:Container>
@@ -345,7 +341,6 @@
                 </Listeners>
             </ext:Panel>
 
-
             <ext:Panel
                 ID="PaParticipantes"
                 runat="server"
@@ -354,7 +349,7 @@
                 Width="700"
                 ButtonAlign="Center">
                 <Items>
-                    <ext:Container ID="Container8" runat="server" Layout="FormLayout" Padding="5">
+                    <ext:Container ID="ContSelectorClubber" runat="server" Layout="FormLayout" Padding="5">
                         <Items>
                             <ext:ComboBox ID="cbClubbers" runat="server" FieldLabel="Clubbers :" LabelAlign="Top" Padding="5"
                                 DisplayField="Name" ValueField="UserName" Width="550px" AllowBlank="true" EmptyText="Escoja un clubber para añadir a la competición...">
@@ -393,11 +388,10 @@
                         </Items>
                     </ext:Container>
 
-                    <ext:Container ID="Container9" runat="server" Layout="FormLayout">
+                    <ext:Container ID="ContClubbersInRace" runat="server" Layout="FormLayout">
                         <Items>
                             <ext:GridPanel ID="GPClubbersEnComp"
                                 runat="server"
-                                Title="Clubbers en la competición"
                                 Frame="true"
                                 Height="350">
                                 <Store>

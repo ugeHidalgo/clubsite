@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Carreras.aspx.cs" Inherits="ClubSite.theRush.Carreras" %>
+
 <%@ Register Assembly="Ext.Net" Namespace="Ext.Net" TagPrefix="ext" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
@@ -6,7 +7,7 @@
 <%--<asp:Content ID="Content2" ContentPlaceHolderID="TitleContent" runat="server">
 </asp:Content>--%>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-     <p>
+    <p>
         Estos son los carreras en las que participarán o han participado miembros de nuestro club, 
         puedes pulsar sobre cada una de ellas para encontrar mas información de la carrera, 
         así como de los miembros que han participado.
@@ -14,17 +15,20 @@
     <br />
     <br />
 
-        <ext:Store ID="Store1" runat="server">
+    <ext:Store ID="Store1" runat="server">
         <Model>
-            <ext:Model ID="Model2" runat="server" IDProperty="Nombre">
+            <ext:Model ID="Model2" runat="server" IDProperty="Id">
                 <Fields>
-                    <ext:ModelField Name="Id" />
+                    <ext:ModelField Name="Id" Type="Int" />
                     <ext:ModelField Name="ImageURL" />
-                    <ext:ModelField Name="Nombre" />
-                    <ext:ModelField Name="RaceDate"  Type="Date"/>
+                    <ext:ModelField Name="Name" />
+                    <ext:ModelField Name="RaceDate" Type="Date"  />
                 </Fields>
             </ext:Model>
         </Model>
+        <Sorters>
+            <ext:DataSorter Property="Nombre" Direction="ASC" />
+        </Sorters>
     </ext:Store>
 
     <ext:Panel ID="Panel1"
@@ -47,9 +51,9 @@
                         <DirectEvents>
                             <Click OnEvent="btnOrderDate_Click" />
                         </DirectEvents>
-                    </ext:Button> 
-                    <ext:DateField ID="dtfFromDate" runat="server" Text="Desde:" LabelAlign="Right"/>                                    
-                    <ext:DateField ID="dtfToDate" runat="server" Text="Hasta :" LabelAlign="Right"/>
+                    </ext:Button>
+                    <ext:DateField ID="dtfFromDate" runat="server" Text="Desde:" LabelAlign="Right" />
+                    <ext:DateField ID="dtfToDate" runat="server" Text="Hasta :" LabelAlign="Right" />
                 </Items>
             </ext:Toolbar>
         </TopBar>
@@ -73,7 +77,7 @@
                                     <div>                                        
                                         <img width="150" height="150" src="{ImageURL}" />  
                                     </div>       
-                                    <div>(<strong>{RaceDate}</strong>) {Name}</div>                                                                  
+                                    <div>(<strong>{RaceDate:date('d/n/Y')}</strong>) {Name}</div>                                                                  
                                 </div></a>                                
                             </tpl>
                     </Html>

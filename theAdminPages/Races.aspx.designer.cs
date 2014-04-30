@@ -562,13 +562,13 @@ namespace ClubSite.AdminPages {
         protected global::Ext.Net.Panel PaParticipantes;
         
         /// <summary>
-        /// Container8 control.
+        /// ContSelectorClubber control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Container Container8;
+        protected global::Ext.Net.Container ContSelectorClubber;
         
         /// <summary>
         /// cbClubbers control.
@@ -634,13 +634,13 @@ namespace ClubSite.AdminPages {
         protected global::Ext.Net.Button btnDelAllClubber;
         
         /// <summary>
-        /// Container9 control.
+        /// ContClubbersInRace control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Container Container9;
+        protected global::Ext.Net.Container ContClubbersInRace;
         
         /// <summary>
         /// GPClubbersEnComp control.

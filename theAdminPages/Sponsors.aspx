@@ -64,7 +64,7 @@
                 runat="server"
                 Title="Datos Principales"
                 Frame="true"
-                PaddingSummary="5px 5px 0"
+                PaddingSummary="5 5 0 0"
                 Width="700"
                 ButtonAlign="Center">
                 <Items>
@@ -85,7 +85,7 @@
                                 Margins="0 12 0 0"
                                 Frame="true"
                                 Title="Logotipo Sponsor"
-                                PaddingSummary="0px 0px 0px 0px"
+                                PaddingSummary="0 0 0 0"
                                 LabelWidth="50">
                                 <Defaults>
                                     <ext:Parameter Name="anchor" Value="95%" Mode="Value" />
@@ -137,7 +137,7 @@
                                 Frame="true"
                                 Title="Imagen Sponsor"
                                 Margins="0 0 0 12"
-                                PaddingSummary="0px 0px 0px 0px"
+                                PaddingSummary="0 0 0 0"
                                 LabelWidth="50">
                                 <Defaults>
                                     <ext:Parameter Name="anchor" Value="95%" Mode="Value" />
@@ -298,7 +298,7 @@
                 runat="server"
                 Title="Otros Datos"
                 Frame="true"
-                PaddingSummary="5px 5px 0"
+                PaddingSummary="5 5 0 0"
                 Width="700"
                 ButtonAlign="Center">
                 <Items>
@@ -341,7 +341,7 @@
                 runat="server"
                 Title="Condiciones"
                 Frame="true"
-                PaddingSummary="5px 5px 0"
+                PaddingSummary="5 5 0 0"
                 Width="700"
                 ButtonAlign="Center">
                 <Items>
@@ -364,7 +364,7 @@
                 runat="server"
                 Title="Localización Geográfica"
                 Frame="true"
-                PaddingSummary="5px 5px 0"
+                PaddingSummary="5 5 0 0"
                 Width="700"
                 ButtonAlign="Center">
                 <Items>

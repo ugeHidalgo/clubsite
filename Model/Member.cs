@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace ClubSite.Model
 {
     public class Member : Person
-    {   
+    {
         //Properties
         #region
         [Key, StringLength(25)]
@@ -29,7 +29,7 @@ namespace ClubSite.Model
         DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime RegDate { get; set; }
 
-        [ DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? BirthDate { get; set; }
 
         [StringLength(250)]
@@ -55,7 +55,7 @@ namespace ClubSite.Model
             this.Visible = false;
         }
 
-        public Member(string anUserName,string aNumber, string aFirstName, string aSecondName, string aDNI, Address anAddress, string aTlf, string aMobile, 
+        public Member(string anUserName, string aNumber, string aFirstName, string aSecondName, string aDNI, Address anAddress, string aTlf, string aMobile,
                       string anEMail, bool aState, bool federated, bool visible, DateTime? aBirthDate, string aMemo, string anImageURL, string aNImageURL, string aBlogURL)
         {
             this.UserName = anUserName;
@@ -82,7 +82,8 @@ namespace ClubSite.Model
         //Methods
         #region
         public void SetMember(string anUserName, string aNumber, string aFirstName, string aSecondName, string aDNI, Address anAddress, string aTlf, string aMobile,
-                              string anEMail, bool aState, bool federated, bool visible, DateTime? aBirthDate, string aMemo, string anImageURL, string aNImageURL, string aBlogURL)
+                              string anEMail, bool aState, bool federated, bool visible, DateTime? aBirthDate, string aMemo, string anImageURL, string aNImageURL,
+                              string aBlogURL)
         {
             this.UserName = anUserName;
             this.Number = aNumber;
@@ -124,6 +125,37 @@ namespace ClubSite.Model
             this.NImageURL = null;
             this.BlogURL = null;
         }
+
+        public void CopyMember(Member aMember)
+        {
+            this.UserName = aMember.UserName;
+            this.Number = aMember.Number;
+            this.FirstName = aMember.FirstName;
+            this.SecondName = aMember.SecondName;
+            this.DNI = aMember.DNI;
+            if (aMember.Address == null)
+            {
+                this.Address = null;
+            }
+            else
+            {
+                this.Address = new Address (aMember.Address.Street, aMember.Address.Number, aMember.Address.PostalCode,
+                                            aMember.Address.Country, aMember.Address.City );
+            }
+            this.Tlf = aMember.Tlf;
+            this.Mobile = aMember.Mobile;
+            this.EMail = aMember.EMail;
+            this.State = aMember.State;
+            this.Federated = aMember.Federated;
+            this.Visible = aMember.Visible;
+            this.RegDate = aMember.RegDate;
+            this.BirthDate = aMember.BirthDate;
+            this.Memo = aMember.Memo;
+            this.ImageURL = aMember.ImageURL;
+            this.NImageURL = aMember.NImageURL;
+            this.BlogURL = aMember.BlogURL;
+        }
+
         #endregion
     }
 }

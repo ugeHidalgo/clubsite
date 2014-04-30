@@ -68,7 +68,6 @@ namespace ClubSite.AdminPages
             txbxLatitud.Text = Convert.ToString(aRace.Latitud, culture);
             txbxLongitud.Text = Convert.ToString(aRace.Longitud, culture);    
 
-
             //Load Members taken part in actual race   
             LoadDataInGridForMembersInRace();
 

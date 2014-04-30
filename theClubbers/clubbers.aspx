@@ -92,6 +92,7 @@
                     <ext:ModelField Name="BlogURL" />
                     <ext:ModelField Name="SecondName" />
                     <ext:ModelField Name="FirstName" />
+                    <ext:ModelField Name="Number" />
                 </Fields>
             </ext:Model>
         </Model>
@@ -113,7 +114,7 @@
                             <Click OnEvent="btnOrderUsername_Click" />
                         </DirectEvents>
                     </ext:Button>
-                    <ext:Button ID="btnOrderSencond" runat="server" Text="Apellidos">
+                    <ext:Button ID="btnOrderSecond" runat="server" Text="Apellidos">
                         <DirectEvents>
                             <Click OnEvent="btnOrderSecond_Click" />
                         </DirectEvents>
@@ -134,7 +135,7 @@
                 ItemSelector="div.clubber"
                 OverItemCls="clubber-hover"
                 MultiSelect="false"
-                AutoScroll="true"
+                AutoScroll="true"                
                 Cls="clubbers-view"
                 StoreID="Store1"
                 TrackOver="true"
@@ -142,7 +143,7 @@
                 <Tpl ID="Tpl1" runat="server">
                     <Html>
                         <tpl for=".">
-                                <a href="{BlogURL}"><div class="clubber">
+                                <a href="{BlogURL}" target="_blank"><div class="clubber">
                                     <div>
                                         <img width="80" height="80" src="{ImageURL}" /> 
                                         <img width="80" height="80" src="{NImageURL}" />  

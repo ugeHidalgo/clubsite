@@ -48,7 +48,7 @@
                     <ext:Label ID="laSponsorName" runat="server" Cls="h1_transparent" />
                 </Items>
             </ext:Container>
-            <ext:Container ID="Container2" runat="server" Layout="FormLayout" ColumnWidth=".5" Padding="5" >
+            <ext:Container ID="Container2" runat="server" Layout="FormLayout" ColumnWidth=".5" Padding="5">
                 <Items>
                     <ext:Panel ID="pnlPackCenter" runat="server" Layout="HBoxLayout" BodyPadding="5" Border="false">
                         <Defaults>
@@ -68,12 +68,12 @@
                                 Cls="transparent"
                                 LabelWidth="50">
                                 <Defaults>
-                                    <ext:Parameter Name="anchor" Value="95%" Mode="Value" />
+                                    <ext:Parameter Name="anchor" Value="100%" Mode="Value" />
                                     <ext:Parameter Name="allowBlank" Value="false" Mode="Raw" />
                                     <ext:Parameter Name="msgTarget" Value="side" Mode="Value" />
                                 </Defaults>
                                 <Items>
-                                    <ext:Image ID="imgLogo" runat="server" Height="140" Width="210" AlternateText="Logo Sponsor" Padding="5" Border="true" />
+                                    <ext:Image ID="imgLogo" runat="server" Height="180" Width="210" AlternateText="Logo Sponsor" Padding="5" Border="true" />
                                 </Items>
                             </ext:FormPanel>
                             <ext:FormPanel
@@ -86,12 +86,12 @@
                                 Cls="transparent"
                                 LabelWidth="50">
                                 <Defaults>
-                                    <ext:Parameter Name="anchor" Value="95%" Mode="Value" />
+                                    <ext:Parameter Name="anchor" Value="100%" Mode="Value" />
                                     <ext:Parameter Name="allowBlank" Value="false" Mode="Raw" />
                                     <ext:Parameter Name="msgTarget" Value="side" Mode="Value" />
                                 </Defaults>
                                 <Items>
-                                    <ext:Image ID="imgImage" runat="server" Height="140" Width="200" AlternateText="Imagen 2 Sponsor" Padding="5" Border="true" />
+                                    <ext:Image ID="imgImage" runat="server" Height="180" Width="200" AlternateText="Imagen 2 Sponsor" Padding="5" Border="true" />
                                 </Items>
                             </ext:FormPanel>
                         </Items>
@@ -103,8 +103,8 @@
                     <ext:HBoxLayoutConfig Align="Middle" Pack="Center" />
                 </LayoutConfig>
                 <Items>
-                    <ext:Label ID="Label7" runat="server" Text="Sitio Web :"/>
-                    <ext:HyperLink ID="hlWebSite" runat="server"/>
+                    <ext:Label ID="Label7" runat="server" Text="Sitio Web :" />
+                    <ext:HyperLink ID="hlWebSite" Target="_blank" runat="server" />
                 </Items>
             </ext:Container>
             <ext:Container ID="Container4" runat="server" Layout="HBoxLayout" Padding="5" Height="40">
@@ -112,7 +112,7 @@
                     <ext:HBoxLayoutConfig Align="Middle" Pack="Center" />
                 </LayoutConfig>
                 <Items>
-                    <ext:Label ID="laMail" runat="server" Icon="Email" IconAlign="Left"/>
+                    <ext:Label ID="laMail" runat="server" Icon="Email" IconAlign="Left" />
                 </Items>
             </ext:Container>
             <ext:Container ID="Container6" runat="server" Layout="HBoxLayout" Padding="5" Height="40">
@@ -122,13 +122,13 @@
                 <Items>
                     <ext:Label ID="laTlf" runat="server" Icon="Telephone" IconAlign="Left" />
                 </Items>
-            </ext:Container>            
+            </ext:Container>
             <ext:Container ID="Container7" runat="server" Layout="HBoxLayout" Padding="5" Height="40">
                 <LayoutConfig>
                     <ext:HBoxLayoutConfig Align="Middle" Pack="Center" />
                 </LayoutConfig>
                 <Items>
-                    <ext:Label ID="Label1" runat="server" Text="Dirección :"  />
+                    <ext:Label ID="Label1" runat="server" Text="Dirección :" />
                     <ext:Label ID="laCalle" runat="server" />
                     <ext:Label ID="Label6" runat="server" Text="," />
                     <ext:Label ID="laNumero" runat="server" />
@@ -148,19 +148,19 @@
             </ext:Container>
             <ext:Container ID="Container9" runat="server" Layout="FormLayout" Padding="5">
                 <Items>
-                    <ext:Label ID="Label2" runat="server" Text="Descripción" Icon="Information" IconAlign ="Left"/>
+                    <ext:Label ID="Label2" runat="server" Text="Descripción" Icon="Information" IconAlign="Left" />
                     <ext:TextArea ID="txbxMemo" runat="server" FieldLabel="" LabelAlign="Top" Height="100" ReadOnly="true" />
                 </Items>
             </ext:Container>
             <ext:Container ID="Container10" runat="server" Layout="FormLayout" Padding="5">
                 <Items>
-                    <ext:Label ID="laCondiciones" runat="server" Text="Condiciones Ofertadas (Solo visible si eres miembro registrado)" Icon="Information" IconAlign ="Left"/>
+                    <ext:Label ID="laCondiciones" runat="server" Text="Condiciones Ofertadas (Solo visible si eres miembro registrado)" Icon="Information" IconAlign="Left" />
                     <ext:TextArea ID="txbxCondiciones" runat="server" Height="200" ReadOnly="true" />
                 </Items>
             </ext:Container>
             <ext:Container ID="Container11" runat="server" Layout="FormLayout" Padding="5">
                 <Items>
-                    <ext:Label ID="Label3" runat="server" Text="Localización" Icon="Map" IconAlign ="Left"/>
+                    <ext:Label ID="Label3" runat="server" Text="Localización" Icon="Map" IconAlign="Left" />
                     <ext:Panel runat="server" ID="map_canvas" Layout="FitLayout" Height="500" />
                 </Items>
             </ext:Container>
@@ -172,7 +172,7 @@
                         PaddingSpec="0 0 0 5" ReadOnly="true" />
                 </Items>
             </ext:Container>
-            
+
         </Items>
         <Listeners>
             <AfterRender Handler="initializeMap(#{txbxLatitud}.getValue(),#{txbxLongitud}.getValue(),#{laSponsorName}.getText())" />
