@@ -136,3 +136,4 @@ C:\Sites\ClubSite\bin\WebDriver.dll
 C:\Sites\ClubSite\bin\WebDriver.xml
 C:\Sites\ClubSite\bin\WebDriver.Support.dll
 C:\Sites\ClubSite\bin\WebDriver.Support.xml
+C:\Sites\ClubSite\obj\Debug\ClubSite.csprojResolveAssemblyReference.cache

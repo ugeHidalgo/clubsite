@@ -19,13 +19,13 @@ namespace ClubSite.AdminPages
         static Int32 aRaceIdSelectedInCombo = 0;
 
         private Race LoadRaceFromForm()
-        {            
+        {
             Int32 anId = Convert.ToInt32(txbxID.Text);
             using (ClubSiteContext db = new ClubSiteContext())
             {
-                Race aRace = (from r in db.Races where r.Id==anId select r).FirstOrDefault();
+                Race aRace = (from r in db.Races where r.Id == anId select r).FirstOrDefault();
                 return aRace;
-            }                        
+            }
         }
         private void LoadRaceInForm(Race aRace)
         {
@@ -67,10 +67,13 @@ namespace ClubSite.AdminPages
             ////To avoid problems with the , and . in decimal numbers
             System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("en-US");
             txbxLatitud.Text = Convert.ToString(aRace.Latitud, culture);
-            txbxLongitud.Text = Convert.ToString(aRace.Longitud, culture);    
+            txbxLongitud.Text = Convert.ToString(aRace.Longitud, culture);
 
             //Load Members taken part in actual race   
             LoadDataInGridForMembersInRace();
+
+            //Load age gropus for race
+            LoadDataInGridForAgeGroups();
 
             //Load data for participants
             txbxPartGenFem.Text = Convert.ToString(aRace.PartFem);
@@ -82,6 +85,7 @@ namespace ClubSite.AdminPages
             else if (aRace.RaceType != null)
                 txbxPoints.Text = aRace.RaceType.Points.ToString();
         }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
@@ -154,10 +158,30 @@ namespace ClubSite.AdminPages
                     storeMembersInRace.DataSource = aRace.Members;
                 }
                 else
-                {                    
+                {
                     storeMembersInRace.DataSource = new List<Member>();
                 }
                 storeMembersInRace.DataBind();
+            }
+        }
+        private void LoadDataInGridForAgeGroups()
+        {
+            using (var db = new ClubSiteContext())
+            {
+                //Load data for Age Groups in Race
+                Store storeAgeGroups = this.GPAgeGroupsEnComp.GetStore();
+                if (rUsed.Id != 0)
+                {
+                    var aRace = (from r in db.Races
+                                 where r.Id == rUsed.Id
+                                 select r).FirstOrDefault();
+                    storeAgeGroups.DataSource = aRace.RaceAgeGroups;
+                }
+                else
+                {
+                    storeAgeGroups.DataSource = new List<RaceAgeGroup>();
+                }
+                storeAgeGroups.DataBind();
             }
         }
 
@@ -275,7 +299,7 @@ namespace ClubSite.AdminPages
                 Store store = this.cbClubbers.GetStore();
                 store.DataSource = from m in db.Members
                                    where m.State == true
-                                   orderby m.SecondName, m.FirstName                                   
+                                   orderby m.SecondName, m.FirstName
                                    select new { m.UserName, Name = (m.SecondName + ", " + m.FirstName) };
                 store.DataBind();
             }
@@ -290,6 +314,27 @@ namespace ClubSite.AdminPages
                              select r).FirstOrDefault();
                 store.DataSource = aRace.Members;
                 store.DataBind();
+            }
+
+        }
+        protected void StoreGPAgeGroupsEnComp_ReadData(object sender, StoreReadDataEventArgs e)
+        {
+            using (var db = new ClubSiteContext())
+            {
+                //Load data for Age Groups in Race
+                Store storeAgeGroups = this.GPAgeGroupsEnComp.GetStore();
+                if (rUsed.Id != 0)
+                {
+                    var aRace = (from r in db.Races
+                                 where r.Id == rUsed.Id
+                                 select r).FirstOrDefault();
+                    storeAgeGroups.DataSource = aRace.RaceAgeGroups;
+                }
+                else
+                {
+                    storeAgeGroups.DataSource = new List<RaceAgeGroup>();
+                }
+                storeAgeGroups.DataBind();
             }
 
         }
@@ -445,7 +490,7 @@ namespace ClubSite.AdminPages
                 {
                     Race item = (from races in db.Races
                                  where races.Id == rUsed.Id
-                                     select races).FirstOrDefault();
+                                 select races).FirstOrDefault();
                     if (item == null)
                     {
                         // The item wasn't found
@@ -541,7 +586,7 @@ namespace ClubSite.AdminPages
         {
             bool sigue = true;
             string messageError = null;
-           
+
             //Save if conditions are ok.
             if (sigue)
             {
@@ -590,7 +635,7 @@ namespace ClubSite.AdminPages
                         {
                             aRace.Longitud = Convert.ToDouble(aux);
                         }
-                        
+
                         db.Races.Add(aRace);
                         messageError = "Nueva competición grabada";
                     }
@@ -603,7 +648,7 @@ namespace ClubSite.AdminPages
                         {
                             // The item wasn't found
                             ModelState.AddModelError("", String.Format("Competición con Id : {0} no encontrada", rUsed.Id));
-                            X.Msg.Alert("Atención","Competición no encontrada. Grabación de datos cancelada.").Show();
+                            X.Msg.Alert("Atención", "Competición no encontrada. Grabación de datos cancelada.").Show();
                             return;
                         }
                         aRace.Name = txbxName.Text;
@@ -649,7 +694,7 @@ namespace ClubSite.AdminPages
         public void AskAddClubber()
         {
             bool sigue = true;
-            string messageError = "";            
+            string messageError = "";
 
             //Verify reace exists           
             if (txbxID.Text == "0")
@@ -710,8 +755,8 @@ namespace ClubSite.AdminPages
         public void DoAddClubber()
         {
             bool sigue = true;
-            string messageError = "";                       
-                        
+            string messageError = "";
+
             //Load data for username
             using (var db = new ClubSiteContext())
             {
@@ -737,11 +782,11 @@ namespace ClubSite.AdminPages
                     }
                     catch (Exception)
                     {
-                        X.Msg.Alert("Atención", "Hubo un problema al añadir a " + aMemberUserName +"a la lista de participantes en la competición.").Show();
+                        X.Msg.Alert("Atención", "Hubo un problema al añadir a " + aMemberUserName + "a la lista de participantes en la competición.").Show();
                     }
                 }
             }
-            
+
 
             if (!sigue)
             {
@@ -752,8 +797,6 @@ namespace ClubSite.AdminPages
         [DirectMethod]
         public void AskDelClubber()
         {
-            bool sigue = true;
-
             //Take clubber´s username from GridView
             CellSelectionModel sm = this.GPClubbersEnComp.GetSelectionModel() as CellSelectionModel;
             aMemberUserName = sm.SelectedCell.RecordID;
@@ -773,8 +816,8 @@ namespace ClubSite.AdminPages
                     Text = "No"
                 }
             }).Show();
-            
-        }        
+
+        }
 
         [DirectMethod]
         public void DoNotDelClubber()
@@ -786,7 +829,7 @@ namespace ClubSite.AdminPages
         public void DoDelClubber()
         {
             bool sigue = true;
-            string messageError = "";            
+            string messageError = "";
 
             //Verify reace exists           
             if (txbxID.Text == "0")
@@ -824,7 +867,7 @@ namespace ClubSite.AdminPages
                     {
                         X.Msg.Alert("Atención", "Hubo un problema al quitar a " + aMemberUserName + " de la lista de participantes en la competición.").Show();
                     }
-                    
+
                 }
             }
 
@@ -872,13 +915,13 @@ namespace ClubSite.AdminPages
 
         [DirectMethod]
         public void DoDelAllClubbers()
-        {                       
+        {
             //Del all races
             using (var db = new ClubSiteContext())
             {
                 Race aRace = (from races in db.Races
                               where races.Id == rUsed.Id
-                             select races).FirstOrDefault();
+                              select races).FirstOrDefault();
                 if (aRace == null)
                 {
                     // The item wasn't found
@@ -886,12 +929,220 @@ namespace ClubSite.AdminPages
                     X.Msg.Alert("Atención", "Competición no encontrada. Borrado cancelado,").Show();
                     return;
                 }
-                aRace.Members.Clear();              
+                aRace.Members.Clear();
                 db.SaveChanges();
                 LoadDataInGridForMembersInRace();
-                X.Msg.Alert("Atención", "Clubbers inscritos en la carrera borrados.").Show();                
+                X.Msg.Alert("Atención", "Clubbers inscritos en la carrera borrados.").Show();
             }
-            
+
+        }
+
+        [DirectMethod]
+        public void AskAddAG()
+        {
+            bool sigue = true;
+            string messageError = "";
+
+            //Verify reace exists           
+            if (txbxID.Text == "0")
+            {
+                sigue = false;
+                messageError = "Grabe primero los datos de la carrera antes de añadir grupos de edad.";
+            }
+
+            if (sigue)
+            {
+                //verify if exists age group name                
+                if (txbxGEName.Text == "")
+                {
+                    messageError = "Introduzca un nombre de grupo de edad.";
+                    sigue = false;
+                }
+            }
+
+            if (sigue)
+            {
+                //verify if exists number of participants for group name                                
+                try
+                {
+                    Convert.ToInt16(txbxGEPart.Text);
+                }
+                catch (Exception)
+                {
+                    messageError = "Introduzca el nº de participantes para el grupo de edad.";
+                    sigue = false;
+                }
+            }
+
+            if (sigue)
+            {
+
+                X.Msg.Confirm("Atención", "¿Añadimos " + txbxGEName.Text + " a los grupos de edad?", new MessageBoxButtonsConfig
+                {
+                    Yes = new MessageBoxButtonConfig
+                    {
+                        Handler = "App.direct.DoAddAG()",
+                        Text = "Si"
+                    }
+                    ,
+                    No = new MessageBoxButtonConfig
+                    {
+                        Handler = "App.direct.DoNotAddAG()",
+                        Text = "No"
+                    }
+                }).Show();
+            }
+            else
+            {
+                X.Msg.Alert("Atención", messageError).Show();
+            }
+        }
+
+        [DirectMethod]
+        public void DoAddAG()
+        {
+            //Load data for username
+            using (var db = new ClubSiteContext())
+            {
+                try
+                {
+                    RaceAgeGroup aRaceAgeGroup = new RaceAgeGroup();
+                    aRaceAgeGroup.Name = txbxGEName.Text;
+                    aRaceAgeGroup.Part = Convert.ToInt16(txbxGEPart.Text);
+                    aRaceAgeGroup.RaceID = rUsed.Id;
+                    db.RaceAgeGroups.Add(aRaceAgeGroup);
+                    db.SaveChanges();
+                    LoadDataInGridForAgeGroups();
+                    X.Msg.Alert("Atención", "Se ha añadido el grupo de edad " + txbxGEName.Text + " en la competición.").Show();
+                }
+                catch (Exception)
+                {
+                    X.Msg.Alert("Atención", "Hubo un problema al añadir el grupo de edad " + txbxGEName.Text + "a la competición.").Show();
+                }
+            }
+        }
+
+        [DirectMethod]
+        public void DoNotAddAG()
+        {
+            Notification.Show(new NotificationConfig { Title = "Aviso", Icon = Icon.Information, Html = "Cancelado el añadir grupo de edad" });
+        }
+
+        [DirectMethod]
+        public void AskDelAG()
+        {
+            bool sigue = true;
+            string message = "";
+            string grupo = "";
+
+            //Verify if exists age groups
+            using (var db = new ClubSiteContext())
+            {
+                Int32 aListOfAG = (from ag in db.RaceAgeGroups where ag.RaceID == rUsed.Id select ag).Count();
+                if (aListOfAG == 0)
+                {
+                    sigue = false;
+                    message = "No hay grupos de edad para quitar.";
+                }
+            }               
+
+            if (sigue)
+            {
+                CellSelectionModel sm = this.GPAgeGroupsEnComp.GetSelectionModel() as CellSelectionModel;
+                Int32 aGAId = Convert.ToInt32(sm.SelectedCell.RecordID);
+                using (var db = new ClubSiteContext()) 
+                {
+                    RaceAgeGroup aAG = (from ag in db.RaceAgeGroups where ag.Id == aGAId select ag).FirstOrDefault();
+                    if (aAG == null)
+                    {
+                        sigue = false;
+                        message="No se encontró el grupo de edad en la Base de datos.";
+                    }
+                    else
+                    {
+                        grupo=aAG.Name;
+                    }
+                }
+            }
+
+            if (sigue)
+            {
+                X.Msg.Confirm("Atención", "¿Quitamos el grupo de edad " + grupo + " de los grupos de edad?", new MessageBoxButtonsConfig
+                {
+                    Yes = new MessageBoxButtonConfig
+                    {
+                        Handler = "App.direct.DoDelAG()",
+                        Text = "Si"
+                    }
+                    ,
+                    No = new MessageBoxButtonConfig
+                    {
+                        Handler = "App.direct.DoNotDelAG()",
+                        Text = "No"
+                    }
+                }).Show();
+            }
+            else
+            {
+                X.Msg.Alert("Atención", message).Show();
+            }
+        }
+
+        [DirectMethod]
+        public void DoDelAG()
+        {
+            bool sigue= true;
+            string grupo="";
+
+            //Take age group rname from GridView
+            CellSelectionModel sm = this.GPAgeGroupsEnComp.GetSelectionModel() as CellSelectionModel;
+            Int32 aGAId = Convert.ToInt32(sm.SelectedCell.RecordID);
+
+            using (var db = new ClubSiteContext())
+            {
+                RaceAgeGroup aAG = (from ag in db.RaceAgeGroups where ag.Id == aGAId select ag).FirstOrDefault();
+                if (aAG == null)
+                {
+                    sigue = false;
+                    X.Msg.Alert("Atención", "No se encontró el grupo de edad " + grupo + " de la competición.").Show();
+                }
+                else
+                {
+                    grupo = aAG.Name;
+                }
+            }
+
+            if (sigue)
+            {
+                //Load data for age group                
+                using (var db = new ClubSiteContext())
+                {
+                    RaceAgeGroup aAG = new RaceAgeGroup();
+                    aAG = (from ag in db.RaceAgeGroups where ag.Id == aGAId select ag).FirstOrDefault();
+                    if (aAG != null)
+                    {
+                        try
+                        {
+                            db.RaceAgeGroups.Remove(aAG);
+                            db.SaveChanges();
+                            LoadDataInGridForAgeGroups();
+                            X.Msg.Alert("El grupo de edad", grupo + " ha sido quitado de la competición.").Show();
+                        }
+                        catch (Exception)
+                        {
+                            X.Msg.Alert("Atención", "Hubo un problema al quitar el grupo de edad " + grupo + " de la competición.").Show();
+                        }
+                    }
+
+                }
+            }
+         
+        }
+
+        [DirectMethod]
+        public void DoNotDelAG()
+        {
+            Notification.Show(new NotificationConfig { Title = "Aviso", Icon = Icon.Information, Html = "Cancelado el borrado de grupo de edad" });
         }
 
         [DirectMethod]
@@ -920,6 +1171,86 @@ namespace ClubSite.AdminPages
             txbxPartGenTot.Text = Convert.ToString(num1 + num2);
         }
 
+        [DirectMethod]
+        public void AskDelAllAG()
+        {
+            bool sigue = true;
+            string message = "";
+
+            //Verify if exists age groups
+            using (var db = new ClubSiteContext())
+            {
+                Int32 aListOfAG = (from ag in db.RaceAgeGroups where ag.RaceID == rUsed.Id select ag).Count();
+                if (aListOfAG == 0)
+                {
+                    sigue = false;
+                    message = "No hay grupos de edad para quitar.";
+                }
+            }            
+
+            if (sigue)
+            {
+                X.Msg.Confirm("Atención", "¿Quitamos todos los grupo de edad de la competición?", new MessageBoxButtonsConfig
+                {
+                    Yes = new MessageBoxButtonConfig
+                    {
+                        Handler = "App.direct.DoDelAllAG()",
+                        Text = "Si"
+                    }
+                    ,
+                    No = new MessageBoxButtonConfig
+                    {
+                        Handler = "App.direct.DoNotDelAllAG()",
+                        Text = "No"
+                    }
+                }).Show();
+            }
+            else
+            {
+                X.Msg.Alert("Atención", message).Show();
+            }
+        }
+
+        [DirectMethod]
+        public void DoDelAllAG()
+        {
+            bool sigue = true;
+            string grupo = "";
+            
+            if (sigue)
+            {
+                //Load data for age group                
+                using (var db = new ClubSiteContext())
+                {                    
+                    var aListOfAG = from ag in db.RaceAgeGroups where ag.RaceID == rUsed.Id select ag;
+                    if (aListOfAG != null)
+                    {
+                        try
+                        {
+                            foreach (RaceAgeGroup ag in aListOfAG.ToList())
+                            {
+                                db.RaceAgeGroups.Remove(ag);
+                            }
+                            db.SaveChanges();
+                            LoadDataInGridForAgeGroups();
+                            X.Msg.Alert("Atención","Todos los grupos de edad han sido quitados de la competición.").Show();
+                        }
+                        catch (Exception)
+                        {
+                            X.Msg.Alert("Atención", "Hubo un problema al quitar el grupo de edad " + grupo + " de la competición.").Show();
+                        }
+                    }
+
+                }
+            }
+
+        }
+
+        [DirectMethod]
+        public void DoNotDelAllAG()
+        {
+            Notification.Show(new NotificationConfig { Title = "Aviso", Icon = Icon.Information, Html = "Cancelado el borrado de todos los grupos de edad" });
+        }
 
         public string ReformatNumber(string aString)
         {

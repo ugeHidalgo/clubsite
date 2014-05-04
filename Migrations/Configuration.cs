@@ -32,8 +32,8 @@ namespace ClubSite.Migrations
                                                  dbcc checkident ('dbo.MaterialTypes',Reseed,0);");
             context.Database.ExecuteSqlCommand(@"delete from dbo.Sponsors;
                                                  dbcc checkident ('dbo.Sponsors',Reseed,0);");
-//            context.Database.ExecuteSqlCommand(@"delete from dbo.RaceAgeGroups;
-//                                                 dbcc checkident ('dbo.RaceAgeGroups',Reseed,0);");
+            context.Database.ExecuteSqlCommand(@"delete from dbo.RaceAgeGroups;
+                                                 dbcc checkident ('dbo.RaceAgeGroups',Reseed,0);");
 
             //Seed Tables
             GetSports().ForEach(sp => context.Sports.Add(sp));

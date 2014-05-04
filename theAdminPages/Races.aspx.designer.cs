@@ -841,13 +841,13 @@ namespace ClubSite.AdminPages {
         protected global::Ext.Net.TextField txbxGEName;
         
         /// <summary>
-        /// TextField1 control.
+        /// txbxGEPart control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.TextField TextField1;
+        protected global::Ext.Net.TextField txbxGEPart;
         
         /// <summary>
         /// Toolbar3 control.
@@ -886,13 +886,13 @@ namespace ClubSite.AdminPages {
         protected global::Ext.Net.Button Button3;
         
         /// <summary>
-        /// GridPanel1 control.
+        /// GPAgeGroupsEnComp control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.GridPanel GridPanel1;
+        protected global::Ext.Net.GridPanel GPAgeGroupsEnComp;
         
         /// <summary>
         /// Store2 control.

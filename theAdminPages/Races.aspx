@@ -422,7 +422,7 @@
                                 <SelectionModel>
                                     <ext:CellSelectionModel ID="CellSelectionModel2" runat="server">
                                         <DirectEvents>
-                                            <Select OnEvent="GPRaces_Cell_Click" />
+                                            <%--<Select OnEvent="GPRaces_Cell_Click" />--%>
                                         </DirectEvents>
                                     </ext:CellSelectionModel>
                                 </SelectionModel>
@@ -510,38 +510,40 @@
                                             <ext:HBoxLayoutConfig Align="Middle" />
                                         </LayoutConfig>
                                         <Items>
-                                            <ext:TextField ID="txbxGEName" runat="server" FieldLabel="Nombre G.E. :" LabelAlign="Right" Flex="60" Margins="0 5 0 0"/>
-                                            <ext:TextField ID="TextField1" runat="server" FieldLabel="Part :" LabelAlign="Right" Flex="30"  Margins="0 10 0 5"/>
+                                            <ext:TextField ID="txbxGEName" runat="server" FieldLabel="Nombre G.E. :" LabelAlign="Right" Flex="60" Margins="0 5 0 0" />
+                                            <ext:TextField ID="txbxGEPart" runat="server" FieldLabel="Part :" LabelAlign="Right" Flex="30" Margins="0 10 0 5" />
                                             <ext:Toolbar ID="Toolbar3" runat="server" Flex="18" Margins="0 0 0 10">
                                                 <Items>
                                                     <ext:Button ID="Button1" runat="server" Width="25" Icon="Add">
                                                         <Listeners>
+                                                            <Click Handler="App.direct.AskAddAG();" />
                                                         </Listeners>
                                                     </ext:Button>
                                                     <ext:Button ID="Button2" runat="server" Width="25" Icon="Delete">
                                                         <Listeners>
+                                                            <Click Handler="App.direct.AskDelAG();" />
                                                         </Listeners>
                                                     </ext:Button>
                                                     <ext:Button ID="Button3" runat="server" Width="25" Icon="GroupDelete">
                                                         <Listeners>
+                                                            <Click Handler="App.direct.AskDelAllAG();" />
                                                         </Listeners>
                                                     </ext:Button>
                                                 </Items>
                                             </ext:Toolbar>
                                         </Items>
                                     </ext:Container>
-                                    <ext:GridPanel ID="GridPanel1"
+                                    <ext:GridPanel ID="GPAgeGroupsEnComp"
                                         runat="server"
                                         Frame="true"
                                         Height="230">
                                         <Store>
-                                            <ext:Store ID="Store2" runat="server" OnReadData="StoreGPClubbersEnComp_ReadData" PageSize="10">
+                                            <ext:Store ID="Store2" runat="server" OnReadData="StoreGPAgeGroupsEnComp_ReadData" PageSize="10">
                                                 <Model>
-                                                    <ext:Model ID="Model2" runat="server" IDProperty="UserName">
+                                                    <ext:Model ID="Model2" runat="server" IDProperty="Id">
                                                         <Fields>
-                                                            <ext:ModelField Name="UserName" />
-                                                            <ext:ModelField Name="SecondName" />
-                                                            <ext:ModelField Name="FirstName" />
+                                                            <ext:ModelField Name="Name" />
+                                                            <ext:ModelField Name="Part" Type="Int" />
                                                         </Fields>
                                                     </ext:Model>
                                                 </Model>
@@ -549,9 +551,9 @@
                                         </Store>
                                         <ColumnModel ID="ColumnModel3" runat="server">
                                             <Columns>
-                                                <ext:Column ID="Column12" runat="server" DataIndex="First" Text="Id" Width="50" />
-                                                <ext:Column ID="Column7" runat="server" DataIndex="Part." Text="Part." Width="50" />
-                                                <ext:Column ID="Column8" runat="server" DataIndex="Grupo de Edad" Text="Grupo de Edad" Width="250" />
+                                                <ext:Column ID="Column12" runat="server" DataIndex="Id" Text="Id" Width="50" />
+                                                <ext:Column ID="Column7" runat="server" DataIndex="Part" Text="Part." Width="50" />
+                                                <ext:Column ID="Column8" runat="server" DataIndex="Name" Text="Grupo de Edad" Width="250" />
                                             </Columns>
                                         </ColumnModel>
                                         <View>
@@ -562,7 +564,7 @@
                                         <SelectionModel>
                                             <ext:CellSelectionModel ID="CellSelectionModel3" runat="server">
                                                 <DirectEvents>
-                                                    <Select OnEvent="GPRaces_Cell_Click" />
+                                                    <%--<Select OnEvent="GPRaces_Cell_Click" />--%>
                                                 </DirectEvents>
                                             </ext:CellSelectionModel>
                                         </SelectionModel>
