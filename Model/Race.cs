@@ -10,6 +10,7 @@ namespace ClubSite.Model
     {
         //Properties
         #region
+        [Key]
         public Int32 Id { get; set; }
 
         [Required, StringLength(100)]
@@ -19,13 +20,13 @@ namespace ClubSite.Model
          //,DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime RaceDate { get; set; }
 
-        public Int32 RaceTypeId { get; set; }
+        public Int32 RaceTypeID { get; set; }
+
+        public virtual RaceType RaceType { get; set; }
 
         public Address Address { get; set; }
 
         public string Memo { get; set; }
-
-        public virtual RaceType RaceType { get; set; }
 
         public string ImageURL { get; set; }
 
@@ -33,7 +34,14 @@ namespace ClubSite.Model
 
         public double Latitud { get; set; }
 
+        public int PartMasc { get; set; }
+
+        public int PartFem { get; set; }        
+
         public virtual ICollection<Member> Members { get; set; }
+
+        public virtual ICollection<RaceAgeGroup> RaceAgeGroups { get; set; }
+
         #endregion
 
 
@@ -42,20 +50,24 @@ namespace ClubSite.Model
         public Race()
         {
             this.RaceDate = DateTime.Now;
+            PartFem = 0;
+            PartMasc = 0;
         }
 
-        public Race(int anID, string aName, DateTime aRaceDate, Model.Address anAddress, int aRaceTypeId, string aMemo, 
-                    string anImageURL, double aLongitud, double aLatitud)
+        public Race(int anID, string aName, DateTime aRaceDate, Model.Address anAddress, int aRaceTypeId, string aMemo,
+                    string anImageURL, double aLongitud, double aLatitud, int aPartMasc, int aPartFem)
         {
             this.Id = anID;
             this.Name = aName;
             this.RaceDate = aRaceDate;
             this.Address = anAddress;
-            this.RaceTypeId = aRaceTypeId;
+            this.RaceTypeID = aRaceTypeId;
             this.Memo = aMemo;
             this.ImageURL = anImageURL;
             this.Latitud = aLatitud;
             this.Longitud = aLongitud;
+            this.PartFem = aPartFem;
+            this.PartMasc = aPartMasc;
         }
         
         #endregion
@@ -63,18 +75,20 @@ namespace ClubSite.Model
 
         //Methods
         #region   
-        public void SetRace(int anID, string aName, DateTime aRaceDate, Model.Address anAddress, int aRaceTypeId, string aMemo, 
-                            string anImageURL, double aLongitud, double aLatitud)
+        public void SetRace(int anID, string aName, DateTime aRaceDate, Model.Address anAddress, int aRaceTypeId, string aMemo,
+                            string anImageURL, double aLongitud, double aLatitud, int aPartMasc, int aPartFem)
         {
             this.Id = anID;
             this.Name = aName;
             this.RaceDate = aRaceDate;
             this.Address = anAddress;
-            this.RaceTypeId = aRaceTypeId;
+            this.RaceTypeID = aRaceTypeId;
             this.Memo = aMemo;
             this.ImageURL = anImageURL;
             this.Latitud = aLatitud;
             this.Longitud = aLongitud;
+            this.PartMasc = aPartMasc;
+            this.PartFem = aPartFem;
         }
 
         public void ClearRace()
@@ -83,11 +97,13 @@ namespace ClubSite.Model
             this.Name = null;
             this.RaceDate = DateTime.Now;
             this.Address = null;
-            this.RaceTypeId = 0;
+            this.RaceTypeID = 0;
             this.Memo = null;
             this.ImageURL = null;
             this.Longitud = 0;
             this.Latitud = 0;
+            this.PartFem = 0;
+            this.PartMasc = 0;
         }
 
         public void CopyRace(Race aRace)
@@ -96,18 +112,21 @@ namespace ClubSite.Model
             this.Name = aRace.Name;
             this.RaceDate = aRace.RaceDate;
             this.Address = aRace.Address;
-            this.RaceTypeId = aRace.RaceTypeId;
+            this.RaceTypeID = aRace.RaceTypeID;
             this.Memo = aRace.Memo;
             this.ImageURL = aRace.ImageURL;
             this.Latitud = aRace.Latitud;
             this.Longitud = aRace.Longitud;
+            this.PartFem = aRace.PartFem;
+            this.PartMasc = aRace.PartMasc;
         }
 
         #endregion
 
-        public void AddMemberToRace(string anUserName)
+        public void AddMemberToRace(Member aMember)
         {
-            throw new NotImplementedException();
+
+            this.Members.Add(aMember);
         }
     }
 }

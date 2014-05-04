@@ -888,11 +888,11 @@ namespace ClubSite.AdminPages
                 DateTime toDate = dtfToDate.SelectedDate;
                 Store store = this.cbRaces.GetStore();
                 store.DataSource = from r in db.Races
-                                   join rt in db.RaceTypes on r.RaceTypeId equals rt.RaceTypeID
+                                   join rt in db.RaceTypes on r.RaceTypeID equals rt.RaceTypeID
                                    join s in db.Sports on rt.SportID equals s.SportID
                                    where r.RaceDate >= fromDate && r.RaceDate <= toDate
                                    orderby s.Name, rt.Name, r.Name
-                                   select new { r.Id, Name = r.Name + " (" + s.Name + " " + rt.Name + ")" };
+                                   select new { RaceId = r.Id, Name = r.Name + " (" + s.Name + " " + rt.Name + ")" };
                 store.DataBind();
             }
         }
@@ -908,7 +908,7 @@ namespace ClubSite.AdminPages
                 {
                     store.DataSource = from r in aMember.Races
                                        orderby r.RaceDate
-                                       select new { r.Id, r.Name, RDate = r.RaceDate, SportName = r.RaceType.Sport.Name, RaceTypeName = r.RaceType.Name };
+                                       select new { RaceId = r.Id, r.Name, RDate = r.RaceDate, SportName = r.RaceType.Sport.Name, RaceTypeName = r.RaceType.Name };
                 }
                 else
                 {
@@ -932,7 +932,7 @@ namespace ClubSite.AdminPages
                 {
                     store.DataSource = from r in aMember.Races
                                        orderby r.RaceDate
-                                       select new { r.Id, r.Name, RDate = r.RaceDate, SportName = r.RaceType.Sport.Name, RaceTypeName = r.RaceType.Name };
+                                       select new { RaceId = r.Id, r.Name, RDate = r.RaceDate, SportName = r.RaceType.Sport.Name, RaceTypeName = r.RaceType.Name };
                     store.DataBind();
                 }
             }
@@ -945,11 +945,11 @@ namespace ClubSite.AdminPages
                 DateTime toDate = dtfToDate.SelectedDate;
                 Store store = this.cbRaces.GetStore();
                 store.DataSource = from r in db.Races
-                                   join rt in db.RaceTypes on r.RaceTypeId equals rt.RaceTypeID
+                                   join rt in db.RaceTypes on r.RaceTypeID equals rt.RaceTypeID
                                    join s in db.Sports on rt.SportID equals s.SportID
                                    where r.RaceDate >= fromDate && r.RaceDate <= toDate
                                    orderby s.Name, rt.Name, r.Name
-                                   select new { r.Id, Name = r.Name + " (" + s.Name + " " + rt.Name + ")" };
+                                   select new { RaceId = r.Id, Name = r.Name + " (" + s.Name + " " + rt.Name + ")" };
                 store.DataBind();
             }
         }

@@ -94,3 +94,5 @@ C:\Sites\ClubSite\ModelClasssesTests\bin\Debug\zh-Hant\System.Spatial.resources.
 C:\Sites\ClubSite\ModelClasssesTests\obj\Debug\ModelClasssesTests.csprojResolveAssemblyReference.cache
 C:\Sites\ClubSite\ModelClasssesTests\obj\Debug\ModelClasssesTests.dll
 C:\Sites\ClubSite\ModelClasssesTests\obj\Debug\ModelClasssesTests.pdb
+C:\Sites\ClubSite\ModelClasssesTests\bin\Debug\WebDriver.dll
+C:\Sites\ClubSite\ModelClasssesTests\bin\Debug\WebDriver.xml

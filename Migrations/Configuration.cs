@@ -8,7 +8,8 @@ namespace ClubSite.Migrations
     using ClubSite.Model;
 
     internal sealed class Configuration : DbMigrationsConfiguration<ClubSite.Model.ClubSiteContext>
-    {
+    {        
+
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
@@ -31,15 +32,19 @@ namespace ClubSite.Migrations
                                                  dbcc checkident ('dbo.MaterialTypes',Reseed,0);");
             context.Database.ExecuteSqlCommand(@"delete from dbo.Sponsors;
                                                  dbcc checkident ('dbo.Sponsors',Reseed,0);");
+//            context.Database.ExecuteSqlCommand(@"delete from dbo.RaceAgeGroups;
+//                                                 dbcc checkident ('dbo.RaceAgeGroups',Reseed,0);");
 
             //Seed Tables
             GetSports().ForEach(sp => context.Sports.Add(sp));
             GetRaceTypes().ForEach(rt => context.RaceTypes.Add(rt));
-            GetRaces().ForEach(r => context.Races.Add(r));
-            GetMembers().ForEach(m => context.Members.Add(m));
+            List<Race> aRaces = GetRaces(); 
+            aRaces.ForEach(r => context.Races.Add(r));
+            GetMembers(aRaces).ForEach(m => context.Members.Add(m));
             GetMaterialTypes().ForEach(mt => context.MaterialTypes.Add(mt));
             GetMaterials().ForEach(m => context.Materials.Add(m));
             GetSponsors().ForEach(sp => context.Sponsors.Add(sp));
+            GetRaceAgeGroups().ForEach(ag => context.RaceAgeGroups.Add(ag));                                     
 
             //Save Data into BD
             context.SaveChanges();
@@ -94,41 +99,56 @@ namespace ClubSite.Migrations
         {      
             Address anAdress = new Address();
             var aListOfRaces2 = new List<Race> {
-                new Race { Id=1, Name="Media Maratón de Almería", Address=anAdress, RaceDate=Convert.ToDateTime("2014/02/14 00:00:00"), RaceTypeId=12,
-                           Latitud=36.831271, Longitud=-2.459564 },
-                new Race { Id=2, Name="Triatlón de Elche Arenales", Address=anAdress, RaceDate=Convert.ToDateTime("2014/04/20 00:00:00"), RaceTypeId=4,
-                           Latitud=38.246404, Longitud=-0.516572},
-                new Race { Id=3, Name="Triatlón Cross Tarifa XChallenge", Address=anAdress, RaceDate=Convert.ToDateTime("2014/06/01 00:00:00"), RaceTypeId=3,
-                           Latitud=36.007034, Longitud=-5.608006 },
-                new Race { Id=4, Name="Ironman Lanzarote", Address=anAdress, RaceDate=Convert.ToDateTime("2014/05/24 00:00:00"), RaceTypeId=5, 
-                           Latitud=28.959188, Longitud=-13.552322 } };
+                new Race { Id=1, Name="Media Maratón de Almería", Address=anAdress, RaceDate=Convert.ToDateTime("2014/02/14 00:00:00"), RaceTypeID=12,
+                           Latitud=36.831271, Longitud=-2.459564, PartMasc=4356, PartFem=1120, ImageURL="../Images/Races/Media Almeria.png" },
+                new Race { Id=2, Name="Triatlón de Elche Arenales", Address=anAdress, RaceDate=Convert.ToDateTime("2014/04/20 00:00:00"), RaceTypeID=4,
+                           Latitud=38.246404, Longitud=-0.516572,PartMasc=1120, PartFem=245, ImageURL="../Images/Races/elchetriatlon.jpg"},
+                new Race { Id=3, Name="Triatlón Cross Tarifa XChallenge", Address=anAdress, RaceDate=Convert.ToDateTime("2014/06/01 00:00:00"), RaceTypeID=3,
+                           Latitud=36.007034, Longitud=-5.608006,PartMasc=175, PartFem=22, ImageURL="../Images/Races/XchallengeTarifa.jpg"  },
+                new Race { Id=4, Name="Ironman Lanzarote", Address=anAdress, RaceDate=Convert.ToDateTime("2014/05/24 00:00:00"), RaceTypeID=5, 
+                           Latitud=28.959188, Longitud=-13.552322,PartMasc=2145, PartFem=489, ImageURL="../Images/Races/lanzarote1.jpg" } };
             return aListOfRaces2;
         }
 
 
-        private static List<Member> GetMembers()
+        private static List<Member> GetMembers(List<Race> aListOfRaces)
         {
-            Address anAdress = new Address();
+            Address anAdress = new Address();            
             var aListOfMembers = new List<Member> {
                 new Member {UserName="adminuser",State=true,Federated=true,Visible=false,RegDate=DateTime.Now,FirstName="adminuser",SecondName="Administrador", Address=anAdress,
-                            ImageURL="../Images/Clubbers/logoHistoria.jpg", NImageURL ="../Images/Clubbers/believe2.jpg", BlogURL="http://www.sharptheclub.net", Number=null},
+                            ImageURL="../Images/Clubbers/logoHistoria.jpg", NImageURL ="../Images/Clubbers/believe2.jpg", BlogURL="http://www.sharptheclub.net", Number=null },
+
                 new Member {UserName="dlirio",State=true,Federated=true,Visible=true,RegDate=DateTime.Now,FirstName="David",SecondName="Lirio Domingo", Address=anAdress ,
-                            ImageURL="../Images/Clubbers/dlirio.jpg", NImageURL ="../Images/Clubbers/dlirio23.jpg", BlogURL="http://davidlirio.blogspot.com.es/", Number="23" },
+                            ImageURL="../Images/Clubbers/dlirio.jpg", NImageURL ="../Images/Clubbers/dlirio23.jpg", BlogURL="http://davidlirio.blogspot.com.es/", Number="23",
+                            Races=new List<Race>{aListOfRaces[0], aListOfRaces[1]} },
+
                 new Member {UserName="lofer",State=true,Federated=true,Visible=true,RegDate=DateTime.Now,FirstName="Jesus",SecondName="López Fernández", Address=anAdress,
-                            ImageURL="../Images/Clubbers/lofer.jpg", NImageURL ="../Images/Clubbers/LoFer21.jpg", BlogURL="http://trilofer.blogspot.com.es/", Number="21"},
+                            ImageURL="../Images/Clubbers/lofer.jpg", NImageURL ="../Images/Clubbers/LoFer21.jpg", BlogURL="http://trilofer.blogspot.com.es/", Number="21",
+                            Races=new List<Race>{aListOfRaces[3]} },
+
                 new Member {UserName="mmar",State=true,Federated=true,Visible=true,RegDate=DateTime.Now,FirstName="Maria del Mar",SecondName="Moral López", Address=anAdress,
-                            ImageURL="../Images/Clubbers/mdm.jpg", NImageURL ="../Images/Clubbers/Mmar69.jpg", BlogURL="https://www.facebook.com/mar.morallopez", Number="69"},
+                            ImageURL="../Images/Clubbers/mdm.jpg", NImageURL ="../Images/Clubbers/Mmar69.jpg", BlogURL="https://www.facebook.com/mar.morallopez", Number="69",
+                            Races=new List<Race>{aListOfRaces[2]} },
+
                 new Member {UserName="ugeHidalgo",State=true,Federated=true,Visible=true,RegDate=DateTime.Now,FirstName="Eugenio",SecondName="Hidalgo Hernández", Address=anAdress,
-                            ImageURL="../Images/Clubbers/eugenio.jpg", NImageURL ="../Images/Clubbers/eugenio14.jpg", BlogURL="http://ugeblog.blogspot.com.es/",Number="14"},
+                            ImageURL="../Images/Clubbers/eugenio.jpg", NImageURL ="../Images/Clubbers/eugenio14.jpg", BlogURL="http://ugeblog.blogspot.com.es/",Number="14",
+                            Races=new List<Race>{aListOfRaces[2]} },
+
                 new Member {UserName="juanan",State=true,Federated=true,Visible=true,RegDate=DateTime.Now,FirstName="Juan Antonio",SecondName="Vicaria", Address=anAdress,
-                            ImageURL="../Images/Clubbers/javicaria.jpg", NImageURL ="../Images/Clubbers/Javiaria7.jpg", BlogURL="http://runxfun.blogspot.com.es/",Number="07"},
+                            ImageURL="../Images/Clubbers/javicaria.jpg", NImageURL ="../Images/Clubbers/Javiaria7.jpg", BlogURL="http://runxfun.blogspot.com.es/",Number="07",
+                            Races=new List<Race>{aListOfRaces[0]} },
+
                 new Member {UserName="josete",State=true,Federated=true,Visible=true,RegDate=DateTime.Now,FirstName="Jose Miguel",SecondName="López", Address=anAdress,
-                            ImageURL="../Images/Clubbers/josete.jpg", NImageURL ="../Images/Clubbers/Josete00.jpg", BlogURL="http://226kms.blogspot.com.es/", Number="00"},
+                            ImageURL="../Images/Clubbers/josete.jpg", NImageURL ="../Images/Clubbers/Josete00.jpg", BlogURL="http://226kms.blogspot.com.es/", Number="00",
+                            Races=new List<Race>{aListOfRaces[0], aListOfRaces[1]} },
+
                 new Member {UserName="jero",State=true,Federated=true,Visible=true,RegDate=DateTime.Now,FirstName="Jerónimo",SecondName="Jeronimo", Address=anAdress,
-                            ImageURL="../Images/Clubbers/jero.jpg", NImageURL ="../Images/Clubbers/Jero9.jpg", BlogURL="http://latabernadelmonaguillo.blogspot.com.es/",Number="09"}
+                            ImageURL="../Images/Clubbers/jero.jpg", NImageURL ="../Images/Clubbers/Jero9.jpg", BlogURL="http://latabernadelmonaguillo.blogspot.com.es/",Number="09",
+                            Races=new List<Race>{aListOfRaces[0], aListOfRaces[1]} }
             };
             return aListOfMembers;
         }
+
 
         private static List<Sponsor> GetSponsors()
         {
@@ -179,6 +199,21 @@ namespace ClubSite.Migrations
                 new Material { MatID=5, MatName="Mallas cortas", Active=true, Cost=(decimal)23.3,Price=(decimal)24.7, MatTypeId=1, Memo="Mallas cortas para correr" },
             };
             return aListOfMat;
+        }
+
+        private static List<RaceAgeGroup> GetRaceAgeGroups()
+        {
+            var aListOfraceAgeGroup = new List<RaceAgeGroup> {
+                new RaceAgeGroup {  Id=1, Name="40-44 Masc.", Part=123, RaceID=3 },
+                new RaceAgeGroup {  Id=2, Name="40-44 Fem.", Part=3, RaceID=3},
+                new RaceAgeGroup {  Id=3, Name="35-39 Masc.", Part=137, RaceID=3},
+                new RaceAgeGroup {  Id=4, Name="35-39 Masc.", Part=347, RaceID=4},
+                new RaceAgeGroup {  Id=5, Name="30-34 Masc.", Part=474, RaceID=2},
+                new RaceAgeGroup {  Id=6, Name="25-29 Masc.", Part=214, RaceID=2},
+                new RaceAgeGroup {  Id=7, Name="30-34 Masc.", Part=734, RaceID=1},
+                new RaceAgeGroup {  Id=8, Name="25-29 Masc.", Part=412, RaceID=1},
+            };
+            return aListOfraceAgeGroup;
         }
     }
 }

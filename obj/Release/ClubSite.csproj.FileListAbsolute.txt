@@ -133,3 +133,7 @@ C:\Sites\ClubSite\bin\Ext.Net.xml
 C:\Sites\ClubSite\bin\Ext.Net.Utilities.xml
 C:\Sites\ClubSite\bin\Newtonsoft.Json.xml
 C:\Sites\ClubSite\bin\Transformer.NET.xml
+C:\Sites\ClubSite\bin\WebDriver.dll
+C:\Sites\ClubSite\bin\WebDriver.Support.dll
+C:\Sites\ClubSite\bin\WebDriver.xml
+C:\Sites\ClubSite\bin\WebDriver.Support.xml

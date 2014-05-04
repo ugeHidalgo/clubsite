@@ -92,6 +92,7 @@
                     <ext:ModelField Name="BlogURL" />
                     <ext:ModelField Name="SecondName" />
                     <ext:ModelField Name="FirstName" />
+                    <ext:ModelField Name="Number" />
                 </Fields>
             </ext:Model>
         </Model>
@@ -99,22 +100,28 @@
 
     <ext:Panel ID="Panel1"
         runat="server"
-        Title="Clubbers registrados"
+        Title=""
         Height="555"
         Width="850"
+        Border ="False"
         Layout="FitLayout">
         <TopBar>
             <ext:Toolbar ID="Toolbar1" runat="server">
                 <Items>
                     <ext:DisplayField ID="DisplayField1" runat="server" Text="Ordenar por:&nbsp;" />
-                    <ext:Button ID="btnOrderUsername" runat="server" Text="UserName">
+                    <ext:Button ID="btnOrderUsername" runat="server" Text="User Name">
                         <DirectEvents>
                             <Click OnEvent="btnOrderUsername_Click" />
                         </DirectEvents>
                     </ext:Button>
-                    <ext:Button ID="btnOrderSencond" runat="server" Text="Apellidos">
+                    <ext:Button ID="btnOrderSecond" runat="server" Text="Apellidos">
                         <DirectEvents>
                             <Click OnEvent="btnOrderSecond_Click" />
+                        </DirectEvents>
+                    </ext:Button>
+                    <ext:Button ID="btnOrderNumber" runat="server" Text="Número">
+                        <DirectEvents>
+                            <Click OnEvent="btnOrderNumber_Click" />
                         </DirectEvents>
                     </ext:Button>
                 </Items>
@@ -128,7 +135,7 @@
                 ItemSelector="div.clubber"
                 OverItemCls="clubber-hover"
                 MultiSelect="false"
-                AutoScroll="true"
+                AutoScroll="true"                
                 Cls="clubbers-view"
                 StoreID="Store1"
                 TrackOver="true"
@@ -136,7 +143,7 @@
                 <Tpl ID="Tpl1" runat="server">
                     <Html>
                         <tpl for=".">
-                                <a href="{BlogURL}"><div class="clubber">
+                                <a href="{BlogURL}" target="_blank"><div class="clubber">
                                     <div>
                                         <img width="80" height="80" src="{ImageURL}" /> 
                                         <img width="80" height="80" src="{NImageURL}" />  

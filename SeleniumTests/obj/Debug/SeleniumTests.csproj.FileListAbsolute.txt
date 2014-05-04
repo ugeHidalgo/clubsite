@@ -1,0 +1,10 @@
+C:\Sites\ClubSite\SeleniumTests\bin\Debug\SeleniumTests.dll
+C:\Sites\ClubSite\SeleniumTests\bin\Debug\SeleniumTests.pdb
+C:\Sites\ClubSite\SeleniumTests\bin\Debug\ThoughtWorks.Selenium.Core.dll
+C:\Sites\ClubSite\SeleniumTests\bin\Debug\WebDriver.dll
+C:\Sites\ClubSite\SeleniumTests\bin\Debug\WebDriver.Support.dll
+C:\Sites\ClubSite\SeleniumTests\bin\Debug\ThoughtWorks.Selenium.Core.xml
+C:\Sites\ClubSite\SeleniumTests\bin\Debug\WebDriver.xml
+C:\Sites\ClubSite\SeleniumTests\bin\Debug\WebDriver.Support.xml
+C:\Sites\ClubSite\SeleniumTests\obj\Debug\SeleniumTests.dll
+C:\Sites\ClubSite\SeleniumTests\obj\Debug\SeleniumTests.pdb

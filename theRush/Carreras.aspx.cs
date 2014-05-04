@@ -25,7 +25,7 @@ namespace ClubSite.theRush
                     var data = from r in db.Races
                                orderby r.Name, r.RaceDate 
                                where (r.RaceDate>=fromDate) && (r.RaceDate<=toDate)
-                               select new { r.Id, r.Name, r.RaceDate, r.ImageURL  };
+                               select new { RaceId = r.Id, r.Name, r.RaceDate, r.ImageURL };
                     this.Store1.DataSource = data;
                     this.Store1.DataBind();
                 }
@@ -41,7 +41,7 @@ namespace ClubSite.theRush
                 var data = from r in db.Races
                            orderby r.RaceDate, r.Name
                            where (r.RaceDate >= fromDate) && (r.RaceDate <= toDate)
-                           select new { r.Id, r.Name, r.RaceDate, r.ImageURL };
+                           select new { RaceId = r.Id, r.Name, r.RaceDate, r.ImageURL };
                 this.Store1.DataSource = data;
                 this.Store1.DataBind();
             }
@@ -56,7 +56,7 @@ namespace ClubSite.theRush
                 var data = from r in db.Races
                            orderby r.Name, r.RaceDate
                            where (r.RaceDate >= fromDate) && (r.RaceDate <= toDate)
-                           select new { r.Id, r.Name, r.RaceDate, r.ImageURL };
+                           select new { RaceId = r.Id, r.Name, r.RaceDate, r.ImageURL };
                 this.Store1.DataSource = data;
                 this.Store1.DataBind();
             }

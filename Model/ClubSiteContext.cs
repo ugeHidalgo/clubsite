@@ -16,6 +16,7 @@ namespace ClubSite.Model
         public DbSet<Race> Races { get; set; }
         public DbSet<Material> Materials { get; set; }
         public DbSet<MaterialType> MaterialTypes { get; set; }
+        public DbSet<RaceAgeGroup> RaceAgeGroups { get; set; }
 
         public ClubSiteContext()
             : base("ClubSiteConn")

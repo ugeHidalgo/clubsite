@@ -70,7 +70,7 @@
 
                     <section id="followUs" style="margin-right: 10px;">
                         <h4 style="text-align: right">Siguenos en...</h4>
-                        <asp:ImageButton CssClass="FollowImage" ID="imgbtnBlog" runat="server" ImageUrl="~/Images/Logos/blogger.jpg" PostBackUrl="http://www.sharptheclub.com/" />
+                        <asp:ImageButton CssClass="FollowImage" ID="imgbtnBlog" runat="server" ImageUrl="~/Images/Logos/blogger.jpg" PostBackUrl="http://www.sharptheclub.net/" />
                         <asp:ImageButton CssClass="FollowImage" ID="imgbtnfacebook" runat="server" ImageUrl="~/Images/Logos/facebook.png" PostBackUrl="https://www.facebook.com/sharptheclubthepage" />
                         <asp:ImageButton CssClass="FollowImage" ID="imgbtnTwitter" runat="server" ImageUrl="~/Images/Logos/twitter.png" PostBackUrl="http://twitter.com/sharptheclub" />
                     </section>
@@ -111,7 +111,7 @@
                 <a href="theShop/theShop.aspx">
                     <img class="BottonMenuImage" src="Images/Logos/carrito-compra.jpg" alt="" /></a>
                 <a href="theClub/Colab.aspx">
-                    <img class="BottonMenuImage" src="Images/Sponsors/sponsorsBN.png" alt="" /></a>
+                    <img class="BottonMenuImage" src="Images/Logos/sponsorsBN.png" alt="" /></a>
             </section>
         </div>
 

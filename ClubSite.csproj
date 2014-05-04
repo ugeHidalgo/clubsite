@@ -163,6 +163,12 @@
     <Reference Include="WebActivatorEx">
       <HintPath>packages\WebActivatorEx.2.0.5\lib\net40\WebActivatorEx.dll</HintPath>
     </Reference>
+    <Reference Include="WebDriver">
+      <HintPath>packages\Selenium.WebDriver.2.41.0\lib\net40\WebDriver.dll</HintPath>
+    </Reference>
+    <Reference Include="WebDriver.Support">
+      <HintPath>packages\Selenium.Support.2.41.0\lib\net40\WebDriver.Support.dll</HintPath>
+    </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>packages\WebGrease.1.1.0\lib\WebGrease.dll</HintPath>
@@ -201,6 +207,7 @@
     <Content Include="Default.aspx" />
     <Content Include="Images\Logos\calendario.PNG" />
     <Content Include="Images\Logos\carrito-compra.jpg" />
+    <Content Include="Images\Logos\sponsorsBN.png" />
     <Content Include="Images\Logos\theRush.PNG" />
     <Content Include="Images\Logos\theShop.png" />
     <Content Include="Images\Photos\almeria.jpg" />
@@ -416,6 +423,7 @@
     <Compile Include="Model\MaterialType.cs" />
     <Compile Include="Model\Member.cs" />
     <Compile Include="Model\Person.cs" />
+    <Compile Include="Model\RaceAgeGroup.cs" />
     <Compile Include="Model\RaceType.cs" />
     <Compile Include="Model\Sponsor.cs" />
     <Compile Include="Model\Race.cs" />

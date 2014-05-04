@@ -19,7 +19,7 @@
         <Model>
             <ext:Model ID="Model2" runat="server" IDProperty="Id">
                 <Fields>
-                    <ext:ModelField Name="Id" Type="Int" />
+                    <ext:ModelField Name="RaceId" Type="Int" />
                     <ext:ModelField Name="ImageURL" />
                     <ext:ModelField Name="Name" />
                     <ext:ModelField Name="RaceDate" Type="Date"  />
@@ -73,7 +73,7 @@
                 <Tpl ID="Tpl1" runat="server">
                     <Html>
                         <tpl for=".">
-                                <a href="CarrerasDetalle.aspx?Id={Id}"><div class="sponsor">
+                                <a href="CarrerasDetalle.aspx?Id={RaceId}"><div class="sponsor">
                                     <div>                                        
                                         <img width="150" height="150" src="{ImageURL}" />  
                                     </div>       

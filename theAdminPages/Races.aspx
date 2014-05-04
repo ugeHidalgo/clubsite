@@ -69,7 +69,7 @@
         Title="Competiciones"
         runat="server"
         Width="750"
-        Height="650"
+        Height="700"
         DeferredRender="false">
         <Items>
             <ext:Panel
@@ -92,7 +92,7 @@
                                 Margins="0 0 0 12"
                                 Border="false">
                                 <Defaults>
-                                    <ext:Parameter Name="anchor" Value="95%" Mode="Value" />
+                                    <ext:Parameter Name="anchor" Value="100%" Mode="Value" />
                                     <ext:Parameter Name="allowBlank" Value="false" Mode="Raw" />
                                     <ext:Parameter Name="msgTarget" Value="side" Mode="Value" />
                                 </Defaults>
@@ -139,7 +139,7 @@
                                 Margins="0 0 0 12"
                                 Border="false">
                                 <Defaults>
-                                    <ext:Parameter Name="anchor" Value="95%" Mode="Value" />
+                                    <ext:Parameter Name="anchor" Value="100%" Mode="Value" />
                                     <ext:Parameter Name="allowBlank" Value="false" Mode="Raw" />
                                     <ext:Parameter Name="msgTarget" Value="side" Mode="Value" />
                                 </Defaults>
@@ -194,7 +194,7 @@
                                 runat="server"
                                 Title="Listado de Competiciones"
                                 Frame="true"
-                                Height="280">
+                                Height="320">
                                 <Store>
                                     <ext:Store ID="StoreGPRaces" runat="server" DataSourceID="SqlDSGPRaces" PageSize="10">
                                         <Model>
@@ -393,7 +393,7 @@
                             <ext:GridPanel ID="GPClubbersEnComp"
                                 runat="server"
                                 Frame="true"
-                                Height="350">
+                                Height="250">
                                 <Store>
                                     <ext:Store ID="StoreGPClubbersEnComp" runat="server" OnReadData="StoreGPClubbersEnComp_ReadData" PageSize="10">
                                         <Model>
@@ -454,7 +454,152 @@
                             </ext:GridPanel>
                         </Items>
                     </ext:Container>
+
+                    <ext:Container ID="ContCantCompetidores" runat="server" Layout="HBoxLayout">
+                        <Items>
+                            <ext:FormPanel
+                                ID="FPPartGeneral"
+                                runat="server"
+                                Width="350"
+                                Height="282"
+                                Frame="true"
+                                Title=""
+                                Flex="25"
+                                Margins="5 5 0 0"
+                                Border="false">
+                                <Defaults>
+                                    <ext:Parameter Name="anchor" Value="100%" Mode="Value" />
+                                    <ext:Parameter Name="allowBlank" Value="false" Mode="Raw" />
+                                    <ext:Parameter Name="msgTarget" Value="side" Mode="Value" />
+                                </Defaults>
+                                <Items>
+                                    <ext:Container ID="Container2" runat="server" Layout="VBoxLayout">
+                                        <Items>
+                                            <ext:NumberField ID="txbxPartGenMasc" runat="server" FieldLabel="Participantes General Masc :" LabelAlign="Right" Width="160" Padding="5" MinValue="0" MaxValue="99999" AllowDecimals="false">
+                                                <Listeners>
+                                                    <Change Handler="App.direct.CalcTotalPart();" />
+                                                </Listeners>
+                                            </ext:NumberField>
+                                            <ext:NumberField ID="txbxPartGenFem" runat="server" FieldLabel="Participantes General Fem. :" LabelAlign="Right" Width="160" Padding="5" MinValue="0" MaxValue="99999" AllowDecimals="false">
+                                                <Listeners>
+                                                    <Change Handler="App.direct.CalcTotalPart();" />
+                                                </Listeners>
+                                            </ext:NumberField>
+                                            <ext:TextField ID="txbxPartGenTot" runat="server" FieldLabel="Participantes Totales :" LabelAlign="Right" Width="160" Padding="5" ReadOnly="true" Cls="ReadOnly" />
+                                        </Items>
+                                    </ext:Container>
+                                </Items>
+                            </ext:FormPanel>
+                            <ext:FormPanel
+                                ID="FPGruposEdad"
+                                runat="server"
+                                Width="350"
+                                Frame="true"
+                                Title=""
+                                Flex="75"
+                                Margins="5 0 0 5"
+                                Border="false">
+                                <Defaults>
+                                    <%--<ext:Parameter Name="anchor" Value="100%" Mode="Value" />
+                                    <ext:Parameter Name="allowBlank" Value="false" Mode="Raw" />
+                                    <ext:Parameter Name="msgTarget" Value="side" Mode="Value" />--%>
+                                </Defaults>
+                                <Items>
+                                    <ext:Container ID="Container1" runat="server" Layout="HBoxLayout" Padding="5">
+                                        <LayoutConfig>
+                                            <ext:HBoxLayoutConfig Align="Middle" />
+                                        </LayoutConfig>
+                                        <Items>
+                                            <ext:TextField ID="txbxGEName" runat="server" FieldLabel="Nombre G.E. :" LabelAlign="Right" Flex="60" Margins="0 5 0 0"/>
+                                            <ext:TextField ID="TextField1" runat="server" FieldLabel="Part :" LabelAlign="Right" Flex="30"  Margins="0 10 0 5"/>
+                                            <ext:Toolbar ID="Toolbar3" runat="server" Flex="18" Margins="0 0 0 10">
+                                                <Items>
+                                                    <ext:Button ID="Button1" runat="server" Width="25" Icon="Add">
+                                                        <Listeners>
+                                                        </Listeners>
+                                                    </ext:Button>
+                                                    <ext:Button ID="Button2" runat="server" Width="25" Icon="Delete">
+                                                        <Listeners>
+                                                        </Listeners>
+                                                    </ext:Button>
+                                                    <ext:Button ID="Button3" runat="server" Width="25" Icon="GroupDelete">
+                                                        <Listeners>
+                                                        </Listeners>
+                                                    </ext:Button>
+                                                </Items>
+                                            </ext:Toolbar>
+                                        </Items>
+                                    </ext:Container>
+                                    <ext:GridPanel ID="GridPanel1"
+                                        runat="server"
+                                        Frame="true"
+                                        Height="230">
+                                        <Store>
+                                            <ext:Store ID="Store2" runat="server" OnReadData="StoreGPClubbersEnComp_ReadData" PageSize="10">
+                                                <Model>
+                                                    <ext:Model ID="Model2" runat="server" IDProperty="UserName">
+                                                        <Fields>
+                                                            <ext:ModelField Name="UserName" />
+                                                            <ext:ModelField Name="SecondName" />
+                                                            <ext:ModelField Name="FirstName" />
+                                                        </Fields>
+                                                    </ext:Model>
+                                                </Model>
+                                            </ext:Store>
+                                        </Store>
+                                        <ColumnModel ID="ColumnModel3" runat="server">
+                                            <Columns>
+                                                <ext:Column ID="Column12" runat="server" DataIndex="First" Text="Id" Width="50" />
+                                                <ext:Column ID="Column7" runat="server" DataIndex="Part." Text="Part." Width="50" />
+                                                <ext:Column ID="Column8" runat="server" DataIndex="Grupo de Edad" Text="Grupo de Edad" Width="250" />
+                                            </Columns>
+                                        </ColumnModel>
+                                        <View>
+                                            <ext:GridView ID="GridView3" runat="server" StripeRows="true">
+                                                <GetRowClass Handler="return 'x-grid-row-expanded';" />
+                                            </ext:GridView>
+                                        </View>
+                                        <SelectionModel>
+                                            <ext:CellSelectionModel ID="CellSelectionModel3" runat="server">
+                                                <DirectEvents>
+                                                    <Select OnEvent="GPRaces_Cell_Click" />
+                                                </DirectEvents>
+                                            </ext:CellSelectionModel>
+                                        </SelectionModel>
+                                        <BottomBar>
+                                            <ext:PagingToolbar ID="PagingToolbar3" runat="server">
+                                                <Items>
+                                                    <ext:Label ID="Label2" runat="server" />
+                                                    <ext:ToolbarSpacer ID="ToolbarSpacer3" runat="server" Width="10" />
+                                                    <ext:ComboBox ID="ComboBox2" runat="server" Width="40">
+                                                        <Items>
+                                                            <ext:ListItem Text="1" />
+                                                            <ext:ListItem Text="5" />
+                                                            <ext:ListItem Text="10" />
+                                                            <ext:ListItem Text="20" />
+                                                        </Items>
+                                                        <SelectedItems>
+                                                            <ext:ListItem Value="10" />
+                                                        </SelectedItems>
+                                                        <Listeners>
+                                                            <Select Handler="#{GridPanel1}.store.pageSize = parseInt(this.getValue(), 10); #{GridPanel1}.store.reload();" />
+                                                        </Listeners>
+                                                    </ext:ComboBox>
+                                                </Items>
+                                                <Plugins>
+                                                    <ext:ProgressBarPager ID="ProgressBarPager3" runat="server" />
+                                                </Plugins>
+                                            </ext:PagingToolbar>
+                                        </BottomBar>
+                                    </ext:GridPanel>
+                                </Items>
+                            </ext:FormPanel>
+                        </Items>
+                    </ext:Container>
                 </Items>
+                <Listeners>
+                    <Show Handler="App.direct.CalcTotalPart();" />
+                </Listeners>
             </ext:Panel>
         </Items>
     </ext:TabPanel>

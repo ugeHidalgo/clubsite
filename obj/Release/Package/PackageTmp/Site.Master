@@ -91,7 +91,7 @@
 
                     <section id="followUs" style="margin-right: 10px;">
                         <h4 style="text-align: right">Siguenos en...</h4>
-                        <asp:ImageButton CssClass="FollowImage" ID="imgbtnBlog" runat="server" ImageUrl="~/Images/Logos/blogger.jpg" PostBackUrl="http://www.sharptheclub.com/" />
+                        <asp:ImageButton CssClass="FollowImage" ID="imgbtnBlog" runat="server" ImageUrl="~/Images/Logos/blogger.jpg" PostBackUrl="http://www.sharptheclub.net/" />
                         <asp:ImageButton CssClass="FollowImage" ID="imgbtnfacebook" runat="server" ImageUrl="~/Images/Logos/facebook.png" PostBackUrl="https://www.facebook.com/sharptheclubthepage" />
                         <asp:ImageButton CssClass="FollowImage" ID="imgbtnTwitter" runat="server" ImageUrl="~/Images/Logos/twitter.png" PostBackUrl="http://twitter.com/sharptheclub" />
                     </section>
@@ -127,7 +127,7 @@
         <footer>
             <ul id="follow">                
                 <li>
-                    <asp:ImageButton CssClass="FollowImageFooter" ID="ImageButton4" runat="server" ImageUrl="~/Images/Logos/blogger.jpg" PostBackUrl="http://www.sharptheclub.com/" />
+                    <asp:ImageButton CssClass="FollowImageFooter" ID="ImageButton4" runat="server" ImageUrl="~/Images/Logos/blogger.jpg" PostBackUrl="http://www.sharptheclub.net/" />
                 </li>
                 <li>
                     <asp:ImageButton CssClass="FollowImageFooter" ID="ImageButton5" runat="server" ImageUrl="~/Images/Logos/facebook.png" PostBackUrl="https://www.facebook.com/sharptheclubthepage" />

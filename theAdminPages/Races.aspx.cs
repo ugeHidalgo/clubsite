@@ -36,11 +36,11 @@ namespace ClubSite.AdminPages
             imgImage.AlternateText = "(Sin imagen)";
             FileUImg.Text = "";
             //Load data for RaceType combo
-            if (aRace.RaceTypeId == 0)
+            if (aRace.RaceTypeID == 0)
                 cbRaceTypes.Value = "";
             else
             {
-                object aRaceTypeID = aRace.RaceTypeId;
+                object aRaceTypeID = aRace.RaceTypeID;
                 cbRaceTypes.Select(aRaceTypeID);
             }
             //ListItem aValue = ddlRaceTypes.Items.FindByValue(txbxRaceTypeID.Text);
@@ -63,6 +63,7 @@ namespace ClubSite.AdminPages
                 txbxNumber.Text = aRace.Address.Number;
             }
             txbxMemo.Text = aRace.Memo;
+
             ////To avoid problems with the , and . in decimal numbers
             System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("en-US");
             txbxLatitud.Text = Convert.ToString(aRace.Latitud, culture);
@@ -71,11 +72,12 @@ namespace ClubSite.AdminPages
             //Load Members taken part in actual race   
             LoadDataInGridForMembersInRace();
 
-            //Select members taken part in race with ID aRace.Id, and populate lbClubbersTakenPart
-            //loadClubbersTakenPart();
+            //Load data for participants
+            txbxPartGenFem.Text = Convert.ToString(aRace.PartFem);
+            txbxPartGenMasc.Text = Convert.ToString(aRace.PartMasc);
 
             //Search points asigned to race an put on txbxPoints
-            if (aRace.RaceTypeId == 0)
+            if (aRace.RaceTypeID == 0)
                 txbxPoints.Text = "0";
             else if (aRace.RaceType != null)
                 txbxPoints.Text = aRace.RaceType.Points.ToString();
@@ -442,7 +444,7 @@ namespace ClubSite.AdminPages
                 using (var db = new ClubSiteContext())
                 {
                     Race item = (from races in db.Races
-                                     where races.Id == rUsed.Id
+                                 where races.Id == rUsed.Id
                                      select races).FirstOrDefault();
                     if (item == null)
                     {
@@ -553,7 +555,23 @@ namespace ClubSite.AdminPages
                         aRace.Name = txbxName.Text;
                         aRace.RaceDate = Convert.ToDateTime(txbxDate.Text);
                         aRace.ImageURL = rUsed.ImageURL;
-                        aRace.RaceTypeId = aRaceIdSelectedInCombo;
+                        aRace.RaceTypeID = aRaceIdSelectedInCombo;
+                        try
+                        {
+                            aRace.PartFem = Convert.ToInt16(txbxPartGenFem.Text);
+                        }
+                        catch (Exception)
+                        {
+                            aRace.PartFem = 0;
+                        }
+                        try
+                        {
+                            aRace.PartMasc = Convert.ToInt16(txbxPartGenMasc.Text);
+                        }
+                        catch (Exception)
+                        {
+                            aRace.PartMasc = 0;
+                        }
                         Address anAddres = new Address(txbxStreet.Text, txbxNumber.Text, txbxCity.Text, txbxCountry.Text, txbxPostalCode.Text);
                         aRace.Address = anAddres;
                         aRace.Memo = txbxMemo.Text;
@@ -572,7 +590,7 @@ namespace ClubSite.AdminPages
                         {
                             aRace.Longitud = Convert.ToDouble(aux);
                         }
-
+                        
                         db.Races.Add(aRace);
                         messageError = "Nueva competición grabada";
                     }
@@ -591,7 +609,7 @@ namespace ClubSite.AdminPages
                         aRace.Name = txbxName.Text;
                         aRace.RaceDate = Convert.ToDateTime(txbxDate.Text);
                         aRace.ImageURL = rUsed.ImageURL;
-                        aRace.RaceTypeId = aRaceIdSelectedInCombo;
+                        aRace.RaceTypeID = aRaceIdSelectedInCombo;
                         Address anAddres = new Address(txbxStreet.Text, txbxNumber.Text, txbxCity.Text, txbxCountry.Text, txbxPostalCode.Text);
                         aRace.Address = anAddres;
                         aRace.Memo = txbxMemo.Text;
@@ -859,7 +877,7 @@ namespace ClubSite.AdminPages
             using (var db = new ClubSiteContext())
             {
                 Race aRace = (from races in db.Races
-                             where races.Id == rUsed.Id
+                              where races.Id == rUsed.Id
                              select races).FirstOrDefault();
                 if (aRace == null)
                 {
@@ -875,6 +893,33 @@ namespace ClubSite.AdminPages
             }
             
         }
+
+        [DirectMethod]
+        public void CalcTotalPart()
+        {
+            int num1 = 0;
+            int num2 = 0;
+            try
+            {
+                num1 = Convert.ToInt16(txbxPartGenFem.Text);
+            }
+            catch (Exception)
+            {
+                num1 = 0;
+                txbxPartGenFem.Text = "0";
+            }
+            try
+            {
+                num2 = Convert.ToInt16(txbxPartGenMasc.Text);
+            }
+            catch (Exception)
+            {
+                num2 = 0;
+                txbxPartGenMasc.Text = "0";
+            }
+            txbxPartGenTot.Text = Convert.ToString(num1 + num2);
+        }
+
 
         public string ReformatNumber(string aString)
         {
